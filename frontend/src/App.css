@@ -1,0 +1,333 @@
+html {
+    font-family: "Calibri Light", serif;
+    font-size: 12px;
+}
+
+/* Указываем box sizing */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+/* Убираем внутренние отступы */
+ul[class],
+ol[class] {
+    padding: 0;
+}
+
+/* Убираем внешние отступы */
+body,
+h1,
+h2,
+h3,
+h4,
+p,
+ul[class],
+ol[class],
+li,
+figure,
+figcaption,
+blockquote,
+dl,
+dd {
+    margin: 0;
+}
+
+/* Выставляем основные настройки по-умолчанию для body */
+body {
+    min-height: 100vh;
+    scroll-behavior: smooth;
+    text-rendering: optimizeSpeed;
+    line-height: 1.5;
+}
+
+/* Удаляем стандартную стилизацию для всех ul и il, у которых есть атрибут class*/
+ul[class],
+ol[class] {
+    list-style: none;
+}
+
+/* Элементы a, у которых нет класса, сбрасываем до дефолтных стилей */
+a:not([class]) {
+    text-decoration-skip-ink: auto;
+}
+
+/* Упрощаем работу с изображениями */
+img {
+    max-width: 100%;
+    display: block;
+}
+
+/* Указываем понятную периодичность в потоке данных у article*/
+article > * + * {
+    margin-top: 1em;
+}
+
+/* Наследуем шрифты для инпутов и кнопок */
+input,
+button,
+textarea,
+select {
+    font: inherit;
+}
+
+/* Удаляем все анимации и переходы для людей, которые предпочитай их не использовать */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}
+
+.container {
+    margin: auto;
+}
+
+@media (max-width: 1920px) {
+    .container {
+        width: 1440px;
+    }
+}
+
+@media (max-width: 1500px) {
+    .container {
+        width: 1040px;
+    }
+}
+
+@media (max-width: 1040px) {
+    .container {
+        width: 800px;
+    }
+}
+
+@media (max-width: 800px) {
+    .container {
+        width: 700px;
+    }
+}
+
+@media (max-width: 720px) {
+    .container {
+        width: 550px;
+    }
+}
+
+@media (max-width: 550px) {
+    .container {
+        width: 100%;
+    }
+}
+
+.wrapper {
+    padding: 0 10px;
+}
+
+.header_wrapper {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 50px;
+    background-color: #b6d3ef;
+    margin-bottom: 30px;
+
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 15px;
+    width: 100%;
+}
+
+.footer_wrapper {
+    width: 100%;
+    position: fixed;
+    bottom: 0;
+    background-color: #b6d3ef;
+    margin-top: 70px;
+}
+
+.footer {
+    display: flex;
+    justify-content: center;
+    height: 70px;
+    font-weight: bold;
+    font-size: 12px;
+}
+
+.footer_btn {
+    position: relative;
+    width: 100%;
+}
+
+.footer_btn__link {
+    text-decoration: none;
+    color: #000;
+    width: 100%;
+    height: 100%;
+}
+
+.footer_btn__link button {
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+    background-color: transparent;
+    border: none;
+
+
+}
+
+.footer_btn__link button:hover {
+    background-color: #7cb2ee;
+}
+
+/* RESUME */
+.table_header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.table_header h2 {
+    margin-right: 10px;
+    line-height: 30px;
+}
+
+.table_header button {
+    width: 100%;
+    height: 30px;
+    cursor: pointer;
+    border: none;
+    background-color: #eceaea;
+    font-weight: bold;
+}
+
+.table_header button:hover {
+    background-color: #a4a2a2;
+}
+
+table {
+    border-collapse: collapse;
+    border: 1px solid grey;
+    width: 100%;
+    margin: 0 auto;
+    text-align: center;
+    margin-top: 20px;
+}
+
+th, td {
+    border: 1px solid grey;
+    width: 10%;
+}
+
+td {
+
+    border-bottom: 1px solid grey;
+}
+
+.table_btn {
+    width: 100%;
+    height: 35px;
+    border: none;
+    background-color: #d9d9d9;
+    cursor: pointer;
+}
+
+.search {
+    width: 100%;
+    padding: 6px;
+
+}
+
+.datepicker {
+
+    width: 200px;
+}
+
+label {
+    margin-right: 10px;
+    display: block;
+    font-size: 14px;
+}
+
+
+
+.resume_add {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    font-size: 14px;
+}
+
+.resume_add select {
+    width: 100%;
+    height: 40px;
+    margin-bottom: 12px;
+}
+
+.resume_add input {
+    height: 40px;
+}
+
+.submit {
+    margin-top: 10px;
+    border: none;
+    border-radius: 10px;
+    background-color: #d9d9d9;
+    font-weight: bold;
+    height: 30px;
+    cursor: pointer;
+}
+
+.submit:hover {
+    background-color: #a4a2a2;
+}
+
+.filter_dates {
+    margin-top: 10px;
+}
+
+
+
+.solute_inputs input, select {
+    width: 100%;
+    height: 30px;
+    margin-bottom: 10px;
+}
+
+.solute_inputs h2 {
+    margin-bottom: 10px;
+}
+
+.solute_btn {
+    width: 100%;
+    height: 40px;
+    margin: 15px auto
+}
+
+.complete_input input, select, textarea{
+    width: 100%;
+}
+
+.complete_inputs h2{
+    margin-bottom: 10px;
+}
+
+.space{
+    margin-right: 10px;
+}
+
+.send_order input{
+    width: 100%;
+    height: 30px;
+}
+
+.send_order h2{
+    margin-bottom: 10px;
+}
+/* END RESUME */
