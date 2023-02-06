@@ -124,3 +124,17 @@ AromConsum.hasMany(Flavoring)
 Flavoring.belongsTo(AromConsum)
 Solution.belongsTo(AromConsum)
 Consumable.belongsTo(AromConsum)
+
+module.exports = {
+  Solution,
+  AromConsum,
+  Stock,
+  User,
+  Role,
+  TypeStock,
+  Perfume,
+  TypeConsumable,
+  Consumable,
+  TypeFlavoring,
+  Flavoring
+}
