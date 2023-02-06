@@ -11,7 +11,10 @@ const app = express()
 const start = async () => {
   try {
     await sequelize.authenticate()
-    await sequelize.sync()
+    await sequelize.sync().then(result => {
+      console.log(result);
+    })
+      .catch(err => console.log(err))
     app.listen(PORT, () => {
       console.log(`Server started on port ${PORT}`)
     })
