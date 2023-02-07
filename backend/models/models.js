@@ -38,7 +38,7 @@ const Perfume = sequelize.define('perfume', {
   name: {type: DataTypes.STRING}
 })
 
-const TypeStock = sequelize.define('tpeStock', {
+const TypeStock = sequelize.define('typeStock', {
   id: {type: DataTypes.INTEGER, autoIncrement: true, primaryKey: true},
   name: {type: DataTypes.STRING}
 })
@@ -70,7 +70,7 @@ const Stock = sequelize.define('stock', {
   count: {type: DataTypes.INTEGER}
 })
 
-const AromConsum = sequelize.define('aomConsum', {
+const AromConsum = sequelize.define('aromConsum', {
   id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
   count: {type: DataTypes.INTEGER}
 })
@@ -97,33 +97,34 @@ const Solution = sequelize.define('solution', {
 // Relationships
 
 //Ароматизатор - Вид ароматизатора
-Flavoring.hasMany(TypeFlavoring, {onDelete: 'cascade'})
-TypeFlavoring.belongsTo(Flavoring)
+TypeFlavoring.hasMany(Flavoring, {onDelete: 'cascade'})
+Flavoring.belongsTo(TypeFlavoring)
 
 //Склад - Вид склада
-Stock.hasMany(TypeStock, {onDelete: 'cascade'})
-TypeStock.belongsTo(Stock)
+TypeStock.hasMany(Stock, {onDelete: 'cascade'})
+Stock.belongsTo(TypeStock)
 
 //Пользователь - Роль
-User.hasMany(Role, {onDelete: 'cascade'})
-Role.belongsTo(User)
+Role.hasMany(User, {onDelete: 'cascade'})
+User.belongsTo(Role)
 
 //Расходник - Вид расходника
-Consumable.hasMany(TypeConsumable, {onDelete: 'cascade'})
-TypeConsumable.belongsTo(Consumable)
+TypeConsumable.hasMany(Consumable, {onDelete: 'cascade'})
+Consumable.belongsTo(TypeConsumable)
 
 //Раствор - Отдушка
-Solution.hasMany(Perfume, {onDelete: 'cascade'})
-Perfume.belongsTo(Solution)
+Perfume.hasMany(Solution, {onDelete: 'cascade'})
+Solution.belongsTo(Perfume)
 
 // Ароматизатор-Материалы --> Расходники, раствор, ароматизатор
-AromConsum.hasMany(Consumable)
-AromConsum.hasMany(Solution)
-AromConsum.hasMany(Flavoring)
+Consumable.hasMany(AromConsum)
+Solution.hasMany(AromConsum)
+Flavoring.hasMany(AromConsum)
 
-Flavoring.belongsTo(AromConsum)
-Solution.belongsTo(AromConsum)
-Consumable.belongsTo(AromConsum)
+AromConsum.belongsTo(Flavoring)
+AromConsum.belongsTo(Solution)
+AromConsum.belongsTo(Consumable)
+
 
 module.exports = {
   Solution,
