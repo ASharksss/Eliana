@@ -1,4 +1,4 @@
-const {TypeConsumable, Perfume, Role, TypeStock, TypeFlavoring} = require("../models/models");
+const {Perfume, Role, TypeStock, TypeFlavoring} = require("../models/models");
 
 class AdminController {
   async registrationUsers(req, res) {
@@ -9,12 +9,6 @@ class AdminController {
     const {name} = req.body
     const role = await Role.create({name: name})
     return res.json(role)
-  }
-
-  async addTypeConsumable(req, res) {
-    const {name} = req.body
-    const typeConsume = await TypeConsumable.create({name: name})
-    return res.json(typeConsume)
   }
 
   async addPerfume(req, res) {
@@ -34,6 +28,7 @@ class AdminController {
     const typeFlavoring= await TypeFlavoring.create({name: name})
     return res.json(typeFlavoring)
   }
+
 
 }
 

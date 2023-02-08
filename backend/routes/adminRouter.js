@@ -4,7 +4,6 @@ const router = new Router()
 
 router.get('/',)
 router.post('/registration', AdminController.registrationUsers)
-router.post('/addTypeConsumable', AdminController.addTypeConsumable)
 router.post('/addPerfume', AdminController.addPerfume)
 router.post('/addRole', AdminController.addRole)
 router.post('/addTypeStock', AdminController.addTypeStock)

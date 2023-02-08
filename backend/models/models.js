@@ -21,21 +21,16 @@ const Consumable = sequelize.define('consumable', {
   },
   name: {
     type: DataTypes.STRING, unique: true
-  }
-})
-
-const TypeConsumable = sequelize.define('typeConsumable', {
-  id: {
-    type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true
   },
-  name: {
-    type: DataTypes.STRING, unique: true
+  count: {
+    type: DataTypes.INTEGER, allowNull: false
   }
 })
 
 const Perfume = sequelize.define('perfume', {
   id: {type: DataTypes.INTEGER, autoIncrement: true, primaryKey: true},
-  name: {type: DataTypes.STRING}
+  name: {type: DataTypes.STRING},
+  count: {type: DataTypes.INTEGER}
 })
 
 const TypeStock = sequelize.define('typeStock', {
@@ -108,9 +103,6 @@ Stock.belongsTo(TypeStock)
 Role.hasMany(User, {onDelete: 'cascade'})
 User.belongsTo(Role)
 
-//Расходник - Вид расходника
-TypeConsumable.hasMany(Consumable, {onDelete: 'cascade'})
-Consumable.belongsTo(TypeConsumable)
 
 //Раствор - Отдушка
 Perfume.hasMany(Solution, {onDelete: 'cascade'})
@@ -134,7 +126,6 @@ module.exports = {
   Role,
   TypeStock,
   Perfume,
-  TypeConsumable,
   Consumable,
   TypeFlavoring,
   Flavoring

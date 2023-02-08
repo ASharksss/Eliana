@@ -1,12 +1,12 @@
-const {Consumable, TypeConsumable} = require('../models/models')
+const {Consumable} = require('../models/models')
 const ApiError = require('../error/ApiError')
 
 
 class UserController {
 
   async addConsume (req, res) {
-    const {name, type_id} = req.body
-    const consume =  await Consumable.create({name: name, typeConsumableId: type_id})
+    const {name, count} = req.body
+    const consume =  await Consumable.create({name: name, count:count})
     return res.json(consume)
   }
 
@@ -22,5 +22,6 @@ class UserController {
     res.json({message: 'You can add some archive'})
   }
 }
+
 
 module.exports = new UserController()
