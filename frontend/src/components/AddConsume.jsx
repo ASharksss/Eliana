@@ -6,11 +6,6 @@ const AddConsume = () => {
       <div className="container">
         <div className="resume_add">
           <select>
-            <option>Выберите категорию...</option>
-            <option>Комплектующие</option>
-            <option>Химия</option>
-          </select>
-          <select>
             <option>Бутылка</option>
             <option>Отдушка</option>
             <option>Наклейка</option>

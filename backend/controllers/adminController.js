@@ -12,20 +12,23 @@ class AdminController {
   }
 
   async addPerfume(req, res) {
-    const {name} = req.body
-    const perfume = await Perfume.create({name: name})
+    const {name, count} = req.body
+    const perfume = await Perfume.create({
+      name: name,
+      count: count
+    })
     return res.json(perfume)
   }
 
-  async addTypeStock (req, res) {
+  async addTypeStock(req, res) {
     const {name} = req.body
     const typeStock = await TypeStock.create({name: name})
     return res.json(typeStock)
   }
 
-  async addTypeFlavoring (req, res) {
+  async addTypeFlavoring(req, res) {
     const {name} = req.body
-    const typeFlavoring= await TypeFlavoring.create({name: name})
+    const typeFlavoring = await TypeFlavoring.create({name: name})
     return res.json(typeFlavoring)
   }
 
