@@ -15,8 +15,11 @@ class ApiError extends Error{
     return new ApiError(500, message)
   }
 
+
   //Нет доступа
   static forbidden(message) {
     return new ApiError(403, message)
   }
 }
+
+module.exports = ApiError
