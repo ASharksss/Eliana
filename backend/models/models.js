@@ -26,7 +26,7 @@ const Consumable = sequelize.define('consumable', {
 
 const TypeConsumable = sequelize.define('typeConsumable', {
   id: {
-    type: DataTypes.INTEGER, primaryKey: true
+    type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true
   },
   name: {
     type: DataTypes.STRING, unique: true

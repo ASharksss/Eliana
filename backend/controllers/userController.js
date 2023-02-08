@@ -1,6 +1,13 @@
+const {Consumable, TypeConsumable} = require('../models/models')
+const ApiError = require('../error/ApiError')
+
+
 class UserController {
-  async addConsumable (req, res) {
-    res.json({message: 'You can add some consumable'})
+
+  async addConsume (req, res) {
+    const {name, type_id} = req.body
+    const consume =  await Consumable.create({name: name, typeConsumableId: type_id})
+    return res.json(consume)
   }
 
   async addSolution (req, res) {
