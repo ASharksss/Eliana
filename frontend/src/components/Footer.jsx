@@ -14,7 +14,7 @@ const Footer = () => {
             </NavLink>
           </div>
           <div className="footer_btn">
-            <NavLink to='/Solute' className='footer_btn__link'>
+            <NavLink to='/solute' className='footer_btn__link'>
               <button>
                 Растворы
               </button>

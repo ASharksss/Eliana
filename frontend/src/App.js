@@ -20,7 +20,7 @@ function App() {
         <Routes>
           <Route path='/' element={<Layout/>}>
             <Route path='/' element={<Resume/>}/>
-            <Route path='/Solute' element={<Solute/>}/>
+            <Route path='/solute' element={<Solute/>}/>
             <Route path='/completeProducts' element={<Complete/>}/>
             <Route path='/archive' element={<Archive/>}/>
             <Route path='/addResume' element={<AddResume/>}/>
