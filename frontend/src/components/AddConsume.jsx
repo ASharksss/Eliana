@@ -1,6 +1,6 @@
 import React from 'react';
 
-const AddResume = () => {
+const AddConsume = () => {
   return (
     <div className='wrapper'>
       <div className="container">
@@ -25,4 +25,4 @@ const AddResume = () => {
   );
 };
 
-export default AddResume;
+export default AddConsume;

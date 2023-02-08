@@ -7,7 +7,7 @@ import Resume from "./components/Resume";
 import Solute from "./components/Solute";
 import Complete from "./components/Complete";
 import Archive from "./components/Archive";
-import AddResume from "./components/AddResume";
+import AddConsume from "./components/AddConsume";
 import AddSolute from "./components/AddSolute";
 import AddComplete from "./components/AddComplete";
 import SendOrder from "./components/SendOrder";
@@ -23,11 +23,10 @@ function App() {
             <Route path='/solute' element={<Solute/>}/>
             <Route path='/completeProducts' element={<Complete/>}/>
             <Route path='/archive' element={<Archive/>}/>
-            <Route path='/addResume' element={<AddResume/>}/>
+            <Route path='/addConsume' element={<AddConsume/>}/>
             <Route path='/addSolute' element={<AddSolute/>}/>
             <Route path='/addComplete' element={<AddComplete/>}/>
             <Route path='/sendOrder' element={<SendOrder/>}/>
-
           </Route>
         </Routes>
       </div>

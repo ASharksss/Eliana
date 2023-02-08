@@ -8,7 +8,7 @@ const Resume = () => {
         <div className="resume">
           <div className="table_header">
             <h2>Расходники</h2>
-            <NavLink to='/addResume'>
+            <NavLink to='/addConsume'>
               <button>
                 Пополнить
               </button>
