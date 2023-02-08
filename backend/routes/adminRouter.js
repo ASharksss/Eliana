@@ -1,6 +1,5 @@
 const Router = require('express')
 const AdminController = require("../controllers/adminController");
-const UserController = require("../controllers/userController");
 const router = new Router()
 
 router.get('/',)
