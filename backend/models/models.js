@@ -2,7 +2,7 @@ const sequelize = require('../db')
 const {DataTypes} = require('sequelize')
 
 const Flavoring = sequelize.define('flavoring', {
-  id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
+  vendor_code: {type: DataTypes.STRING, primaryKey: true},
   name: {type: DataTypes.STRING}
 })
 
@@ -62,6 +62,7 @@ const User = sequelize.define('user', {
 
 const Stock = sequelize.define('stock', {
   id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
+  state: {type: DataTypes.STRING},
   count: {type: DataTypes.INTEGER}
 })
 
@@ -98,6 +99,12 @@ Flavoring.belongsTo(TypeFlavoring)
 //Склад - Вид склада
 TypeStock.hasMany(Stock, {onDelete: 'cascade'})
 Stock.belongsTo(TypeStock)
+
+Flavoring.hasMany(Stock, {onDelete: 'cascade'})
+Stock.belongsTo(Flavoring)
+
+Solution.hasMany(Stock, {onDelete: 'cascade'})
+Stock.belongsTo(Solution)
 
 //Пользователь - Роль
 Role.hasMany(User, {onDelete: 'cascade'})

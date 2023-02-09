@@ -14,6 +14,13 @@ const AddComplete = () => {
                 <option>Спрей</option>
                 <option>Саше</option>
               </select>
+              <label>Название</label>
+              <select>
+                <option>Спрей Бубль Гум</option>
+                <option>Спрей Черный Лед</option>
+                <option>Спрей Мята-Ваниль</option>
+              </select>
+
             </div>
             <div className="complete_input">
               <label>Раствор</label>

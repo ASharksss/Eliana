@@ -8,6 +8,7 @@ router.post('/addPerfume', AdminController.addPerfume)
 router.post('/addRole', AdminController.addRole)
 router.post('/addTypeStock', AdminController.addTypeStock)
 router.post('/addTypeFlavoring', AdminController.addTypeFlavoring)
+router.post('/addFlavoring', AdminController.addFlavoring)
 
 
 module.exports = router

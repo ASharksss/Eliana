@@ -1,4 +1,4 @@
-const {Consumable, Solution} = require('../models/models')
+const {Consumable, Solution, Stock} = require('../models/models')
 const ApiError = require('../error/ApiError')
 
 
@@ -28,8 +28,20 @@ class UserController {
 
   }
 
-  async addComplete (req, res) {
-
+  async addComplete (req, res, next) {
+    try{
+      const {count, flavoringVendorCode, solutionId} = req.body
+      const completeProduct = await Stock.create({
+        state: 'Готово',
+        count: count,
+        flavoringVendorCode: flavoringVendorCode,
+        typeStockId: 1,
+        solutionId: solutionId
+      })
+      return res.json(completeProduct)
+    }catch (e) {
+      next(ApiError.badRequest(e.message))
+    }
   }
 
   async addArchive (req, res) {
