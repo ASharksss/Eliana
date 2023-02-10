@@ -20,7 +20,7 @@ app.use(errorHandler)
 const start = async () => {
   try {
     await sequelize.authenticate()
-    await sequelize.sync({force: true}).then(result => {
+    await sequelize.sync().then(result => {
       console.log(result);
     })
       .catch(err => console.log(err))

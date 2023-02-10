@@ -87,6 +87,9 @@ const Solution = sequelize.define('solution', {
   },
   liter: {
     type: DataTypes.INTEGER
+  },
+  perfume: {
+    type: DataTypes.STRING
   }
 })
 
@@ -111,9 +114,7 @@ Role.hasMany(User, {onDelete: 'cascade'})
 User.belongsTo(Role)
 
 
-//Раствор - Отдушка
-Perfume.hasMany(Solution, {onDelete: 'cascade'})
-Solution.belongsTo(Perfume)
+
 
 // Ароматизатор-Материалы --> Расходники, раствор, ароматизатор
 Consumable.hasMany(AromConsum)
