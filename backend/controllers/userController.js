@@ -20,6 +20,22 @@ class UserController {
             next(ApiError.badRequest('Не достаточно отдушки ' + perfume.name))
           )
         }
+      }
+      for(let i=0; i<consumables.length; i++){
+        let chemistry = await Consumable.findOne({where: {name: consumables[i]['name']}})
+        if (chemistry.count < consumables[i]['count']){
+          return(
+            next(ApiError.badRequest('Не достаточно ' + chemistry.name))
+          )
+        }
+      }
+      for(let i=0; i<perfumes.length; i++){
+        let perfume = await Perfume.findOne({ where: {name: perfumes[i]['name']}})
+        if (perfume.count < perfumes[i]['count']){
+          return(
+            next(ApiError.badRequest('Не достаточно отдушки ' + perfume.name))
+          )
+        }
         perfume.count -= parseInt(perfumes[i]['count'], 10)
         await perfume.save()
       }
@@ -36,13 +52,12 @@ class UserController {
       const solution = await Solution.create({
         percent_solution:percent_solution,
         liter:liter,
-        consumable:JSON.stringify(consumables),
+        consumables:JSON.stringify(consumables),
         perfume: JSON.stringify(perfumes)
       })
       return res.json(solution)
     }catch (e) {
       next(ApiError.badRequest(e.message))
-
     }
   }
 
