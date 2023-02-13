@@ -23,7 +23,8 @@ const Consumable = sequelize.define('consumable', {
     type: DataTypes.STRING, unique: true
   },
   count: {
-    type: DataTypes.INTEGER, allowNull: false
+    type: DataTypes.STRING, allowNull: false
+
   }
 })
 
@@ -76,11 +77,8 @@ const Solution = sequelize.define('solution', {
   percent_solution: {
     type: DataTypes.INTEGER
   },
-  pag_count: {
-    type: DataTypes.INTEGER
-  },
-  pg_count: {
-    type: DataTypes.INTEGER
+  consumable: {
+    type: DataTypes.STRING
   },
   liter: {
     type: DataTypes.INTEGER
