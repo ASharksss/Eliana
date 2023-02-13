@@ -82,9 +82,6 @@ const Solution = sequelize.define('solution', {
   pg_count: {
     type: DataTypes.INTEGER
   },
-  perfume_count: {
-    type: DataTypes.INTEGER
-  },
   liter: {
     type: DataTypes.INTEGER
   },

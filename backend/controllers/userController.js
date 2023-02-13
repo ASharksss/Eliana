@@ -12,12 +12,12 @@ class UserController {
 
   async addSolution (req, res, next) {
     try{
-      const {percent_solution, pag_count, pg_count, perfume_count, liter,
+      const {percent_solution, pag_count, pg_count, liter,
         perfumes
       } = req.body
       for(let i=0; i<perfumes.length; i++){
         let perfume = await Perfume.findOne({ where: {name: perfumes[i]['name']}})
-        if (perfume.count < perfumes[i]['name']){
+        if (perfume.count < perfumes[i]['count']){
           next(ApiError.badRequest('Не достаточно отдушки ' + perfume.name))
         }
         perfume.count -= parseInt(perfumes[i]['count'], 10)
@@ -27,7 +27,6 @@ class UserController {
         percent_solution:percent_solution,
         pag_count:pag_count,
         pg_count:pg_count,
-        perfume_count:perfume_count,
         liter:liter,
         perfume: JSON.stringify(perfumes)
       })
