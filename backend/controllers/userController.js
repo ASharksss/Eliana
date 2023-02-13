@@ -57,6 +57,11 @@ class UserController {
       const {count, flavoringVendorCode, solutionId} = req.body
       const liter = count * 0.1
       let solution = await Solution.findOne({where: {id: solutionId}})
+      if (solution.liter < liter) {
+        return (
+          next(ApiError.badRequest('Не достаточно раствора'))
+        )
+      }
       solution.liter -= liter
       await solution.save()
 
