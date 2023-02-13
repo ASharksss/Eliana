@@ -78,8 +78,12 @@ class UserController {
     }
   }
 
-  async addArchive(req, res) {
-    res.json({message: 'You can add some archive'})
+  async addArchive(req, res, next) {
+    try {
+      const {count, flavoringVendorCode, solutionId} = req.body
+    }catch (e) {
+      next(ApiError.badRequest('Не достаточно раствора'))
+    }
   }
 }
 
