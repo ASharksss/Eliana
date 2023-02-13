@@ -4,67 +4,62 @@ const ApiError = require('../error/ApiError')
 
 class UserController {
 
-  async addConsume (req, res) {
+  async addConsume(req, res) {
     const {name, count} = req.body
-    const consume =  await Consumable.create({name: name, count:count})
+    const consume = await Consumable.create({name: name, count: count})
     return res.json(consume)
   }
 
-  async addSolution (req, res, next) {
-    try{
+  async addSolution(req, res, next) {
+    try {
       const {percent_solution, liter, perfumes, consumables} = req.body
-      for(let i=0; i<perfumes.length; i++){
-        let perfume = await Perfume.findOne({ where: {name: perfumes[i]['name']}})
-        if (perfume.count < perfumes[i]['count']){
-          return(
+      for (let i = 0; i < perfumes.length; i++) {
+        let perfume = await Perfume.findOne({where: {name: perfumes[i]['name']}})
+        if (perfume.count < perfumes[i]['count']) {
+          return (
             next(ApiError.badRequest('Не достаточно отдушки ' + perfume.name))
           )
         }
       }
-      for(let i=0; i<consumables.length; i++){
+      for (let i = 0; i < consumables.length; i++) {
         let chemistry = await Consumable.findOne({where: {name: consumables[i]['name']}})
-        if (chemistry.count < consumables[i]['count']){
-          return(
+        if (chemistry.count < consumables[i]['count']) {
+          return (
             next(ApiError.badRequest('Не достаточно ' + chemistry.name))
           )
         }
       }
-      for(let i=0; i<perfumes.length; i++){
-        let perfume = await Perfume.findOne({ where: {name: perfumes[i]['name']}})
-        if (perfume.count < perfumes[i]['count']){
-          return(
-            next(ApiError.badRequest('Не достаточно отдушки ' + perfume.name))
-          )
-        }
+      for (let i = 0; i < perfumes.length; i++) {
+        let perfume = await Perfume.findOne({where: {name: perfumes[i]['name']}})
         perfume.count -= parseInt(perfumes[i]['count'], 10)
         await perfume.save()
       }
-      for(let i=0; i<consumables.length; i++){
+      for (let i = 0; i < consumables.length; i++) {
         let chemistry = await Consumable.findOne({where: {name: consumables[i]['name']}})
-        if (chemistry.count < consumables[i]['count']){
-          return(
-            next(ApiError.badRequest('Не достаточно ' + chemistry.name))
-          )
-        }
         chemistry.count -= parseInt(consumables[i]['count'], 10)
         await chemistry.save()
       }
       const solution = await Solution.create({
-        percent_solution:percent_solution,
-        liter:liter,
-        consumables:JSON.stringify(consumables),
+        percent_solution: percent_solution,
+        liter: liter,
+        consumables: JSON.stringify(consumables),
         perfume: JSON.stringify(perfumes)
       })
       return res.json(solution)
-    }catch (e) {
+    } catch (e) {
       next(ApiError.badRequest(e.message))
     }
   }
 
 
-  async addComplete (req, res, next) {
-    try{
+  async addComplete(req, res, next) {
+    try {
       const {count, flavoringVendorCode, solutionId} = req.body
+      const liter = count * 0.1
+      let solution = await Solution.findOne({where: {id: solutionId}})
+      solution.liter -= liter
+      await solution.save()
+
       const completeProduct = await Stock.create({
         state: 'Готово',
         count: count,
@@ -73,12 +68,12 @@ class UserController {
         solutionId: solutionId
       })
       return res.json(completeProduct)
-    }catch (e) {
+    } catch (e) {
       next(ApiError.badRequest(e.message))
     }
   }
 
-  async addArchive (req, res) {
+  async addArchive(req, res) {
     res.json({message: 'You can add some archive'})
   }
 }

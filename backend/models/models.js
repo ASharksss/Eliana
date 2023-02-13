@@ -81,7 +81,7 @@ const Solution = sequelize.define('solution', {
     type: DataTypes.STRING
   },
   liter: {
-    type: DataTypes.INTEGER
+    type: DataTypes.FLOAT
   },
   perfume: {
     type: DataTypes.STRING
