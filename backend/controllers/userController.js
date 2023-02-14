@@ -4,10 +4,16 @@ const ApiError = require('../error/ApiError')
 
 class UserController {
 
-  async addConsume(req, res) {
-    const {name, count} = req.body
-    const consume = await Consumable.create({name: name, count: count})
-    return res.json(consume)
+  async addConsume(req, res, next) {
+    try {
+      const {name, count} = req.body
+      let consumables = await Consumable.findOne({where: {name: name}})
+      consumables.count += parseInt(count, 10)
+      await consumables.save()
+      return res.json(consumables)
+    } catch (e) {
+      next(ApiError.badRequest(e.message))
+    }
   }
 
   async addSolution(req, res, next) {
@@ -80,8 +86,8 @@ class UserController {
 
   async addArchive(req, res, next) {
     try {
-      const {count, flavoringVendorCode, solutionId} = req.body
-    }catch (e) {
+      const {count, flavoringVendorCode, client, userId} = req.body
+    } catch (e) {
       next(ApiError.badRequest('Не достаточно раствора'))
     }
   }

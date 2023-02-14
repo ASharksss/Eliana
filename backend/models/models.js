@@ -23,7 +23,7 @@ const Consumable = sequelize.define('consumable', {
     type: DataTypes.STRING, unique: true
   },
   count: {
-    type: DataTypes.STRING, allowNull: false
+    type: DataTypes.INTEGER, defaultValue: 0, allowNull: false
 
   }
 })
@@ -34,10 +34,6 @@ const Perfume = sequelize.define('perfume', {
   count: {type: DataTypes.INTEGER}
 })
 
-const TypeStock = sequelize.define('typeStock', {
-  id: {type: DataTypes.INTEGER, autoIncrement: true, primaryKey: true},
-  name: {type: DataTypes.STRING}
-})
 
 const Role = sequelize.define('role', {
   id: {type: DataTypes.INTEGER, autoIncrement: true, primaryKey: true},
@@ -63,13 +59,13 @@ const User = sequelize.define('user', {
 
 const Stock = sequelize.define('stock', {
   id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
-  state: {type: DataTypes.STRING},
   count: {type: DataTypes.INTEGER}
 })
 
-const AromConsum = sequelize.define('aromConsum', {
+const Archive = sequelize.define('archive', {
   id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
-  count: {type: DataTypes.INTEGER}
+  count: {type: DataTypes.INTEGER},
+  client: {type: DataTypes.STRING}
 })
 
 const Solution = sequelize.define('solution', {
@@ -94,12 +90,14 @@ const Solution = sequelize.define('solution', {
 TypeFlavoring.hasMany(Flavoring, {onDelete: 'cascade'})
 Flavoring.belongsTo(TypeFlavoring)
 
-//Склад - Вид склада
-TypeStock.hasMany(Stock, {onDelete: 'cascade'})
-Stock.belongsTo(TypeStock)
-
 Flavoring.hasMany(Stock, {onDelete: 'cascade'})
 Stock.belongsTo(Flavoring)
+
+Flavoring.hasMany(Archive, {onDelete: 'cascade'})
+Archive.belongsTo(Flavoring)
+
+User.hasMany(Archive, {onDelete: 'cascade'})
+Archive.belongsTo(User)
 
 Solution.hasMany(Stock, {onDelete: 'cascade'})
 Stock.belongsTo(Solution)
@@ -109,25 +107,11 @@ Role.hasMany(User, {onDelete: 'cascade'})
 User.belongsTo(Role)
 
 
-
-
-// Ароматизатор-Материалы --> Расходники, раствор, ароматизатор
-Consumable.hasMany(AromConsum)
-Solution.hasMany(AromConsum)
-Flavoring.hasMany(AromConsum)
-
-AromConsum.belongsTo(Flavoring)
-AromConsum.belongsTo(Solution)
-AromConsum.belongsTo(Consumable)
-
-
 module.exports = {
   Solution,
-  AromConsum,
   Stock,
   User,
   Role,
-  TypeStock,
   Perfume,
   Consumable,
   TypeFlavoring,

@@ -1,7 +1,15 @@
-const {Perfume, Role, TypeStock, TypeFlavoring, Flavoring} = require("../models/models");
+const {Perfume, Role, TypeStock, TypeFlavoring, Flavoring, Consumable} = require("../models/models");
 const ApiError = require("../error/ApiError");
 
 class AdminController {
+
+  async addConsume(req, res) {
+    const {name} = req.body
+    const consume = await Consumable.create({name: name})
+    return res.json(consume)
+  }
+
+
   async registrationUsers(req, res) {
 
   }
