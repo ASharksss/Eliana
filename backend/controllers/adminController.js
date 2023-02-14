@@ -1,17 +1,49 @@
-const {Perfume, Role, TypeStock, TypeFlavoring, Flavoring, Consumable} = require("../models/models");
 const ApiError = require("../error/ApiError");
+const {Perfume, Role, TypeStock, TypeFlavoring, Flavoring, Consumable, User} = require("../models/models");
+const bcrypt = require('bcrypt')
+const jwt = require('jsonwebtoken')
+
+const generateJWT = (id, username, roleId) => {
+  return jwt.sign(
+      {id, username, roleId},
+      process.env.SECRET_KEY,
+      {expiresIn: '24h'}
+    )
+
+}
 
 class AdminController {
+
+  async registrationUsers(req, res, next) {
+    const {name, job_title, username, password_hash, roleId} = req.body
+    if (!username || !password_hash) {
+      return next(ApiError.badRequest('Не заполнены поля'))
+    }
+    const candidate = await User.findOne({where: {username}})
+    if (candidate) {
+      return next(ApiError.badRequest('Пользователь с таким username уже существует'))
+    }
+    const hashPassword = await bcrypt.hash(password_hash, 5)
+    const user = await User.create({
+      name,
+      job_title,
+      username,
+      roleId,
+      password_hash: hashPassword
+    })
+    const token = generateJWT(user.id, user.username, user.roleId)
+    return res.json({token})
+  }
+
+  async login(req, res) {
+
+  }
+
 
   async addConsume(req, res) {
     const {name} = req.body
     const consume = await Consumable.create({name: name})
     return res.json(consume)
-  }
-
-
-  async registrationUsers(req, res) {
-
   }
 
   async addRole(req, res) {
@@ -42,7 +74,7 @@ class AdminController {
   }
 
   async addFlavoring(req, res) {
-    try{
+    try {
       const {vendor_code, name, typeFlavoringId} = req.body
       const flavoring = await Flavoring.create({
         vendor_code: vendor_code,
@@ -50,10 +82,9 @@ class AdminController {
         typeFlavoringId: typeFlavoringId
       })
       return res.json(flavoring)
-    }catch (e) {
+    } catch (e) {
       return res.json(ApiError.badRequest(e.message))
     }
-
   }
 
 

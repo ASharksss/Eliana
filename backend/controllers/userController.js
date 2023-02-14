@@ -7,7 +7,7 @@ class UserController {
   async addConsume(req, res, next) {
     try {
       const {name, count} = req.body
-      let consumables = await Consumable.findOne({where: {name: name}})
+      let consumables = await Consumable.findOne({where: {name}})
       consumables.count += parseInt(count, 10)
       await consumables.save()
       return res.json(consumables)
