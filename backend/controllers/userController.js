@@ -1,4 +1,4 @@
-const {Consumable, Solution, Stock, Perfume} = require('../models/models')
+const {Consumable, Solution, Stock, Perfume, FlavoringConsume} = require('../models/models')
 const ApiError = require('../error/ApiError')
 
 
@@ -60,13 +60,34 @@ class UserController {
 
   async addComplete(req, res, next) {
     try {
-      const {count, flavoringVendorCode, solutionId, typeFlavoringId } = req.body
+      const {count, flavoringVendorCode, solutionId, typeFlavoringId} = req.body
       let liter
+      let flavoringConsume = await FlavoringConsume.findOne({where: {flavoringVendorCode: flavoringVendorCode}})
       if (typeFlavoringId === 1) {
-       liter = count * 0.3
+        liter = count * 0.3
+        for (let item in JSON.parse(flavoringConsume.consumables)){
+          let consumable = await Consumable.findOne({where: {name: item}})
+          if (consumable.count < count)
+            return next(ApiError.badRequest('Не достаточно ' + consumable.name))
+        }
+        for (let item in JSON.parse(flavoringConsume.consumables)){
+          let consumable = await Consumable.findOne({where: {name: item}})
+          consumable.count -= count
+          await consumable.save()
+        }
       }
-      if (typeFlavoringId === 2){
+      if (typeFlavoringId === 2) {
         liter = count * 0.1
+        for (let item in JSON.parse(flavoringConsume.consumables)){
+          let consumable = await Consumable.findOne({where: {name: item}})
+          if (consumable.count < count)
+            return next(ApiError.badRequest('Не достаточно ' + consumable.name))
+        }
+        for (let item in JSON.parse(flavoringConsume.consumables)){
+          let consumable = await Consumable.findOne({where: {name: item}})
+          consumable.count -= count
+          await consumable.save()
+        }
       }
       let solution = await Solution.findOne({where: {id: solutionId}})
       if (solution.liter < liter) {
@@ -77,10 +98,16 @@ class UserController {
       solution.liter -= liter
       await solution.save()
 
+      const stock = await Stock.findOne({where: {flavoringVendorCode: flavoringVendorCode}})
+      if(stock) {
+        stock.count += count
+        await stock.save()
+        return res.json(stock)
+      }
       const completeProduct = await Stock.create({
-        count: count,
-        flavoringVendorCode: flavoringVendorCode,
-        solutionId: solutionId
+        count,
+        flavoringVendorCode,
+        solutionId
       })
       return res.json(completeProduct)
     } catch (e) {
