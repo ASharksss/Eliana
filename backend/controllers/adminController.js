@@ -1,5 +1,5 @@
 const ApiError = require("../error/ApiError");
-const {Perfume, Role, TypeStock, TypeFlavoring, Flavoring, Consumable, User} = require("../models/models");
+const {Perfume, Role, TypeStock, TypeFlavoring, Flavoring, Consumable, User, Solution, FlavoringConsume} = require("../models/models");
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 
@@ -44,6 +44,16 @@ class AdminController {
     const {name} = req.body
     const consume = await Consumable.create({name: name})
     return res.json(consume)
+  }
+
+  async addFlavoringConsume(req, res, next) {
+    const {consumables, typeFlavoringId, flavoringVendorCode} = req.body
+    const flavoringConsume = await FlavoringConsume.create({
+      consumables: JSON.stringify(consumables),
+      typeFlavoringId: typeFlavoringId,
+      flavoringVendorCode: flavoringVendorCode
+    })
+    return res.json(flavoringConsume)
   }
 
   async addRole(req, res) {

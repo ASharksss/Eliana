@@ -11,5 +11,6 @@ router.post('/addTypeStock', AdminController.addTypeStock)
 router.post('/addTypeFlavoring', AdminController.addTypeFlavoring)
 router.post('/addFlavoring', AdminController.addFlavoring)
 router.post('/addConsume', AdminController.addConsume)
+router.post('/addFlavoringConsume', AdminController.addFlavoringConsume)
 
 module.exports = router

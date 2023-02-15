@@ -84,7 +84,19 @@ const Solution = sequelize.define('solution', {
   }
 })
 
+const FlavoringConsume = sequelize.define('flavoringConsume', {
+  id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
+  consumables: {
+    type: DataTypes.STRING
+  }
+})
 // Relationships
+
+Flavoring.hasMany(FlavoringConsume, {onDelete: 'cascade'})
+FlavoringConsume.belongsTo(Flavoring)
+
+TypeFlavoring.hasMany(FlavoringConsume, {onDelete: 'cascade'})
+FlavoringConsume.belongsTo(TypeFlavoring)
 
 //Ароматизатор - Вид ароматизатора
 TypeFlavoring.hasMany(Flavoring, {onDelete: 'cascade'})
@@ -99,6 +111,7 @@ Archive.belongsTo(Flavoring)
 User.hasMany(Archive, {onDelete: 'cascade'})
 Archive.belongsTo(User)
 
+// Раствор - склад
 Solution.hasMany(Stock, {onDelete: 'cascade'})
 Stock.belongsTo(Solution)
 
@@ -109,6 +122,7 @@ User.belongsTo(Role)
 
 module.exports = {
   Solution,
+  FlavoringConsume,
   Stock,
   User,
   Role,

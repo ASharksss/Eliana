@@ -48,7 +48,7 @@ class UserController {
       const solution = await Solution.create({
         percent_solution: percent_solution,
         liter: liter,
-        consumables: JSON.stringify(consumables),
+        consumable: JSON.stringify(consumables),
         perfume: JSON.stringify(perfumes)
       })
       return res.json(solution)
@@ -60,8 +60,14 @@ class UserController {
 
   async addComplete(req, res, next) {
     try {
-      const {count, flavoringVendorCode, solutionId} = req.body
-      const liter = count * 0.1
+      const {count, flavoringVendorCode, solutionId, typeFlavoringId } = req.body
+      let liter
+      if (typeFlavoringId === 1) {
+       liter = count * 0.3
+      }
+      if (typeFlavoringId === 2){
+        liter = count * 0.1
+      }
       let solution = await Solution.findOne({where: {id: solutionId}})
       if (solution.liter < liter) {
         return (
@@ -72,10 +78,8 @@ class UserController {
       await solution.save()
 
       const completeProduct = await Stock.create({
-        state: 'Готово',
         count: count,
         flavoringVendorCode: flavoringVendorCode,
-        typeStockId: 1,
         solutionId: solutionId
       })
       return res.json(completeProduct)

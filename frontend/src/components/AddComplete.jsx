@@ -12,13 +12,18 @@ const AddComplete = () => {
               <select>
                 <option>Фитиль</option>
                 <option>Спрей</option>
-                <option>Саше</option>
+              </select>
+              <label>Артикул</label>
+              <select disabled>
+                <option>CW-01</option>
+                <option>CW-05</option>
+                <option>CW-02</option>
               </select>
               <label>Название</label>
               <select>
-                <option>Спрей Бубль Гум</option>
-                <option>Спрей Черный Лед</option>
-                <option>Спрей Мята-Ваниль</option>
+                <option value='CW-01'>Спрей Бубль Гум</option>
+                <option value='CW-05'>Спрей Черный Лед</option>
+                <option value='CW-02'>Спрей Мята-Ваниль</option>
               </select>
 
             </div>
