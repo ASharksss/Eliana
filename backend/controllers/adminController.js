@@ -7,7 +7,7 @@ const generateJWT = (id, username, roleId) => {
   return jwt.sign(
     {id, username, roleId},
     process.env.SECRET_KEY,
-    {expiresIn: '24h'}
+    {expiresIn: '72h'}
   )
 }
 
