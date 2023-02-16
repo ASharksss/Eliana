@@ -1,4 +1,4 @@
-const {Consumable, Solution, Stock, Perfume, FlavoringConsume} = require('../models/models')
+const {Consumable, Solution, Stock, Perfume, FlavoringConsume, Archive} = require('../models/models')
 const ApiError = require('../error/ApiError')
 
 
@@ -111,15 +111,25 @@ class UserController {
       })
       return res.json(completeProduct)
     } catch (e) {
-      next(ApiError.badRequest(e.message))
+      return next(ApiError.badRequest(e.message))
     }
   }
 
   async addArchive(req, res, next) {
     try {
       const {count, flavoringVendorCode, client, userId} = req.body
+      let flavoringInStock = await Stock.findOne({where: {flavoringVendorCode:flavoringVendorCode}})
+      const flavoringSend = await Archive.create({
+        count:count,
+        flavoringVendorCode:flavoringVendorCode,
+        client:client,
+        userId:userId
+      })
+      flavoringInStock.count -= count
+      await flavoringInStock.save()
+      return res.json(flavoringSend)
     } catch (e) {
-      next(ApiError.badRequest('Не достаточно раствора'))
+      return next(ApiError.badRequest(e.message))
     }
   }
 }

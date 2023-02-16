@@ -129,5 +129,6 @@ module.exports = {
   Perfume,
   Consumable,
   TypeFlavoring,
-  Flavoring
+  Flavoring,
+  Archive
 }

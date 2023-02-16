@@ -12,6 +12,10 @@ const SendOrder = () => {
               <option>Спрей</option>
               <option>Саше</option>
             </select>
+            <label>Артикул</label>
+            <select disabled>
+              <option>CW-01</option>
+            </select>
             <label>Аромат</label>
             <select>
               <option>Черный Лед</option>
