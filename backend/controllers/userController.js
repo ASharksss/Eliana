@@ -47,7 +47,6 @@ class UserController {
     } catch (e) {
       return next(ApiError.badRequest(e.message))
     }
-
   }
 
   async addConsume(req, res, next) {
