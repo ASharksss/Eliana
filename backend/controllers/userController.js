@@ -40,6 +40,16 @@ class UserController {
     }
   }
 
+  async check(req, res, next) {
+    try {
+      const token = generateJWT(req.user.id, req.user.username, req.roleId)
+      return res.json({token})
+    } catch (e) {
+      return next(ApiError.badRequest(e.message))
+    }
+
+  }
+
   async addConsume(req, res, next) {
     try {
       const {name, count} = req.body
