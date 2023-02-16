@@ -65,12 +65,12 @@ class UserController {
       let flavoringConsume = await FlavoringConsume.findOne({where: {flavoringVendorCode: flavoringVendorCode}})
       if (typeFlavoringId === 1) {
         liter = count * 0.3
-        for (let item in JSON.parse(flavoringConsume.consumables)){
+        for (let item in JSON.parse(flavoringConsume.consumables)) {
           let consumable = await Consumable.findOne({where: {name: item}})
           if (consumable.count < count)
             return next(ApiError.badRequest('Не достаточно ' + consumable.name))
         }
-        for (let item in JSON.parse(flavoringConsume.consumables)){
+        for (let item in JSON.parse(flavoringConsume.consumables)) {
           let consumable = await Consumable.findOne({where: {name: item}})
           consumable.count -= count
           await consumable.save()
@@ -78,12 +78,12 @@ class UserController {
       }
       if (typeFlavoringId === 2) {
         liter = count * 0.1
-        for (let item in JSON.parse(flavoringConsume.consumables)){
+        for (let item in JSON.parse(flavoringConsume.consumables)) {
           let consumable = await Consumable.findOne({where: {name: item}})
           if (consumable.count < count)
             return next(ApiError.badRequest('Не достаточно ' + consumable.name))
         }
-        for (let item in JSON.parse(flavoringConsume.consumables)){
+        for (let item in JSON.parse(flavoringConsume.consumables)) {
           let consumable = await Consumable.findOne({where: {name: item}})
           consumable.count -= count
           await consumable.save()
@@ -99,7 +99,7 @@ class UserController {
       await solution.save()
 
       const stock = await Stock.findOne({where: {flavoringVendorCode: flavoringVendorCode}})
-      if(stock) {
+      if (stock) {
         stock.count += count
         await stock.save()
         return res.json(stock)
@@ -118,12 +118,12 @@ class UserController {
   async addArchive(req, res, next) {
     try {
       const {count, flavoringVendorCode, client, userId} = req.body
-      let flavoringInStock = await Stock.findOne({where: {flavoringVendorCode:flavoringVendorCode}})
+      let flavoringInStock = await Stock.findOne({where: {flavoringVendorCode: flavoringVendorCode}})
       const flavoringSend = await Archive.create({
-        count:count,
-        flavoringVendorCode:flavoringVendorCode,
-        client:client,
-        userId:userId
+        count: count,
+        flavoringVendorCode: flavoringVendorCode,
+        client: client,
+        userId: userId
       })
       flavoringInStock.count -= count
       await flavoringInStock.save()
@@ -132,6 +132,33 @@ class UserController {
       return next(ApiError.badRequest(e.message))
     }
   }
+
+  async getConsumables(req, res) {
+    const consumables = await Consumable.findAll()
+    return res.json(consumables)
+  }
+
+  async getSolute(req, res) {
+    const solutions = await Solution.findAll()
+    return res.json(solutions)
+  }
+
+  async getSolute(req, res) {
+    const solutions = await Solution.findAll()
+    return res.json(solutions)
+  }
+
+  async getCompleteProducts(req, res) {
+    const completeProducts = await Stock.findAll()
+    return res.json(completeProducts)
+  }
+
+  async getArchive(req, res) {
+    const allArchive= await Archive.findAll()
+    return res.json(allArchive)
+  }
+
+
 }
 
 

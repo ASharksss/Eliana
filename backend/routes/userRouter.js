@@ -1,6 +1,8 @@
 const Router = require('express')
 const router = new Router()
 const UserController = require('../controllers/userController')
+const {noRawAttributes} = require("sequelize/lib/utils/deprecations");
+const {Consumable} = require("../models/models");
 
 
 router.post('/addConsume', UserController.addConsume)
@@ -9,33 +11,16 @@ router.post('/addComplete', UserController.addComplete)
 router.post('/addArchive', UserController.addArchive)
 
 
-
-router.get('/', (req, res) => {
-  res.json({message: 'get Consume'})
-})
-router.get('/solute', (req, res) => {
-  res.json({message: 'get Solute'})
-})
-router.get('/completeProducts', (req, res) => {
-  res.json({message: 'get Complete products'})
-})
-router.get('/archive', (req, res) => {
-  res.json({message: 'get Archive'})
-})
+router.get('/getConsumables', UserController.getConsumables)
+router.get('/getSolutions', UserController.getSolute)
+router.get('/getCompleteProducts', UserController.getCompleteProducts)
+router.get('/getArchive', UserController.getArchive)
 
 
-router.get('/addConsume', (req, res) => {
-  res.json({message: 'get add consume'})
-})
-router.get('/addSolution', (req, res) => {
-  res.json({message: 'get add solution'})
-})
-router.get('/addComplete', (req, res) => {
-  res.json({message: 'get add complete'})
-})
-router.get('/addArchive', (req, res) => {
-  res.json({message: 'get add archive'})
-})
+router.get('/addConsume', )
+router.get('/addSolution', )
+router.get('/addComplete', )
+router.get('/addArchive', )
 
 
 
