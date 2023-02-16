@@ -1,43 +1,45 @@
 const ApiError = require("../error/ApiError");
-const {Perfume, Role, TypeStock, TypeFlavoring, Flavoring, Consumable, User, Solution, FlavoringConsume} = require("../models/models");
+const {Perfume, Role, TypeStock, TypeFlavoring, Flavoring, Consumable, User, FlavoringConsume} = require("../models/models");
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 
 const generateJWT = (id, username, roleId) => {
   return jwt.sign(
-      {id, username, roleId},
-      process.env.SECRET_KEY,
-      {expiresIn: '24h'}
-    )
-
+    {id, username, roleId},
+    process.env.SECRET_KEY,
+    {expiresIn: '24h'}
+  )
 }
 
 class AdminController {
 
   async registrationUsers(req, res, next) {
-    const {name, job_title, username, password_hash, roleId} = req.body
-    if (!username || !password_hash) {
-      return next(ApiError.badRequest('Не заполнены поля'))
+    try{
+      const {name, job_title, username, password_hash, roleId} = req.body
+      if (!username || !password_hash) {
+        return next(ApiError.badRequest('Не заполнены поля'))
+      }
+      const candidate = await User.findOne({where: [{username}]})
+      if (candidate) {
+        return next(ApiError.badRequest('Пользователь с таким username уже существует'))
+      }
+      const hashPassword = await bcrypt.hash(password_hash, 5)
+      const user = await User.create({
+        name,
+        job_title,
+        username,
+        roleId,
+        password_hash: hashPassword
+      })
+      const token = generateJWT(user.id, user.username, user.roleId)
+      return res.json({token})
+    }catch (e) {
+      return next(ApiError.badRequest(e.message))
     }
-    const candidate = await User.findOne({where: {username}})
-    if (candidate) {
-      return next(ApiError.badRequest('Пользователь с таким username уже существует'))
-    }
-    const hashPassword = await bcrypt.hash(password_hash, 5)
-    const user = await User.create({
-      name,
-      job_title,
-      username,
-      roleId,
-      password_hash: hashPassword
-    })
-    const token = generateJWT(user.id, user.username, user.roleId)
-    return res.json({token})
+
   }
 
-  async login(req, res) {
 
-  }
 
 
   async addConsume(req, res) {
@@ -46,7 +48,7 @@ class AdminController {
     return res.json(consume)
   }
 
-  async addFlavoringConsume(req, res, next) {
+  async addFlavoringConsume(req, res) {
     const {consumables, typeFlavoringId, flavoringVendorCode} = req.body
     const flavoringConsume = await FlavoringConsume.create({
       consumables: JSON.stringify(consumables),
