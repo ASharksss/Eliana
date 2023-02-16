@@ -23,22 +23,21 @@ const generateJWT = (id, username, roleId) => {
 class UserController {
 
   async login(req, res, next) {
-    try{
+    try {
       const {username, password} = req.body
       const user = await User.findOne({where: [{username}]})
       if (!user) {
         return next(ApiError.internalRequest('Пользователь не найден'))
       }
       let comparePassword = bcrypt.compareSync(password, user.password_hash)
-      if(!comparePassword){
+      if (!comparePassword) {
         return next(ApiError.internalRequest('неверный пароль'))
       }
       const token = generateJWT(user.id, user.username, user.roleId)
       return res.json({token})
-    }catch (e) {
+    } catch (e) {
       return next(ApiError.badRequest(e.message))
     }
-
   }
 
   async addConsume(req, res, next) {
@@ -211,7 +210,7 @@ class UserController {
   async getSelectsForComplete(req, res, next) {
     try {
       const typesFlavoring = await TypeFlavoring.findAll({attributes: ['id', 'name']})
-      const flavorings = await Flavoring.findAll({attributes: ['name','vendor_code']})
+      const flavorings = await Flavoring.findAll({attributes: ['name', 'vendor_code']})
       const solutions = await Solution.findAll({attributes: ['percent_solution', 'perfume', 'liter']})
       return res.json({
         typesFlavoring,
