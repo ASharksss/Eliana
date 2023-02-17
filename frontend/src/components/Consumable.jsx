@@ -46,7 +46,6 @@ const Consumable = () => {
                   <td>{obj.name}</td>
                   <td>{obj.count}</td>
                 </tr>)}
-
             </tbody>
           </table>
         </div>

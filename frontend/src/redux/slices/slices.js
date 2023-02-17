@@ -1,8 +1,14 @@
 import {createSlice, createAsyncThunk} from "@reduxjs/toolkit";
 import axios from '../../axios';
 
-export const fetchConsumables = createAsyncThunk('getConsumable/fetchConsumable', async () => {
-  const {data} = await axios.get('/api/user/getConsumables')
+export const fetchConsumables = createAsyncThunk('getConsumable/fetchConsumable',
+  async () => {
+    const {data} = await axios.get('/api/user/getConsumables')
+    return data
+  })
+// не работает
+export const fetchSolutions = createAsyncThunk('getSolutions/fetchSolutions', async () => {
+  const {data} = await axios.get('/api/user/getSolutions')
   return data
 })
 
@@ -11,7 +17,10 @@ const initialState = {
     items: [],
     status: 'loading'
   },
-  solutions: [],
+  solutions: {
+    items: [],
+    status: 'loading'
+  },
   completeProducts: [],
   archive: []
 }
@@ -36,4 +45,27 @@ const consumableSlice = createSlice({
   }
 })
 
+const solutionsSlice = createSlice({
+  name: 'solutions',
+  initialState,
+  reducer: {},
+  extraReducers: {
+    [fetchSolutions.pending]: (state) => {
+      state.solutions.items = []
+      state.solutions.status = 'loading'
+    },
+    [fetchSolutions.fulfilled]: (state, action) => {
+      state.solutions.items = action.payload
+      state.solutions.status = 'loaded'
+    },
+    [fetchSolutions.rejected]: (state) => {
+      state.solutions.items = []
+      state.solutions.status = 'error'
+    }
+  }
+})
+
+
+
 export const consumableReducer = consumableSlice.reducer;
+export const solutionsReducer = solutionsSlice.reducer;

@@ -1,7 +1,19 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {NavLink} from "react-router-dom";
+import {fetchConsumables, fetchSolutions} from "../redux/slices/slices";
+import {useDispatch, useSelector} from "react-redux";
 
 const Solute = () => {
+  const dispatch = useDispatch()
+  const {solutions} = useSelector(state => state.solutions)
+
+  const isSolutionsLoading = solutions.status === 'loading'
+
+  useEffect(() => {
+    dispatch(fetchSolutions())
+  }, [])
+
+
   return (
     <div className='wrapper'>
       <div className="container">
@@ -27,14 +39,16 @@ const Solute = () => {
             </tr>
             </thead>
             <tbody>
-            <tr>
-              <td>5%</td>
-              <td>BOSS</td>
-              <td>10</td>
-              <td>50</td>
-              <td>30</td>
-              <td>30</td>
-            </tr>
+            {(isSolutionsLoading ? [...Array(5)] : solutions.items).map((obj, index) => isSolutionsLoading ? 'loading'
+                :
+                <tr>
+                  <td>{obj.percent_solution}</td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                </tr>)}
             </tbody>
           </table>
         </div>

@@ -1,9 +1,10 @@
 import {configureStore} from '@reduxjs/toolkit'
-import {consumableReducer} from "./slices/slices";
+import {consumableReducer, solutionsReducer} from "./slices/slices";
 
 export const store = configureStore({
   reducer: {
-    consumable: consumableReducer
+    consumable: consumableReducer,
+    solutions: solutionsReducer
   }
 })
 
