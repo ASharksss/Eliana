@@ -6,9 +6,13 @@ export const fetchConsumables = createAsyncThunk('getConsumable/fetchConsumable'
     const {data} = await axios.get('/api/user/getConsumables')
     return data
   })
-// не работает
 export const fetchSolutions = createAsyncThunk('getSolutions/fetchSolutions', async () => {
   const {data} = await axios.get('/api/user/getSolutions')
+  return data
+})
+
+export const fetchComplete = createAsyncThunk('getCompleteProducts/fetchComplete', async () => {
+  const {data} = await axios.get('/api/user/getCompleteProducts')
   return data
 })
 
@@ -21,8 +25,14 @@ const initialState = {
     items: [],
     status: 'loading'
   },
-  completeProducts: [],
-  archive: []
+  completeProducts: {
+    items: [],
+    status: 'loading'
+  },
+  archive: {
+    items: [],
+    status: 'loading'
+  }
 }
 
 const consumableSlice = createSlice({
@@ -65,7 +75,27 @@ const solutionsSlice = createSlice({
   }
 })
 
+const completeSlice = createSlice({
+  name: 'complete',
+  initialState,
+  reducer: {},
+  extraReducers: {
+    [fetchComplete.pending]: (state) => {
+      state.completeProducts.items = []
+      state.completeProducts.status = 'loading'
+    },
+    [fetchComplete.fulfilled]: (state, action) => {
+      state.completeProducts.items = action.payload
+      state.completeProducts.status = 'loaded'
+    },
+    [fetchComplete.rejected]: (state) => {
+      state.completeProducts.items = []
+      state.completeProducts.status = 'error'
+    }
+  }
+})
 
 
 export const consumableReducer = consumableSlice.reducer;
 export const solutionsReducer = solutionsSlice.reducer;
+export const completeReducer = completeSlice.reducer;

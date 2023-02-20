@@ -189,7 +189,12 @@ class UserController {
   }
 
   async getCompleteProducts(req, res) {
-    const fullCompleteProducts = await Stock.findAll()
+    const fullCompleteProducts = await Stock.findAll({include: [
+        {
+          model: Flavoring,
+          include: TypeFlavoring
+        }
+      ]})
     return res.json(fullCompleteProducts)
   }
 

@@ -30,10 +30,11 @@ const Solute = () => {
           <table>
             <thead>
             <tr>
-              <th>% раствора</th>
+              <th>%</th>
               <th>Отдушка</th>
               <th>ПГ и ПЭГ</th>
               <th>Литры</th>
+              <th>Дата</th>
             </tr>
 
             </thead>
@@ -55,6 +56,9 @@ const Solute = () => {
                   </tr>
                 ))}</td>
                 <td>{obj.liter}</td>
+                <td>
+                  {new Intl.DateTimeFormat().format(new Date(obj.createdAt))}
+                </td>
               </tr>)}
             </tbody>
           </table>

@@ -8,7 +8,7 @@ router.post('/registration',checkRoleMiddleware('Администратор'), A
 router.post('/addPerfume', checkRoleMiddleware('Администратор'), AdminController.addPerfume)
 router.post('/addRole', checkRoleMiddleware('Администратор'), AdminController.addRole)
 router.post('/addTypeStock', checkRoleMiddleware('Администратор'), AdminController.addTypeStock)
-router.post('/addTypeFlavoring', checkRoleMiddleware('Администратор'), AdminController.addTypeFlavoring)
+router.post('/addTypeFlavoring', AdminController.addTypeFlavoring)
 router.post('/addFlavoring', checkRoleMiddleware('Администратор'), AdminController.addFlavoring)
 router.post('/addConsume', checkRoleMiddleware('Администратор'), AdminController.addConsume)
 router.post('/addFlavoringConsume', checkRoleMiddleware('Администратор'), AdminController.addFlavoringConsume)

@@ -31,20 +31,7 @@ const Archive = () => {
             </tr>
             </thead>
             <tbody>
-            <tr>
-              <td>Спрей</td>
-              <td>BOSS</td>
-              <td>10</td>
-              <td>Поставка Фурошоп</td>
-              <td>2023-01-27 в 10:49</td>
-            </tr>
-            <tr>
-              <td>Фитиль</td>
-              <td>Ваниль</td>
-              <td>20</td>
-              <td>Поставка Татнефть</td>
-              <td>2023-01-27 в 10:49</td>
-            </tr>
+
             </tbody>
           </table>
         </div>
