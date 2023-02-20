@@ -32,23 +32,30 @@ const Solute = () => {
             <tr>
               <th>% раствора</th>
               <th>Отдушка</th>
+              <th>ПГ и ПЭГ</th>
               <th>Литры</th>
-              <th>Отдушка (г)</th>
-              <th>ПГ (г)</th>
-              <th>ПЭГ (г)</th>
             </tr>
+
             </thead>
             <tbody>
             {(isSolutionsLoading ? [...Array(5)] : solutions.items).map((obj, index) => isSolutionsLoading ? 'loading'
-                :
-                <tr>
-                  <td>{obj.percent_solution}</td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                </tr>)}
+              :
+              <tr key={index}>
+                <td>{obj.percent_solution}</td>
+                <td>{JSON.parse(obj.perfume).map((item, index_perfume) => (
+                  <tr key={index_perfume}>
+                    <td>{item.name}</td>
+                    <td>{item.count} г.</td>
+                  </tr>
+                ))}</td>
+                <td>{JSON.parse(obj.consumable).map((item, index_consumable) => (
+                  <tr key={index_consumable}>
+                    <td>{item.name}</td>
+                    <td>{item.count} г.</td>
+                  </tr>
+                ))}</td>
+                <td>{obj.liter}</td>
+              </tr>)}
             </tbody>
           </table>
         </div>

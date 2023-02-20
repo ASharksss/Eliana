@@ -215,19 +215,17 @@ table {
     border-collapse: collapse;
     border: 1px solid grey;
     width: 100%;
-    margin: 0 auto;
+    margin: 20px auto;
     text-align: center;
-    margin-top: 20px;
+}
+
+tr{
+    position: relative;
 }
 
 th, td {
-    border: 1px solid grey;
-    width: 10%;
-}
-
-td {
-
-    border-bottom: 1px solid grey;
+    border: 1px solid #b2a9a9;
+    width: 5%;
 }
 
 .table_btn {

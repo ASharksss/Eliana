@@ -92,7 +92,7 @@ class UserController {
       }
       const solution = await Solution.create({
         percent_solution: percent_solution,
-        liter: liter,
+        liter: liter.toFixed(2),
         consumable: JSON.stringify(consumables),
         perfume: JSON.stringify(perfumes)
       })
