@@ -65,7 +65,6 @@ const AddSolute = () => {
     <div className='wrapper'>
       <div className="container">
         <div className="add_solute">
-
           <div className="solute_inputs">
             <h2>Создание раствора</h2>
             <form onSubmit={event => handleSubmit(event)}>
@@ -73,28 +72,22 @@ const AddSolute = () => {
                 <label>% раствора</label>
                 <input onChange={e => setPercentSolution(e.target.value)} type="text"/>
               </div>
-
               {inputList}
-
               <button type='button' onClick={addInputsPerfume}>Еще отдушка</button>
-
               <div className="solute_input">
                 <label>ПГ(г)</label>
                 <input onChange={e => setCountPg(e.target.value)} type="text" placeholder='Введите количество'/>
               </div>
-
               <div className="solute_input">
                 <label>ПЭГ(г)</label>
                 <input onChange={e => setCountPag(e.target.value)} type="text" placeholder='Введите количество'/>
               </div>
-
               <div className="solute_input">
                 <label>Литры</label>
                 <input onChange={e => setLiterSolution(e.target.value)} type="text" placeholder='Введите количество'/>
               </div>
               <button type='submit' className="submit solute_btn">Добавить</button>
             </form>
-
           </div>
         </div>
       </div>
