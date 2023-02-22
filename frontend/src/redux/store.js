@@ -1,11 +1,19 @@
 import {configureStore} from '@reduxjs/toolkit'
-import {completeReducer, consumableReducer, solutionsReducer} from "./slices/slices";
+import {
+  archiveReducer,
+  completeReducer,
+  consumableReducer,
+  consumablesNameReducer,
+  solutionsReducer
+} from "./slices/slices";
 
 export const store = configureStore({
   reducer: {
     consumable: consumableReducer,
+    consumablesName: consumablesNameReducer,
     solutions: solutionsReducer,
-    complete: completeReducer
+    complete: completeReducer,
+    archive: archiveReducer
   }
 })
 

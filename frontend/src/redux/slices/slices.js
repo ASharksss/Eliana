@@ -16,8 +16,34 @@ export const fetchComplete = createAsyncThunk('getCompleteProducts/fetchComplete
   return data
 })
 
+export const fetchArchive = createAsyncThunk('getArchive/fetchArchive', async () => {
+  const {data} = await axios.get('/api/user/getArchive')
+  return data
+})
+
+export const fetchConsumablesName = createAsyncThunk('getConsumable/fetchConsumableName', async () => {
+  const {data} = await axios.get('/api/user/getNamesConsumables')
+  return data
+})
+
+export const addConsumable = createAsyncThunk('addConsume', async (data) => {
+  await axios.post(
+    '/api/user/addConsume',
+    data
+  ).then(res => {
+    alert('Добавлено')
+  })
+    .catch(err => {
+      alert("Ошибка обработки данных...")
+    })
+})
+
 const initialState = {
   consumable: {
+    items: [],
+    status: 'loading'
+  },
+  consumablesName: {
     items: [],
     status: 'loading'
   },
@@ -51,6 +77,26 @@ const consumableSlice = createSlice({
     [fetchConsumables.rejected]: (state) => {
       state.consumable.items = []
       state.consumable.status = 'error'
+    }
+  }
+})
+
+const consumablesNameSlice = createSlice({
+  name: 'consumablesName',
+  initialState,
+  reducer: {},
+  extraReducers: {
+    [fetchConsumablesName.pending]: (state) => {
+      state.consumablesName.items = []
+      state.consumablesName.status = 'loading'
+    },
+    [fetchConsumablesName.fulfilled]: (state, action) => {
+      state.consumablesName.items = action.payload
+      state.consumablesName.status = 'loaded'
+    },
+    [fetchConsumablesName.rejected]: (state) => {
+      state.consumablesName.items = []
+      state.consumablesName.status = 'error'
     }
   }
 })
@@ -95,7 +141,29 @@ const completeSlice = createSlice({
   }
 })
 
+const archiveSlice = createSlice({
+  name: 'archive',
+  initialState,
+  reducer: {},
+  extraReducers: {
+    [fetchArchive.pending]: (state) => {
+      state.archive.items = []
+      state.archive.status = 'loading'
+    },
+    [fetchArchive.fulfilled]: (state, action) => {
+      state.archive.items = action.payload
+      state.archive.status = 'loaded'
+    },
+    [fetchArchive.rejected]: (state) => {
+      state.archive.items = []
+      state.archive.status = 'error'
+    }
+  }
+})
+
 
 export const consumableReducer = consumableSlice.reducer;
 export const solutionsReducer = solutionsSlice.reducer;
 export const completeReducer = completeSlice.reducer;
+export const archiveReducer = archiveSlice.reducer;
+export const consumablesNameReducer = consumablesNameSlice.reducer;

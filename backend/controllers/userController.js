@@ -199,7 +199,15 @@ class UserController {
   }
 
   async getArchive(req, res) {
-    const fullAllArchive = await Archive.findAll()
+    const fullAllArchive = await Archive.findAll({include: [
+        {
+          model:Flavoring,
+          include: TypeFlavoring
+        },
+        {
+          model: User
+        }
+      ]})
     return res.json(fullAllArchive)
   }
 
