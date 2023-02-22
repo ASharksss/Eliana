@@ -11,6 +11,18 @@ export const fetchSolutions = createAsyncThunk('getSolutions/fetchSolutions', as
   return data
 })
 
+export const addSolutions = createAsyncThunk('addSolution', async (data) => {
+  await axios.post(
+    '/api/user/addSolution',
+    data
+  ).then(res => {
+    alert('Добавлено')
+  })
+    .catch(err => {
+      alert("Ошибка обработки данных...")
+    })
+})
+
 export const fetchComplete = createAsyncThunk('getCompleteProducts/fetchComplete', async () => {
   const {data} = await axios.get('/api/user/getCompleteProducts')
   return data
@@ -23,6 +35,11 @@ export const fetchArchive = createAsyncThunk('getArchive/fetchArchive', async ()
 
 export const fetchConsumablesName = createAsyncThunk('getConsumable/fetchConsumableName', async () => {
   const {data} = await axios.get('/api/user/getNamesConsumables')
+  return data
+})
+
+export const fetchPerfumes = createAsyncThunk('getPerfumes/fetchPerfumes', async () => {
+  const {data} = await axios.get('/api/user/getPerfumes')
   return data
 })
 
@@ -46,6 +63,10 @@ const initialState = {
   consumablesName: {
     items: [],
     status: 'loading'
+  },
+  perfumes: {
+    items: [],
+    status: ' loading'
   },
   solutions: {
     items: [],
@@ -100,6 +121,27 @@ const consumablesNameSlice = createSlice({
     }
   }
 })
+
+const perfumesSlice = createSlice({
+  name: 'perfumes',
+  initialState,
+  reducer: {},
+  extraReducers: {
+    [fetchPerfumes.pending]: (state) => {
+      state.perfumes.items = []
+      state.perfumes.status = 'loading'
+    },
+    [fetchPerfumes.fulfilled]: (state, action) => {
+      state.perfumes.items = action.payload
+      state.perfumes.status = 'loaded'
+    },
+    [fetchPerfumes.rejected]: (state) => {
+      state.perfumes.items = []
+      state.perfumes.status = 'error'
+    }
+  }
+})
+
 
 const solutionsSlice = createSlice({
   name: 'solutions',
@@ -162,8 +204,10 @@ const archiveSlice = createSlice({
 })
 
 
+
 export const consumableReducer = consumableSlice.reducer;
 export const solutionsReducer = solutionsSlice.reducer;
 export const completeReducer = completeSlice.reducer;
 export const archiveReducer = archiveSlice.reducer;
 export const consumablesNameReducer = consumablesNameSlice.reducer;
+export const perfumesReducer = perfumesSlice.reducer;

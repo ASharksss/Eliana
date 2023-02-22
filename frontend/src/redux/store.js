@@ -3,7 +3,7 @@ import {
   archiveReducer,
   completeReducer,
   consumableReducer,
-  consumablesNameReducer,
+  consumablesNameReducer, perfumesReducer,
   solutionsReducer
 } from "./slices/slices";
 
@@ -13,7 +13,8 @@ export const store = configureStore({
     consumablesName: consumablesNameReducer,
     solutions: solutionsReducer,
     complete: completeReducer,
-    archive: archiveReducer
+    archive: archiveReducer,
+    perfumes: perfumesReducer
   }
 })
 
