@@ -6,6 +6,7 @@ import InputsPerfume from "./InputsPerfume";
 const AddSolute = () => {
 
   const [percentSolution, setPercentSolution] = useState('')
+  const [aroma, setAroma] = useState('')
   const [perfume, setPerfume] = useState([])
   const [countPg, setCountPg] = useState('')
   const [countPag, setCountPag] = useState('')
@@ -46,6 +47,7 @@ const AddSolute = () => {
     }
     const data = {
       percent_solution: percentSolution,
+      aroma: aroma,
       perfumes: perfume,
       consumables: [{
         name: 'ПГ',
@@ -56,7 +58,8 @@ const AddSolute = () => {
           count: countPag
         }
       ],
-      liter: literSolution
+      liter: literSolution,
+
     }
     dispatch(addSolutions(data))
   }
@@ -71,6 +74,11 @@ const AddSolute = () => {
               <div className="solute_input">
                 <label>% раствора</label>
                 <input onChange={e => setPercentSolution(e.target.value)} type="text"/>
+              </div>
+              <div className="solute_input">
+                <label>Аромат</label>
+                <input onChange={e => setAroma(e.target.value)} type="text"/>
+
               </div>
               {inputList}
               <button type='button' onClick={addInputsPerfume}>Еще отдушка</button>

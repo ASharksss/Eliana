@@ -38,6 +38,12 @@ export const fetchConsumablesName = createAsyncThunk('getConsumable/fetchConsuma
   return data
 })
 
+export const fetchSelectsForComplete = createAsyncThunk('getSelectsForComplete/fetchSelectsForComplete', async () => {
+  const {data} = await axios.get('/api/user/getSelectsForComplete')
+  return data
+})
+
+
 export const fetchPerfumes = createAsyncThunk('getPerfumes/fetchPerfumes', async () => {
   const {data} = await axios.get('/api/user/getPerfumes')
   return data
@@ -73,6 +79,10 @@ const initialState = {
     status: 'loading'
   },
   completeProducts: {
+    items: [],
+    status: 'loading'
+  },
+  selectsForComplete: {
     items: [],
     status: 'loading'
   },
@@ -183,6 +193,26 @@ const completeSlice = createSlice({
   }
 })
 
+const selectsForComplete = createSlice({
+  name: 'selectsForComplete',
+  initialState,
+  reducer: {},
+  extraReducers: {
+    [fetchSelectsForComplete.pending]: (state) => {
+      state.selectsForComplete.items = []
+      state.selectsForComplete.status = 'loading'
+    },
+    [fetchSelectsForComplete.fulfilled]: (state, action) => {
+      state.selectsForComplete.items = action.payload
+      state.selectsForComplete.status = 'loaded'
+    },
+    [fetchSelectsForComplete.rejected]: (state) => {
+      state.selectsForComplete.items = []
+      state.selectsForComplete.status = 'error'
+    }
+  }
+})
+
 const archiveSlice = createSlice({
   name: 'archive',
   initialState,
@@ -211,3 +241,4 @@ export const completeReducer = completeSlice.reducer;
 export const archiveReducer = archiveSlice.reducer;
 export const consumablesNameReducer = consumablesNameSlice.reducer;
 export const perfumesReducer = perfumesSlice.reducer;
+export const selectsForCompleteReducer = selectsForComplete.reducer;

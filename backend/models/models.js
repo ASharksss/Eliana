@@ -73,6 +73,9 @@ const Solution = sequelize.define('solution', {
   percent_solution: {
     type: DataTypes.INTEGER
   },
+  aroma: {
+    type: DataTypes.STRING
+  },
   consumable: {
     type: DataTypes.STRING
   },

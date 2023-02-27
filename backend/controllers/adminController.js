@@ -36,7 +36,6 @@ class AdminController {
     }catch (e) {
       return next(ApiError.badRequest(e.message))
     }
-
   }
 
 

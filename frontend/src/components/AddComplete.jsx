@@ -1,6 +1,20 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
+import {useDispatch, useSelector} from "react-redux";
+import {fetchSelectsForComplete} from "../redux/slices/slices";
 
 const AddComplete = () => {
+
+  const {selectsForComplete} = useSelector(state => state.selectsForComplete)
+  const [vendorCode, setVendorCode] = useState('')
+
+  const isLoading = selectsForComplete.status === 'loading'
+
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    dispatch(fetchSelectsForComplete())
+  }, [])
+
   return (
     <div className='wrapper'>
       <div className="container">
@@ -10,29 +24,34 @@ const AddComplete = () => {
             <div className="complete_input">
               <label>Вид ароматизатора</label>
               <select>
-                <option>Фитиль</option>
-                <option>Спрей</option>
+                <option>Выбрите вид ароматизатора...</option>
+                {(isLoading ? [...Array(5)] : selectsForComplete.items.typesFlavoring).map((obj, index) => isLoading ? 'Загрузка'
+                  :
+                  <option value={obj.id}>{obj.name}</option>
+                )}
+
               </select>
               <label>Артикул</label>
-              <select disabled>
-                <option>CW-01</option>
-                <option>CW-05</option>
-                <option>CW-02</option>
-              </select>
+              <input type="text" disabled value={vendorCode}/>
               <label>Название</label>
-              <select>
-                <option value='CW-01'>Спрей Бубль Гум</option>
-                <option value='CW-05'>Спрей Черный Лед</option>
-                <option value='CW-02'>Спрей Мята-Ваниль</option>
+              <select onChange={e => setVendorCode(e.target.value)}>
+                <option>Выберите ароматизатор</option>
+                {(isLoading ? [...Array(5)] : selectsForComplete.items.flavorings).map((obj, index) => isLoading ? 'Загрузка'
+                  :
+                  <option value={obj.vendor_code}>{obj.name}</option>
+                )}
               </select>
 
             </div>
             <div className="complete_input">
               <label>Раствор</label>
+
               <select>
-                <option>5% BOSS 10л</option>
-                <option>Раствор 2</option>
-                <option>Раствор 3</option>
+                <option>Выберите раствор</option>
+                {(isLoading ? [...Array(5)] : selectsForComplete.items.solutions).map((obj, index) => isLoading ? 'Загрузка'
+                  :
+                  <option><span>{obj.percent_solution + '%, ' + obj.liter + 'л'}</span></option>
+                )}
               </select>
             </div>
             <div className="complete_input">

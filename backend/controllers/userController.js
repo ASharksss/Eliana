@@ -63,7 +63,7 @@ class UserController {
 
   async addSolution(req, res, next) {
     try {
-      const {percent_solution, liter, perfumes, consumables} = req.body
+      const {percent_solution,aroma, liter, perfumes, consumables} = req.body
       for (let i = 0; i < perfumes.length; i++) {
         let perfume = await Perfume.findOne({where: [{name: perfumes[i]['name']}]})
         if (perfume.count < perfumes[i]['count']) {
@@ -92,6 +92,7 @@ class UserController {
       }
       const solution = await Solution.create({
         percent_solution: percent_solution,
+        aroma: aroma,
         liter: parseFloat(liter).toFixed(2),
         consumable: JSON.stringify(consumables),
         perfume: JSON.stringify(perfumes)
