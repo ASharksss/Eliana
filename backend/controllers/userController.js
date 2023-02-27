@@ -233,8 +233,11 @@ class UserController {
   async getSelectsForComplete(req, res, next) {
     try {
       const typesFlavoring = await TypeFlavoring.findAll({attributes: ['id', 'name']})
-      const flavorings = await Flavoring.findAll({attributes: ['name', 'vendor_code']})
-      const solutions = await Solution.findAll({attributes: ['percent_solution', 'perfume', 'liter']})
+      const flavorings = await Flavoring.findAll({attributes: ['name', 'vendor_code', 'typeFlavoringId']})
+      const solutions = await Solution.findAll({attributes: ['percent_solution', 'perfume', 'liter', 'aroma']})
+/*
+      const flavoringConsume = await FlavoringConsume.findAll({attributes:})
+*/
       return res.json({
         typesFlavoring,
         flavorings,

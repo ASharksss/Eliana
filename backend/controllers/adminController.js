@@ -47,14 +47,19 @@ class AdminController {
     return res.json(consume)
   }
 
-  async addFlavoringConsume(req, res) {
-    const {consumables, typeFlavoringId, flavoringVendorCode} = req.body
-    const flavoringConsume = await FlavoringConsume.create({
-      consumables: JSON.stringify(consumables),
-      typeFlavoringId: typeFlavoringId,
-      flavoringVendorCode: flavoringVendorCode
-    })
-    return res.json(flavoringConsume)
+  async addFlavoringConsume(req, res, next) {
+    try{
+      const {consumables, typeFlavoringId, flavoringVendorCode} = req.body
+      const flavoringConsume = await FlavoringConsume.create({
+        consumables: JSON.stringify(consumables),
+        typeFlavoringId: typeFlavoringId,
+        flavoringVendorCode: flavoringVendorCode
+      })
+      return res.json(flavoringConsume)
+    }catch (e) {
+      return next(ApiError.badRequest(e.message))
+    }
+
   }
 
   async addRole(req, res) {

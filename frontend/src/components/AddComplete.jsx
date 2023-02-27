@@ -5,6 +5,8 @@ import {fetchSelectsForComplete} from "../redux/slices/slices";
 const AddComplete = () => {
 
   const {selectsForComplete} = useSelector(state => state.selectsForComplete)
+
+  const [typeFlavoring, setTypeFlavoring] = useState('')
   const [vendorCode, setVendorCode] = useState('')
 
   const isLoading = selectsForComplete.status === 'loading'
@@ -23,7 +25,7 @@ const AddComplete = () => {
             <h2>Формирование ароматизаторов</h2>
             <div className="complete_input">
               <label>Вид ароматизатора</label>
-              <select>
+              <select onChange={e => setTypeFlavoring(e.target.value)}>
                 <option>Выбрите вид ароматизатора...</option>
                 {(isLoading ? [...Array(5)] : selectsForComplete.items.typesFlavoring).map((obj, index) => isLoading ? 'Загрузка'
                   :
@@ -36,6 +38,7 @@ const AddComplete = () => {
               <label>Название</label>
               <select onChange={e => setVendorCode(e.target.value)}>
                 <option>Выберите ароматизатор</option>
+
                 {(isLoading ? [...Array(5)] : selectsForComplete.items.flavorings).map((obj, index) => isLoading ? 'Загрузка'
                   :
                   <option value={obj.vendor_code}>{obj.name}</option>
@@ -50,7 +53,7 @@ const AddComplete = () => {
                 <option>Выберите раствор</option>
                 {(isLoading ? [...Array(5)] : selectsForComplete.items.solutions).map((obj, index) => isLoading ? 'Загрузка'
                   :
-                  <option><span>{obj.percent_solution + '%, ' + obj.liter + 'л'}</span></option>
+                  <option><span>{obj.percent_solution + '%, '+ obj.aroma + ', ' + obj.liter + 'л'}</span></option>
                 )}
               </select>
             </div>
