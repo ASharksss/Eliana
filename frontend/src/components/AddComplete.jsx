@@ -8,6 +8,8 @@ const AddComplete = () => {
 
   const [typeFlavoring, setTypeFlavoring] = useState('')
   const [vendorCode, setVendorCode] = useState('')
+  const [solution, setSolution] = useState('')
+  const [count, setCount] = useState('')
 
   const isLoading = selectsForComplete.status === 'loading'
 
@@ -17,6 +19,16 @@ const AddComplete = () => {
     dispatch(fetchSelectsForComplete())
   }, [])
 
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    const data = {
+      typeFlavoringId: typeFlavoring,
+      vendorCode: vendorCode,
+      solutionId: solution,
+      count: count
+    }
+  }
+
   return (
     <div className='wrapper'>
       <div className="container">
@@ -24,6 +36,7 @@ const AddComplete = () => {
           <div className="complete_inputs">
             <h2>Формирование ароматизаторов</h2>
             <div className="complete_input">
+
               <label>Вид ароматизатора</label>
               <select onChange={e => setTypeFlavoring(e.target.value)}>
                 <option>Выбрите вид ароматизатора...</option>
@@ -35,6 +48,7 @@ const AddComplete = () => {
               </select>
               <label>Артикул</label>
               <input type="text" disabled value={vendorCode}/>
+
               <label>Название</label>
               <select onChange={e => setVendorCode(e.target.value)}>
                 <option>Выберите ароматизатор</option>
@@ -48,18 +62,17 @@ const AddComplete = () => {
             </div>
             <div className="complete_input">
               <label>Раствор</label>
-
-              <select>
+              <select  onChange={e => setSolution(e.target.value)}>
                 <option>Выберите раствор</option>
                 {(isLoading ? [...Array(5)] : selectsForComplete.items.solutions).map((obj, index) => isLoading ? 'Загрузка'
                   :
-                  <option><span>{obj.percent_solution + '%, '+ obj.aroma + ', ' + obj.liter + 'л'}</span></option>
+                  <option value={obj.id}><span>{obj.percent_solution + '%, '+ obj.aroma + ', ' + obj.liter + 'л'}</span></option>
                 )}
               </select>
             </div>
             <div className="complete_input">
               <label>Количество</label>
-              <input type="text" placeholder='Количество'/>
+              <input value={count} onChange={e => setCount(e.target.value)} type="text" placeholder='Количество'/>
             </div>
             <div className="complete_input">
               <label>Расход</label>
@@ -74,7 +87,7 @@ const AddComplete = () => {
                 Бутылки (спрей): 0
                 Коробки (спрей): 0'></textarea>
             </div>
-            <button className="submit solute_btn">
+            <button type='submit' className="submit solute_btn">
               Добавить
             </button>
           </div>
