@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from "react-redux";
-import {fetchSelectsForComplete} from "../redux/slices/slices";
+import {addComplete, fetchSelectsForComplete} from "../redux/slices/slices";
 
 const AddComplete = () => {
 
@@ -13,6 +13,7 @@ const AddComplete = () => {
 
   const isLoading = selectsForComplete.status === 'loading'
 
+
   const dispatch = useDispatch()
 
   useEffect(() => {
@@ -23,74 +24,70 @@ const AddComplete = () => {
     e.preventDefault()
     const data = {
       typeFlavoringId: typeFlavoring,
-      vendorCode: vendorCode,
+      flavoringVendorCode: vendorCode,
       solutionId: solution,
       count: count
     }
+    dispatch(addComplete(data))
   }
 
   return (
     <div className='wrapper'>
       <div className="container">
         <div className="add_complete">
-          <div className="complete_inputs">
-            <h2>Формирование ароматизаторов</h2>
-            <div className="complete_input">
+          <form onSubmit={event => handleSubmit(event)}>
+            <div className="complete_inputs">
 
-              <label>Вид ароматизатора</label>
-              <select onChange={e => setTypeFlavoring(e.target.value)}>
-                <option>Выбрите вид ароматизатора...</option>
-                {(isLoading ? [...Array(5)] : selectsForComplete.items.typesFlavoring).map((obj, index) => isLoading ? 'Загрузка'
-                  :
-                  <option value={obj.id}>{obj.name}</option>
-                )}
+              <h2>Формирование ароматизаторов</h2>
+              <div className="complete_input">
 
-              </select>
-              <label>Артикул</label>
-              <input type="text" disabled value={vendorCode}/>
+                <label>Вид ароматизатора</label>
+                <select onChange={e => setTypeFlavoring(e.target.value)}>
+                  <option>Выбрите вид ароматизатора...</option>
+                  {(isLoading ? [...Array(5)] : selectsForComplete.items.typesFlavoring).map((obj, index) => isLoading ? 'Загрузка'
+                    :
+                    <option key={index} value={obj.id}>{obj.name}</option>
+                  )}
 
-              <label>Название</label>
-              <select onChange={e => setVendorCode(e.target.value)}>
-                <option>Выберите ароматизатор</option>
+                </select>
+                <label>Артикул</label>
+                <input type="text" disabled value={vendorCode}/>
 
-                {(isLoading ? [...Array(5)] : selectsForComplete.items.flavorings).map((obj, index) => isLoading ? 'Загрузка'
-                  :
-                  <option value={obj.vendor_code}>{obj.name}</option>
-                )}
-              </select>
+                <label>Название</label>
+                <select onChange={e => setVendorCode(e.target.value)}>
+                  <option>Выберите ароматизатор</option>
 
+                  {(isLoading ? [...Array(5)] : selectsForComplete.items.flavorings).map((obj, index) => isLoading ? 'Загрузка'
+                    :
+                    <option key={index} value={obj.vendor_code}>{obj.name}</option>
+                  )}
+                </select>
+
+              </div>
+              <div className="complete_input">
+                <label>Раствор</label>
+                <select onChange={e => setSolution(e.target.value)}>
+                  <option>Выберите раствор</option>
+                  {(isLoading ? [...Array(5)] : selectsForComplete.items.solutions).map((obj, index) => isLoading ? 'Загрузка'
+                    :
+                    <option key={index} value={obj.id}>
+                      <span>{obj.percent_solution + '%, ' + obj.aroma + ', ' + obj.liter + 'л'}</span></option>
+                  )}
+                </select>
+              </div>
+              <div className="complete_input">
+                <label>Количество</label>
+                <input value={count} onChange={e => setCount(e.target.value)} type="text" placeholder='Количество'/>
+              </div>
+              <div className="complete_input">
+
+              </div>
+              <button type='submit' className="submit solute_btn">
+                Добавить
+              </button>
             </div>
-            <div className="complete_input">
-              <label>Раствор</label>
-              <select  onChange={e => setSolution(e.target.value)}>
-                <option>Выберите раствор</option>
-                {(isLoading ? [...Array(5)] : selectsForComplete.items.solutions).map((obj, index) => isLoading ? 'Загрузка'
-                  :
-                  <option value={obj.id}><span>{obj.percent_solution + '%, '+ obj.aroma + ', ' + obj.liter + 'л'}</span></option>
-                )}
-              </select>
-            </div>
-            <div className="complete_input">
-              <label>Количество</label>
-              <input value={count} onChange={e => setCount(e.target.value)} type="text" placeholder='Количество'/>
-            </div>
-            <div className="complete_input">
-              <label>Расход</label>
-              <textarea cols="40" rows="5" defaultValue='Литры раствора: 0
-                Крышки: 0
-                Бутылки (фитиль): 0
-                Передняя наклейка (фитиль): 0
-                Задняя наклейка (фитиль): 0
-                Наклейка (спрей): 0
-                Фитиля: 0
-                Распылитель: 0
-                Бутылки (спрей): 0
-                Коробки (спрей): 0'></textarea>
-            </div>
-            <button type='submit' className="submit solute_btn">
-              Добавить
-            </button>
-          </div>
+          </form>
+
         </div>
       </div>
     </div>

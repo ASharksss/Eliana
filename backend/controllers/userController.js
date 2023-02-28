@@ -235,13 +235,13 @@ class UserController {
       const typesFlavoring = await TypeFlavoring.findAll({attributes: ['id', 'name']})
       const flavorings = await Flavoring.findAll({attributes: ['name', 'vendor_code', 'typeFlavoringId']})
       const solutions = await Solution.findAll({attributes: ['id','percent_solution', 'perfume', 'liter', 'aroma']})
-/*
-      const flavoringConsume = await FlavoringConsume.findAll({attributes:})
-*/
+      const flavoringConsume = await FlavoringConsume.findAll({attributes: ['consumables', 'flavoringVendorCode']})
+
       return res.json({
         typesFlavoring,
         flavorings,
-        solutions
+        solutions,
+        flavoringConsume
       })
     } catch (e) {
       return next(ApiError.badRequest(e.message))

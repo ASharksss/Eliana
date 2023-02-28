@@ -23,6 +23,17 @@ export const addSolutions = createAsyncThunk('addSolution', async (data) => {
     })
 })
 
+export const addComplete = createAsyncThunk('addComplete', async (data) => {
+  await axios.post(
+    '/api/user/addComplete',
+    data
+  ).then(res => {
+    alert(res)
+  }).catch(err => {
+    alert(err.message)
+  })
+})
+
 export const fetchComplete = createAsyncThunk('getCompleteProducts/fetchComplete', async () => {
   const {data} = await axios.get('/api/user/getCompleteProducts')
   return data
@@ -58,6 +69,18 @@ export const addConsumable = createAsyncThunk('addConsume', async (data) => {
   })
     .catch(err => {
       alert("Ошибка обработки данных...")
+    })
+})
+
+export const addArchive = createAsyncThunk('addArchive', async (data) => {
+  await axios.post(
+    '/api/user/addArchive',
+    data
+  ).then(res => {
+    alert('Добавлено')
+  })
+    .catch(err => {
+      alert(err)
     })
 })
 
