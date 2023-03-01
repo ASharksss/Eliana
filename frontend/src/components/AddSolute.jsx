@@ -13,20 +13,18 @@ const AddSolute = () => {
   const [literSolution, setLiterSolution] = useState('')
   const [send, setSend] = useState(false)
   const [inputList, setInputList] = useState([]);
-  const [inputData, setInputData] = useState({})
 
   const addInputsPerfume = () => {
     if (inputData) {
       setPerfume(state => [...state, inputData])
-      setInputData({})
     }
     setInputList(inputList.concat(<InputsPerfume
-      setData={setInputData}
       isLoading={isLoading}
       perfumes={perfumes}
       key={inputList.length}/>));
   }
   const {perfumes} = useSelector(state => state.perfumes)
+  const {inputData} = useSelector(state => state.inputSolute)
   const isLoading = perfumes.status === 'loading'
 
   const dispatch = useDispatch()
@@ -35,19 +33,25 @@ const AddSolute = () => {
     dispatch(fetchPerfumes())
   }, [])
 
+  const checkPerfumeData = async () => {
+    if (inputData) {
+      setPerfume(state => [...state, inputData])
+    }
+  }
+
   useEffect(() => {
     if (inputData && send === true) {
       setPerfume(state => [...state, inputData])
     }
   }, [send])
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()// Не обновление
-    setSend(true)
+    await checkPerfumeData()
     const data = {
       percent_solution: percentSolution,
       aroma: aroma,
-      perfumes: perfume.shift(),
+      perfumes: perfume,
       consumables: [{
         name: 'ПГ',
         count: countPg

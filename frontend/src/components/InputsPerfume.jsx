@@ -1,6 +1,9 @@
 import React, {useEffect, useState} from 'react';
+import {useDispatch} from "react-redux";
+import {addSoluteData} from "../redux/slices/soluteSlice";
 
-const InputsPerfume = ({isLoading, perfumes, setData}) => {
+const InputsPerfume = ({isLoading, perfumes}) => {
+  const dispatch = useDispatch()
   const [name, setName] = useState('')
   const [count, setCount] = useState('')
   const [data, setInData] = useState({})
@@ -17,7 +20,7 @@ const InputsPerfume = ({isLoading, perfumes, setData}) => {
   }, [name, count])
   useEffect(() => {
     if (name !== '' && count !== '') {
-      setData(data)
+      dispatch(addSoluteData(data))
     }
   }, [data])
   return (
