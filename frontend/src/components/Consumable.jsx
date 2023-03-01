@@ -7,47 +7,24 @@ import {fetchConsumables} from "../redux/slices/slices";
 
 const Consumable = () => {
 
-  const dispatch = useDispatch()
-  const {consumable} = useSelector(state => state.consumable)
-
-  const isConsumableLoading = consumable.status === 'loading'
-
-  useEffect(() => {
-    dispatch(fetchConsumables())
-  }, [])
-
-  console.log(consumable)
 
   return (
     <div className='wrapper'>
       <div className="container">
         <div className="resume">
-          <div className="table_header">
-            <h2>Расходники</h2>
-            <NavLink to='/addConsume'>
-              <button>
-                Пополнить
-              </button>
+          <h1 className='title'>Выберите склад</h1>
+          <div className="stock_navigate">
+            <NavLink className='stock_link' to='/consumable'>
+              <button className='stock_btn'>Комплектующие</button>
+            </NavLink>
+            <NavLink className='stock_link' to='/chemistry'>
+              <button className='stock_btn'>Химия</button>
+            </NavLink>
+            <NavLink className='stock_link' to='stickers'>
+              <button className='stock_btn'>Наклейки</button>
             </NavLink>
           </div>
-          <input type="text" placeholder='Поиск' className='search'/>
-          <table>
-            <thead>
-            <tr>
-              <th>Наименование</th>
-              <th>Количество</th>
-            </tr>
-            </thead>
-            <tbody>
-            {(isConsumableLoading ? [...Array(5)] : consumable.items).map((obj, index) =>
-              isConsumableLoading ? 'loading'
-                :
-                <tr key={index}>
-                  <td>{obj.name}</td>
-                  <td>{obj.count}</td>
-                </tr>)}
-            </tbody>
-          </table>
+
         </div>
       </div>
     </div>
