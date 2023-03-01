@@ -11,20 +11,17 @@ const AddSolute = () => {
   const [countPg, setCountPg] = useState('')
   const [countPag, setCountPag] = useState('')
   const [literSolution, setLiterSolution] = useState('')
-  const [name, setName] = useState('')
-  const [count, setCount] = useState('')
-
+  const [send, setSend] = useState(false)
   const [inputList, setInputList] = useState([]);
+  const [inputData, setInputData] = useState({})
 
   const addInputsPerfume = () => {
-    if (name !== '' && count !== '') {
-      setPerfume(state => [...state, {name: name, count: count}])
-      setName('')
-      setCount('')
+    if (inputData) {
+      setPerfume(state => [...state, inputData])
+      setInputData({})
     }
     setInputList(inputList.concat(<InputsPerfume
-      setName={setName}
-      setCount={setCount}
+      setData={setInputData}
       isLoading={isLoading}
       perfumes={perfumes}
       key={inputList.length}/>));
@@ -38,17 +35,19 @@ const AddSolute = () => {
     dispatch(fetchPerfumes())
   }, [])
 
+  useEffect(() => {
+    if (inputData && send === true) {
+      setPerfume(state => [...state, inputData])
+    }
+  }, [send])
+
   const handleSubmit = (e) => {
     e.preventDefault()// Не обновление
-    if (name !== '' && count !== '') {
-      setPerfume(state => [...state, {name: name, count: count}])
-      setName('')
-      setCount('')
-    }
+    setSend(true)
     const data = {
       percent_solution: percentSolution,
       aroma: aroma,
-      perfumes: perfume,
+      perfumes: perfume.shift(),
       consumables: [{
         name: 'ПГ',
         count: countPg
@@ -59,9 +58,9 @@ const AddSolute = () => {
         }
       ],
       liter: literSolution,
-
     }
-    dispatch(addSolutions(data))
+    console.log(data)
+    //dispatch(addSolutions(data))
   }
 
   return (

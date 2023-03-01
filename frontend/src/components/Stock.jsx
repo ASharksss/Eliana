@@ -1,7 +1,6 @@
 import React, {useEffect} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import {NavLink} from "react-router-dom";
-import axios from "../axios";
 import {fetchConsumables} from "../redux/slices/slices";
 
 
