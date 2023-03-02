@@ -179,9 +179,31 @@ class UserController {
     }
   }
 
-  async getConsumables(req, res) {
-    const fullConsumables = await Consumable.findAll()
-    return res.json(fullConsumables)
+  async getConsumables(req, res, next) {
+    try {
+      const names = await Consumable.findAll({where: [{typeConsumableId: 1}]})
+      return res.json(names)
+    } catch (e) {
+      return next(ApiError.badRequest(e.message))
+    }
+  }
+
+  async getConsumablesChemistry(req, res, next) {
+    try {
+      const names = await Consumable.findAll({where: [{typeConsumableId: 2}]})
+      return res.json(names)
+    } catch (e) {
+      return next(ApiError.badRequest(e.message))
+    }
+  }
+
+  async getConsumablesStickers(req, res, next) {
+    try {
+      const names = await Consumable.findAll({where: [{typeConsumableId: 3}]})
+      return res.json(names)
+    } catch (e) {
+      return next(ApiError.badRequest(e.message))
+    }
   }
 
   async getSolute(req, res) {
@@ -229,6 +251,10 @@ class UserController {
       return next(ApiError.badRequest(e.message))
     }
   }
+
+
+
+
 
   async getSelectsForComplete(req, res, next) {
     try {

@@ -21,6 +21,9 @@ const Consumable = () => {
             <NavLink className='stock_link' to='stickers'>
               <button className='stock_btn'>Наклейки</button>
             </NavLink>
+            <NavLink className='stock_link' to='stickers'>
+              <button className='stock_btn'>Отдушки</button>
+            </NavLink>
           </div>
 
         </div>
