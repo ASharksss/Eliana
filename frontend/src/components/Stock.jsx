@@ -1,22 +1,49 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import {NavLink} from "react-router-dom";
-import {fetchConsumables} from "../redux/slices/slices";
+import {fetchConsumables, fetchConsumablesChemistry, fetchConsumablesStickers} from "../redux/slices/slices";
 
 
 const Consumable = () => {
-
   const dispatch = useDispatch()
+  const [data, setData] = useState({})
+  const [preloader, setPreloader] = useState(true)
   const {consumable} = useSelector(state => state.consumable)
+  const {consumableChemistry} = useSelector(state => state.consumableChemistry)
+  const {consumableStickers} = useSelector(state => state.consumableStickers)
+  // const {consumablePerfume} = useSelector(state => state.perfume)
 
-  const isConsumableLoading = consumable.status === 'loading'
+  const isConsumableLoading = data.status === 'loading'
 
   useEffect(() => {
-    dispatch(fetchConsumables())
+    setInterval(() =>  // таймер заглужка, чтобы компонеты успели прогрузиться
+    setPreloader(false), 500) //интервал выставил в 0.5с если что, можно увеличить до 1с (1с = 1000мс)0
   }, [])
 
-  console.log(consumable)
+  useEffect(() => {
+    let location = window.location.pathname.split('/')[1] //тут получаем названия склада по урлу http://localhost:3000/stickers => stickers
+    switch (location) {     //в кейсах идет проверка по названию
+      case 'consumable':
+        dispatch(fetchConsumables())
+        if (consumable.status === 'loaded')
+          setData(consumable)
+        break
+      case 'chemistry':
+        dispatch(fetchConsumablesChemistry())
+        if (consumableChemistry.status === 'loaded')
+          setData(consumableChemistry) //записываем в общий state чтобы в дальнейшем использовать
+        break
+      case 'stickers':
+        dispatch(fetchConsumablesStickers())
+        if (consumableStickers.status === 'loaded')
+          setData(consumableStickers)
+        break
+    }
+  }, [])
 
+  if (preloader) {
+    return <p>Загрузка</p> //заглушка, чтобы преждевременно не строить таблицу
+  }
   return (
     <div className='wrapper'>
       <div className="container">
@@ -38,7 +65,7 @@ const Consumable = () => {
             </tr>
             </thead>
             <tbody>
-            {(isConsumableLoading ? [...Array(5)] : consumable.items).map((obj, index) =>
+            {(isConsumableLoading ? [...Array(5)] : data.items).map((obj, index) =>
               isConsumableLoading ? 'loading'
                 :
                 <tr key={index}>

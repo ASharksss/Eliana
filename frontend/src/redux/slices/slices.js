@@ -6,6 +6,19 @@ export const fetchConsumables = createAsyncThunk('getConsumable/fetchConsumable'
     const {data} = await axios.get('/api/user/getConsumables')
     return data
   })
+
+export const fetchConsumablesChemistry = createAsyncThunk('getConsumablesChemistry/fetchConsumablesChemistry',
+  async () => {
+    const {data} = await axios.get('/api/user/getConsumablesChemistry')
+    return data
+  })
+
+export const fetchConsumablesStickers = createAsyncThunk('getConsumablesStickers/ConsumablesStickers',
+  async () => {
+    const {data} = await axios.get('/api/user/getConsumablesStickers')
+    return data
+  })
+
 export const fetchSolutions = createAsyncThunk('getSolutions/fetchSolutions', async () => {
   const {data} = await axios.get('/api/user/getSolutions')
   return data
@@ -89,6 +102,14 @@ const initialState = {
     items: [],
     status: 'loading'
   },
+  consumableChemistry: {
+    items: [],
+    status: 'loading'
+  },
+  consumableStickers: {
+    items: [],
+    status: 'loading'
+  },
   consumablesName: {
     items: [],
     status: 'loading'
@@ -134,6 +155,47 @@ const consumableSlice = createSlice({
     }
   }
 })
+
+const consumableChemistrySlice = createSlice({
+  name: 'consumableChemistry',
+  initialState,
+  reducer: {},
+  extraReducers: {
+    [fetchConsumablesChemistry.pending]: (state) => {
+      state.consumableChemistry.items = []
+      state.consumableChemistry.status = 'loading'
+    },
+    [fetchConsumablesChemistry.fulfilled]: (state, action) => {
+      state.consumableChemistry.items = action.payload
+      state.consumableChemistry.status = 'loaded'
+    },
+    [fetchConsumablesChemistry.rejected]: (state) => {
+      state.consumableChemistry.items = []
+      state.consumableChemistry.status = 'error'
+    }
+  }
+})
+
+const consumableStickersSlice = createSlice({
+  name: 'consumableStickers',
+  initialState,
+  reducer: {},
+  extraReducers: {
+    [fetchConsumablesStickers.pending]: (state) => {
+      state.consumableStickers.items = []
+      state.consumableStickers.status = 'loading'
+    },
+    [fetchConsumablesStickers.fulfilled]: (state, action) => {
+      state.consumableStickers.items = action.payload
+      state.consumableStickers.status = 'loaded'
+    },
+    [fetchConsumablesStickers.rejected]: (state) => {
+      state.consumableStickers.items = []
+      state.consumableStickers.status = 'error'
+    }
+  }
+})
+
 
 const consumablesNameSlice = createSlice({
   name: 'consumablesName',
@@ -265,3 +327,5 @@ export const archiveReducer = archiveSlice.reducer;
 export const consumablesNameReducer = consumablesNameSlice.reducer;
 export const perfumesReducer = perfumesSlice.reducer;
 export const selectsForCompleteReducer = selectsForComplete.reducer;
+export const consumableChemistryReducer = consumableChemistrySlice.reducer;
+export const consumableStickersReducer = consumableStickersSlice.reducer;
