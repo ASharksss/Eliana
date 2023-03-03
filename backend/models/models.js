@@ -62,6 +62,12 @@ const Stock = sequelize.define('stock', {
   count: {type: DataTypes.INTEGER}
 })
 
+const TypeConsumable = sequelize.define('typeConsumable', {
+  id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
+  name: {type: DataTypes.STRING}
+})
+
+
 const Archive = sequelize.define('archive', {
   id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
   count: {type: DataTypes.INTEGER},
@@ -72,6 +78,9 @@ const Solution = sequelize.define('solution', {
   id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
   percent_solution: {
     type: DataTypes.INTEGER
+  },
+  aroma: {
+    type: DataTypes.STRING
   },
   consumable: {
     type: DataTypes.STRING
@@ -102,6 +111,9 @@ FlavoringConsume.belongsTo(TypeFlavoring)
 TypeFlavoring.hasMany(Flavoring, {onDelete: 'cascade'})
 Flavoring.belongsTo(TypeFlavoring)
 
+TypeConsumable.hasMany(Consumable, {onDelete: 'cascade'})
+Consumable.belongsTo(TypeConsumable)
+
 Flavoring.hasMany(Stock, {onDelete: 'cascade'})
 Stock.belongsTo(Flavoring)
 
@@ -124,6 +136,7 @@ module.exports = {
   Solution,
   FlavoringConsume,
   Stock,
+  TypeConsumable,
   User,
   Role,
   Perfume,

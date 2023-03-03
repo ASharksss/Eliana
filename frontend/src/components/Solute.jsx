@@ -31,6 +31,7 @@ const Solute = () => {
             <thead>
             <tr>
               <th>%</th>
+              <th>Аромат</th>
               <th>Отдушка</th>
               <th>ПГ и ПЭГ</th>
               <th>Литры</th>
@@ -43,6 +44,7 @@ const Solute = () => {
               :
               <tr key={index}>
                 <td>{obj.percent_solution}</td>
+                <td>{obj.aroma}</td>
                 <td>{JSON.parse(obj.perfume).map((item, index_perfume) => (
                   <tr key={index_perfume}>
                     <td>{item.name}</td>

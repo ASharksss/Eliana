@@ -6,6 +6,19 @@ export const fetchConsumables = createAsyncThunk('getConsumable/fetchConsumable'
     const {data} = await axios.get('/api/user/getConsumables')
     return data
   })
+
+export const fetchConsumablesChemistry = createAsyncThunk('getConsumablesChemistry/fetchConsumablesChemistry',
+  async () => {
+    const {data} = await axios.get('/api/user/getConsumablesChemistry')
+    return data
+  })
+
+export const fetchConsumablesStickers = createAsyncThunk('getConsumablesStickers/ConsumablesStickers',
+  async () => {
+    const {data} = await axios.get('/api/user/getConsumablesStickers')
+    return data
+  })
+
 export const fetchSolutions = createAsyncThunk('getSolutions/fetchSolutions', async () => {
   const {data} = await axios.get('/api/user/getSolutions')
   return data
@@ -23,6 +36,17 @@ export const addSolutions = createAsyncThunk('addSolution', async (data) => {
     })
 })
 
+export const addComplete = createAsyncThunk('addComplete', async (data) => {
+  await axios.post(
+    '/api/user/addComplete',
+    data
+  ).then(res => {
+    alert(res)
+  }).catch(err => {
+    alert(err.message)
+  })
+})
+
 export const fetchComplete = createAsyncThunk('getCompleteProducts/fetchComplete', async () => {
   const {data} = await axios.get('/api/user/getCompleteProducts')
   return data
@@ -37,6 +61,12 @@ export const fetchConsumablesName = createAsyncThunk('getConsumable/fetchConsuma
   const {data} = await axios.get('/api/user/getNamesConsumables')
   return data
 })
+
+export const fetchSelectsForComplete = createAsyncThunk('getSelectsForComplete/fetchSelectsForComplete', async () => {
+  const {data} = await axios.get('/api/user/getSelectsForComplete')
+  return data
+})
+
 
 export const fetchPerfumes = createAsyncThunk('getPerfumes/fetchPerfumes', async () => {
   const {data} = await axios.get('/api/user/getPerfumes')
@@ -55,8 +85,28 @@ export const addConsumable = createAsyncThunk('addConsume', async (data) => {
     })
 })
 
+export const addArchive = createAsyncThunk('addArchive', async (data) => {
+  await axios.post(
+    '/api/user/addArchive',
+    data
+  ).then(res => {
+    alert('Добавлено')
+  })
+    .catch(err => {
+      alert(err)
+    })
+})
+
 const initialState = {
   consumable: {
+    items: [],
+    status: 'loading'
+  },
+  consumableChemistry: {
+    items: [],
+    status: 'loading'
+  },
+  consumableStickers: {
     items: [],
     status: 'loading'
   },
@@ -73,6 +123,10 @@ const initialState = {
     status: 'loading'
   },
   completeProducts: {
+    items: [],
+    status: 'loading'
+  },
+  selectsForComplete: {
     items: [],
     status: 'loading'
   },
@@ -101,6 +155,47 @@ const consumableSlice = createSlice({
     }
   }
 })
+
+const consumableChemistrySlice = createSlice({
+  name: 'consumableChemistry',
+  initialState,
+  reducer: {},
+  extraReducers: {
+    [fetchConsumablesChemistry.pending]: (state) => {
+      state.consumableChemistry.items = []
+      state.consumableChemistry.status = 'loading'
+    },
+    [fetchConsumablesChemistry.fulfilled]: (state, action) => {
+      state.consumableChemistry.items = action.payload
+      state.consumableChemistry.status = 'loaded'
+    },
+    [fetchConsumablesChemistry.rejected]: (state) => {
+      state.consumableChemistry.items = []
+      state.consumableChemistry.status = 'error'
+    }
+  }
+})
+
+const consumableStickersSlice = createSlice({
+  name: 'consumableStickers',
+  initialState,
+  reducer: {},
+  extraReducers: {
+    [fetchConsumablesStickers.pending]: (state) => {
+      state.consumableStickers.items = []
+      state.consumableStickers.status = 'loading'
+    },
+    [fetchConsumablesStickers.fulfilled]: (state, action) => {
+      state.consumableStickers.items = action.payload
+      state.consumableStickers.status = 'loaded'
+    },
+    [fetchConsumablesStickers.rejected]: (state) => {
+      state.consumableStickers.items = []
+      state.consumableStickers.status = 'error'
+    }
+  }
+})
+
 
 const consumablesNameSlice = createSlice({
   name: 'consumablesName',
@@ -183,6 +278,26 @@ const completeSlice = createSlice({
   }
 })
 
+const selectsForComplete = createSlice({
+  name: 'selectsForComplete',
+  initialState,
+  reducer: {},
+  extraReducers: {
+    [fetchSelectsForComplete.pending]: (state) => {
+      state.selectsForComplete.items = []
+      state.selectsForComplete.status = 'loading'
+    },
+    [fetchSelectsForComplete.fulfilled]: (state, action) => {
+      state.selectsForComplete.items = action.payload
+      state.selectsForComplete.status = 'loaded'
+    },
+    [fetchSelectsForComplete.rejected]: (state) => {
+      state.selectsForComplete.items = []
+      state.selectsForComplete.status = 'error'
+    }
+  }
+})
+
 const archiveSlice = createSlice({
   name: 'archive',
   initialState,
@@ -211,3 +326,6 @@ export const completeReducer = completeSlice.reducer;
 export const archiveReducer = archiveSlice.reducer;
 export const consumablesNameReducer = consumablesNameSlice.reducer;
 export const perfumesReducer = perfumesSlice.reducer;
+export const selectsForCompleteReducer = selectsForComplete.reducer;
+export const consumableChemistryReducer = consumableChemistrySlice.reducer;
+export const consumableStickersReducer = consumableStickersSlice.reducer;

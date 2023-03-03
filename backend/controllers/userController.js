@@ -63,7 +63,7 @@ class UserController {
 
   async addSolution(req, res, next) {
     try {
-      const {percent_solution, liter, perfumes, consumables} = req.body
+      const {percent_solution,aroma, liter, perfumes, consumables} = req.body
       for (let i = 0; i < perfumes.length; i++) {
         let perfume = await Perfume.findOne({where: [{name: perfumes[i]['name']}]})
         if (perfume.count < perfumes[i]['count']) {
@@ -92,6 +92,7 @@ class UserController {
       }
       const solution = await Solution.create({
         percent_solution: percent_solution,
+        aroma: aroma,
         liter: parseFloat(liter).toFixed(2),
         consumable: JSON.stringify(consumables),
         perfume: JSON.stringify(perfumes)
@@ -178,9 +179,31 @@ class UserController {
     }
   }
 
-  async getConsumables(req, res) {
-    const fullConsumables = await Consumable.findAll()
-    return res.json(fullConsumables)
+  async getConsumables(req, res, next) {
+    try {
+      const names = await Consumable.findAll({where: [{typeConsumableId: 1}]})
+      return res.json(names)
+    } catch (e) {
+      return next(ApiError.badRequest(e.message))
+    }
+  }
+
+  async getConsumablesChemistry(req, res, next) {
+    try {
+      const names = await Consumable.findAll({where: [{typeConsumableId: 2}]})
+      return res.json(names)
+    } catch (e) {
+      return next(ApiError.badRequest(e.message))
+    }
+  }
+
+  async getConsumablesStickers(req, res, next) {
+    try {
+      const names = await Consumable.findAll({where: [{typeConsumableId: 3}]})
+      return res.json(names)
+    } catch (e) {
+      return next(ApiError.badRequest(e.message))
+    }
   }
 
   async getSolute(req, res) {
@@ -229,15 +252,22 @@ class UserController {
     }
   }
 
+
+
+
+
   async getSelectsForComplete(req, res, next) {
     try {
       const typesFlavoring = await TypeFlavoring.findAll({attributes: ['id', 'name']})
-      const flavorings = await Flavoring.findAll({attributes: ['name', 'vendor_code']})
-      const solutions = await Solution.findAll({attributes: ['percent_solution', 'perfume', 'liter']})
+      const flavorings = await Flavoring.findAll({attributes: ['name', 'vendor_code', 'typeFlavoringId']})
+      const solutions = await Solution.findAll({attributes: ['id','percent_solution', 'perfume', 'liter', 'aroma']})
+      const flavoringConsume = await FlavoringConsume.findAll({attributes: ['consumables', 'flavoringVendorCode']})
+
       return res.json({
         typesFlavoring,
         flavorings,
-        solutions
+        solutions,
+        flavoringConsume
       })
     } catch (e) {
       return next(ApiError.badRequest(e.message))

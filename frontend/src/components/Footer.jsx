@@ -9,7 +9,7 @@ const Footer = () => {
           <div className="footer_btn">
             <NavLink to='/' className='footer_btn__link'>
               <button>
-                Расходники
+                Склад
               </button>
             </NavLink>
           </div>

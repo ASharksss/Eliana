@@ -11,6 +11,7 @@ import AddConsume from "./components/AddConsume";
 import AddSolute from "./components/AddSolute";
 import AddComplete from "./components/AddComplete";
 import SendOrder from "./components/SendOrder";
+import Stock from "./components/Stock";
 
 
 
@@ -21,6 +22,9 @@ function App() {
         <Routes>
           <Route path='/' element={<Layout/>}>
             <Route path='/' element={<Consumable/>}/>
+            <Route path='/consumable' element={<Stock/>}/>
+            <Route path='/chemistry' element={<Stock/>}/>
+            <Route path='/stickers' element={<Stock/>}/>
             <Route path='/solute' element={<Solute/>}/>
             <Route path='/completeProducts' element={<Complete/>}/>
             <Route path='/archive' element={<Archive/>}/>

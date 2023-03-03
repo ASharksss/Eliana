@@ -328,4 +328,32 @@ label {
 .send_order h2{
     margin-bottom: 10px;
 }
+.stock_link{
+    display: flex;
+    justify-content: center;
+    text-decoration: none;
+}
+
+.stock_navigate{
+    margin-top: 30px;
+}
+
+.title{
+    text-align: center;
+}
+
+.stock_btn{
+    width: 90%;
+    height: 50px;
+    font-size: 16px;
+    margin: 10px 0;
+    border: none;
+    cursor: pointer;
+    background-color: #d9d9d9;
+}
+
+.stock_btn:hover{
+    background-color: #a4a2a2;
+}
+
 /* END RESUME */

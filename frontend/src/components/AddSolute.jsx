@@ -6,29 +6,25 @@ import InputsPerfume from "./InputsPerfume";
 const AddSolute = () => {
 
   const [percentSolution, setPercentSolution] = useState('')
+  const [aroma, setAroma] = useState('')
   const [perfume, setPerfume] = useState([])
   const [countPg, setCountPg] = useState('')
   const [countPag, setCountPag] = useState('')
   const [literSolution, setLiterSolution] = useState('')
-  const [name, setName] = useState('')
-  const [count, setCount] = useState('')
-
+  const [send, setSend] = useState(false)
   const [inputList, setInputList] = useState([]);
 
   const addInputsPerfume = () => {
-    if (name !== '' && count !== '') {
-      setPerfume(state => [...state, {name: name, count: count}])
-      setName('')
-      setCount('')
+    if (inputData) {
+      setPerfume(state => [...state, inputData])
     }
     setInputList(inputList.concat(<InputsPerfume
-      setName={setName}
-      setCount={setCount}
       isLoading={isLoading}
       perfumes={perfumes}
       key={inputList.length}/>));
   }
   const {perfumes} = useSelector(state => state.perfumes)
+  const {inputData} = useSelector(state => state.inputSolute)
   const isLoading = perfumes.status === 'loading'
 
   const dispatch = useDispatch()
@@ -37,15 +33,24 @@ const AddSolute = () => {
     dispatch(fetchPerfumes())
   }, [])
 
-  const handleSubmit = (e) => {
-    e.preventDefault()// Не обновление
-    if (name !== '' && count !== '') {
-      setPerfume(state => [...state, {name: name, count: count}])
-      setName('')
-      setCount('')
+  const checkPerfumeData = async () => {
+    if (inputData) {
+      setPerfume(state => [...state, inputData])
     }
+  }
+
+  useEffect(() => {
+    if (inputData && send === true) {
+      setPerfume(state => [...state, inputData])
+    }
+  }, [send])
+
+  const handleSubmit = async (e) => {
+    e.preventDefault()// Не обновление
+    await checkPerfumeData()
     const data = {
       percent_solution: percentSolution,
+      aroma: aroma,
       perfumes: perfume,
       consumables: [{
         name: 'ПГ',
@@ -56,9 +61,10 @@ const AddSolute = () => {
           count: countPag
         }
       ],
-      liter: literSolution
+      liter: literSolution,
     }
-    dispatch(addSolutions(data))
+    console.log(data)
+    //dispatch(addSolutions(data))
   }
 
   return (
@@ -71,6 +77,11 @@ const AddSolute = () => {
               <div className="solute_input">
                 <label>% раствора</label>
                 <input onChange={e => setPercentSolution(e.target.value)} type="text"/>
+              </div>
+              <div className="solute_input">
+                <label>Аромат</label>
+                <input onChange={e => setAroma(e.target.value)} type="text"/>
+
               </div>
               {inputList}
               <button type='button' onClick={addInputsPerfume}>Еще отдушка</button>

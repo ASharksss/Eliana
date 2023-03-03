@@ -14,6 +14,8 @@ router.post('/login', UserController.login)
 
 router.get('/auth', authMiddleware, UserController.check)
 router.get('/getConsumables', UserController.getConsumables)
+router.get('/getConsumablesChemistry', UserController.getConsumablesChemistry)
+router.get('/getConsumablesStickers', UserController.getConsumablesStickers)
 router.get('/getSolutions', UserController.getSolute)
 router.get('/getCompleteProducts', UserController.getCompleteProducts)
 router.get('/getArchive', UserController.getArchive)

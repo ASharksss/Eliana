@@ -1,11 +1,12 @@
 import {configureStore} from '@reduxjs/toolkit'
 import {
   archiveReducer,
-  completeReducer,
+  completeReducer, consumableChemistryReducer,
   consumableReducer,
-  consumablesNameReducer, perfumesReducer,
+  consumablesNameReducer, consumableStickersReducer, perfumesReducer, selectsForCompleteReducer,
   solutionsReducer
 } from "./slices/slices";
+import {inputSoluteReducer} from "./slices/soluteSlice";
 
 export const store = configureStore({
   reducer: {
@@ -13,8 +14,13 @@ export const store = configureStore({
     consumablesName: consumablesNameReducer,
     solutions: solutionsReducer,
     complete: completeReducer,
+    selectsForComplete: selectsForCompleteReducer,
     archive: archiveReducer,
-    perfumes: perfumesReducer
+    perfumes: perfumesReducer,
+    consumableChemistry: consumableChemistryReducer,
+    consumableStickers: consumableStickersReducer,
+
+    inputSolute: inputSoluteReducer
   }
 })
 
