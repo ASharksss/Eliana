@@ -1,26 +1,26 @@
-import {createSlice, createAsyncThunk} from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from '../../axios';
 
 export const fetchConsumables = createAsyncThunk('getConsumable/fetchConsumable',
   async () => {
-    const {data} = await axios.get('/api/user/getConsumables')
+    const { data } = await axios.get('/api/user/getConsumables')
     return data
   })
 
 export const fetchConsumablesChemistry = createAsyncThunk('getConsumablesChemistry/fetchConsumablesChemistry',
   async () => {
-    const {data} = await axios.get('/api/user/getConsumablesChemistry')
+    const { data } = await axios.get('/api/user/getConsumablesChemistry')
     return data
   })
 
 export const fetchConsumablesStickers = createAsyncThunk('getConsumablesStickers/ConsumablesStickers',
   async () => {
-    const {data} = await axios.get('/api/user/getConsumablesStickers')
+    const { data } = await axios.get('/api/user/getConsumablesStickers')
     return data
   })
 
 export const fetchSolutions = createAsyncThunk('getSolutions/fetchSolutions', async () => {
-  const {data} = await axios.get('/api/user/getSolutions')
+  const { data } = await axios.get('/api/user/getSolutions')
   return data
 })
 
@@ -32,7 +32,11 @@ export const addSolutions = createAsyncThunk('addSolution', async (data) => {
     alert('Добавлено')
   })
     .catch(err => {
-      alert("Ошибка обработки данных...")
+      if (err.response.data.message) {
+        alert(err.response.data.message)
+      } else {
+        alert("Ошибка обработки данных...")
+      }
     })
 })
 
@@ -48,28 +52,28 @@ export const addComplete = createAsyncThunk('addComplete', async (data) => {
 })
 
 export const fetchComplete = createAsyncThunk('getCompleteProducts/fetchComplete', async () => {
-  const {data} = await axios.get('/api/user/getCompleteProducts')
+  const { data } = await axios.get('/api/user/getCompleteProducts')
   return data
 })
 
 export const fetchArchive = createAsyncThunk('getArchive/fetchArchive', async () => {
-  const {data} = await axios.get('/api/user/getArchive')
+  const { data } = await axios.get('/api/user/getArchive')
   return data
 })
 
 export const fetchConsumablesName = createAsyncThunk('getConsumable/fetchConsumableName', async () => {
-  const {data} = await axios.get('/api/user/getNamesConsumables')
+  const { data } = await axios.get('/api/user/getNamesConsumables')
   return data
 })
 
 export const fetchSelectsForComplete = createAsyncThunk('getSelectsForComplete/fetchSelectsForComplete', async () => {
-  const {data} = await axios.get('/api/user/getSelectsForComplete')
+  const { data } = await axios.get('/api/user/getSelectsForComplete')
   return data
 })
 
 
 export const fetchPerfumes = createAsyncThunk('getPerfumes/fetchPerfumes', async () => {
-  const {data} = await axios.get('/api/user/getPerfumes')
+  const { data } = await axios.get('/api/user/getPerfumes')
   return data
 })
 
