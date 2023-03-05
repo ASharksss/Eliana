@@ -1,26 +1,23 @@
-import React, {useEffect, useState} from 'react';
-import {useDispatch} from "react-redux";
-import {addSoluteData} from "../redux/slices/soluteSlice";
+import React, { useEffect, useState } from 'react';
 
-const InputsPerfume = ({isLoading, perfumes}) => {
-  const dispatch = useDispatch()
+const InputsPerfume = ({ isLoading, perfumes, setData }) => {
   const [name, setName] = useState('')
   const [count, setCount] = useState('')
   const [data, setInData] = useState({})
   useEffect(() => {
     if (name !== '') {
-      setInData({name: name})
+      setInData({ name: name })
     }
     if (name !== '' && count !== '') {
       setInData(state => ({
         ...state,
-        count: count
+        count: parseInt(count)
       }))
     }
   }, [name, count])
   useEffect(() => {
     if (name !== '' && count !== '') {
-      dispatch(addSoluteData(data))
+      setData(data)
     }
   }, [data])
   return (
@@ -41,7 +38,7 @@ const InputsPerfume = ({isLoading, perfumes}) => {
         <input onChange={e => {
           setCount(e.target.value)
         }}
-               type="text" placeholder='Введите количество'/>
+          type="text" placeholder='Введите количество' />
       </div>
     </div>
   );

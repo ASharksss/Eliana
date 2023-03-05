@@ -6,7 +6,6 @@ import {
   consumablesNameReducer, consumableStickersReducer, perfumesReducer, selectsForCompleteReducer,
   solutionsReducer
 } from "./slices/slices";
-import {inputSoluteReducer} from "./slices/soluteSlice";
 
 export const store = configureStore({
   reducer: {
@@ -18,9 +17,7 @@ export const store = configureStore({
     archive: archiveReducer,
     perfumes: perfumesReducer,
     consumableChemistry: consumableChemistryReducer,
-    consumableStickers: consumableStickersReducer,
-
-    inputSolute: inputSoluteReducer
+    consumableStickers: consumableStickersReducer
   }
 })
 
