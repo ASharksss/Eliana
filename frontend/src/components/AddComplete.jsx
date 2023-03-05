@@ -1,10 +1,10 @@
-import React, {useEffect, useState} from 'react';
-import {useDispatch, useSelector} from "react-redux";
-import {addComplete, fetchSelectsForComplete} from "../redux/slices/slices";
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from "react-redux";
+import { addComplete, fetchSelectsForComplete } from "../redux/slices/slices";
 
 const AddComplete = () => {
 
-  const {selectsForComplete} = useSelector(state => state.selectsForComplete)
+  const { selectsForComplete } = useSelector(state => state.selectsForComplete)
 
   const [typeFlavoring, setTypeFlavoring] = useState('')
   const [vendorCode, setVendorCode] = useState('')
@@ -42,7 +42,10 @@ const AddComplete = () => {
               <div className="complete_input">
 
                 <label>Вид ароматизатора</label>
-                <select onChange={e => setTypeFlavoring(e.target.value)}>
+                <select onChange={e => {
+                  setTypeFlavoring(e.target.value)
+                  setVendorCode('')
+                  }}>
                   <option>Выбрите вид ароматизатора...</option>
                   {(isLoading ? [...Array(5)] : selectsForComplete.items.typesFlavoring).map((obj, index) => isLoading ? 'Загрузка'
                     :
@@ -51,14 +54,14 @@ const AddComplete = () => {
 
                 </select>
                 <label>Артикул</label>
-                <input type="text" disabled value={vendorCode}/>
+                <input type="text" disabled value={vendorCode} />
 
                 <label>Название</label>
                 <select onChange={e => setVendorCode(e.target.value)}>
-                  <option>Выберите ароматизатор</option>
+                  <option hidden>Выберите ароматизатор</option>
 
                   {(isLoading ? [...Array(5)] : selectsForComplete.items.flavorings).map((obj, index) => isLoading ? 'Загрузка'
-                    :
+                    : typeFlavoring == obj.typeFlavoring.id &&
                     <option key={index} value={obj.vendor_code}>{obj.name}</option>
                   )}
                 </select>
@@ -77,7 +80,7 @@ const AddComplete = () => {
               </div>
               <div className="complete_input">
                 <label>Количество</label>
-                <input value={count} onChange={e => setCount(e.target.value)} type="text" placeholder='Количество'/>
+                <input value={count} onChange={e => setCount(e.target.value)} type="text" placeholder='Количество' />
               </div>
               <div className="complete_input">
 
