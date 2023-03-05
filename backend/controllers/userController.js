@@ -20,6 +20,10 @@ const generateJWT = (id, username, roleId) => {
   )
 }
 
+const getUser = (token) => {
+  return jwt.decode(token, process.env.SECRET_KEY)
+}
+
 class UserController {
 
   async login(req, res, next) {
@@ -34,9 +38,23 @@ class UserController {
         return next(ApiError.internalRequest('неверный пароль'))
       }
       const token = generateJWT(user.id, user.username, user.roleId)
-      return res.json({token})
+      let date = new Date()
+      return res.json({token: token, user: user, life: date.setDate(date.getDate() + 1)})
     } catch (e) {
       return next(ApiError.badRequest(e.message))
+    }
+  }
+
+  async getUserByToken(req, res, next) {
+    try {
+      const {token} = req.body
+      const _user = getUser(token)
+      const user = await User.findOne({where: [{username: _user['username']}]})
+      return res.json({user: user})
+    } catch (e) {
+      console.log(e)
+      return next(ApiError.badRequest(e.message))
+      
     }
   }
 

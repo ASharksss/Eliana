@@ -1,4 +1,5 @@
 import {configureStore} from '@reduxjs/toolkit'
+import { userReducer } from './slices/authSlice';
 import {
   archiveReducer,
   completeReducer, consumableChemistryReducer,
@@ -17,7 +18,8 @@ export const store = configureStore({
     archive: archiveReducer,
     perfumes: perfumesReducer,
     consumableChemistry: consumableChemistryReducer,
-    consumableStickers: consumableStickersReducer
+    consumableStickers: consumableStickersReducer,
+    user: userReducer
   }
 })
 

@@ -9,6 +9,7 @@ router.post('/addSolution', UserController.addSolution)
 router.post('/addComplete', UserController.addComplete)
 router.post('/addArchive', UserController.addArchive)
 router.post('/login', UserController.login)
+router.post('/token', UserController.getUserByToken)
 
 
 
