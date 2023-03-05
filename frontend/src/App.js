@@ -12,6 +12,7 @@ import AddSolute from "./components/AddSolute";
 import AddComplete from "./components/AddComplete";
 import SendOrder from "./components/SendOrder";
 import Stock from "./components/Stock";
+import Auth from "./components/auth";
 
 
 
@@ -20,6 +21,7 @@ function App() {
     <BrowserRouter>
       <div className="App">
         <Routes>
+          <Route path='/auth' element={<Auth/>}/>
           <Route path='/' element={<Layout/>}>
             <Route path='/' element={<Consumable/>}/>
             <Route path='/consumable' element={<Stock/>}/>
