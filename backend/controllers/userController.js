@@ -53,6 +53,21 @@ class UserController {
     try {
       const {name, count} = req.body
       let consumables = await Consumable.findOne({where: [{name: name}]})
+      // Создания фитиля
+      if (consumables.name === 'Фитиль') {
+        let cloth = await Consumable.findOne({where: [{name: 'Ткань'}]})
+        let wand = await Consumable.findOne({where: [{name: 'Палочка'}]})
+        if (cloth.count < parseInt(count, 10)) {
+          return next(ApiError.internalRequest('Недостаточно ткани'))
+        } else if (wand.count < parseInt(count, 10)) {
+          return next(ApiError.internalRequest('Недостаточно палочек'))
+        } else {
+          cloth.count -= parseInt(count, 10)
+          wand.count -= parseInt(count, 10)
+          await cloth.save()
+          await wand.save()
+        }                
+      }
       consumables.count += parseInt(count, 10)
       await consumables.save()
       return res.json(consumables)
