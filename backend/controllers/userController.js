@@ -74,17 +74,17 @@ class UserController {
       // Создания фитиля
       if (consumables.name === 'Фитиль') {
         let cloth = await Consumable.findOne({where: [{name: 'Ткань'}]})
-        let wand = await Consumable.findOne({where: [{name: 'Палочка'}]})
+        let wand = await Consumable.findOne({where: [{name: 'Фитильный каркас'}]})
         if (cloth.count < parseInt(count, 10)) {
           return next(ApiError.internalRequest('Недостаточно ткани'))
         } else if (wand.count < parseInt(count, 10)) {
-          return next(ApiError.internalRequest('Недостаточно палочек'))
+          return next(ApiError.internalRequest('Недостаточно фитильного каркаса'))
         } else {
           cloth.count -= parseInt(count, 10)
           wand.count -= parseInt(count, 10)
           await cloth.save()
           await wand.save()
-        }                
+        }
       }
       consumables.count += parseInt(count, 10)
       await consumables.save()
@@ -278,8 +278,8 @@ class UserController {
 
   async getPerfumes(req, res, next) {
     try {
-      const names = await Perfume.findAll({attributes: ['name']})
-      return res.json(names)
+      const perfumes = await Perfume.findAll({attributes: ['name', 'count']})
+      return res.json(perfumes)
     } catch (e) {
       return next(ApiError.badRequest(e.message))
     }

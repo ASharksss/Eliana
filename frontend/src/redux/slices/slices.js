@@ -85,7 +85,7 @@ export const addConsumable = createAsyncThunk('addConsume', async (data) => {
     alert('Добавлено')
   })
     .catch(err => {
-      alert("Ошибка обработки данных...")
+      alert(err.message)
     })
 })
 

@@ -27,6 +27,7 @@ function App() {
             <Route path='/consumable' element={<Stock/>}/>
             <Route path='/chemistry' element={<Stock/>}/>
             <Route path='/stickers' element={<Stock/>}/>
+            <Route path='/perfumes' element={<Stock/>}/>
             <Route path='/solute' element={<Solute/>}/>
             <Route path='/completeProducts' element={<Complete/>}/>
             <Route path='/archive' element={<Archive/>}/>

@@ -1,7 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
-import { fetchConsumables, fetchConsumablesChemistry, fetchConsumablesStickers } from "../redux/slices/slices";
+import {
+  fetchConsumables,
+  fetchConsumablesChemistry,
+  fetchConsumablesStickers,
+  fetchPerfumes
+} from "../redux/slices/slices";
 
 
 const Consumable = () => {
@@ -12,6 +17,7 @@ const Consumable = () => {
   const { consumable } = useSelector(state => state.consumable)
   const { consumableChemistry } = useSelector(state => state.consumableChemistry)
   const { consumableStickers } = useSelector(state => state.consumableStickers)
+  const { perfumes } = useSelector(state => state.perfumes)
   // const {consumablePerfume} = useSelector(state => state.perfume)
 
   const isLoading = data.status === 'loading'
@@ -35,6 +41,12 @@ const Consumable = () => {
           setPreloader(false)
         }
         break
+      case 'perfumes':
+        if (perfumes.status === 'loaded') {
+          setData(perfumes)
+          setPreloader(false)
+        }
+        break
     }
   }
 
@@ -53,6 +65,8 @@ const Consumable = () => {
       case 'stickers':
         dispatch(fetchConsumablesStickers())
         break
+      case 'perfumes':
+        dispatch(fetchPerfumes())
     }
   }, [])
 

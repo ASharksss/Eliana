@@ -25,10 +25,10 @@ const AddConsume = () => {
         <form onSubmit={event => handleSubmit(event)}>
           <div className="resume_add">
             <select onChange={e => setSelected(e.target.value)}>
-
-              {(isLoading ? [...Array(5)] : consumablesName.items).map((obj) => isLoading ? 'loading'
+              <option>Выберите...</option>
+              {(isLoading ? [...Array(5)] : consumablesName.items).map((obj, index) => isLoading ? 'loading'
                 :
-                <option value={obj.name}>{obj.name}</option>
+                <option key={obj.index} value={obj.name}>{obj.name}</option>
               )}
             </select>
             <input value={countResume} type="text" onChange={e => setCountResume(e.target.value)}
