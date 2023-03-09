@@ -1,8 +1,10 @@
 import React, {useState} from 'react';
 import { useDispatch } from "react-redux";
 import { fetchLogin } from '../redux/slices/authSlice';
+import {useNavigate} from "react-router-dom";
 
 const Auth = () => {
+    const navigate = useNavigate()
 	const [username, setUsername] = useState('')
 	const [password, setPassword] = useState('')
 	const dispatch = useDispatch()
@@ -15,7 +17,7 @@ const Auth = () => {
 		dispatch(fetchLogin(data))
 	}
 	return (
-		<div classname='auth_container'>
+		<div className='auth_container'>
 			<form className="auth_form" onSubmit={e => handleSubmit(e)}>
 				<h1>ВХОД</h1>
 				<div className="input">

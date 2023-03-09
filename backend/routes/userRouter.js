@@ -13,7 +13,7 @@ router.post('/token', UserController.getUserByToken)
 
 
 
-router.get('/auth', authMiddleware, UserController.check)
+router.post('/auth', UserController.check)
 router.get('/getConsumables', UserController.getConsumables)
 router.get('/getConsumablesChemistry', UserController.getConsumablesChemistry)
 router.get('/getConsumablesStickers', UserController.getConsumablesStickers)

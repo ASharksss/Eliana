@@ -16,7 +16,7 @@ const generateJWT = (id, username, roleId) => {
   return jwt.sign(
     {id, username, roleId},
     process.env.SECRET_KEY,
-    {expiresIn: '24h'}
+    {expiresIn: '144h'}
   )
 }
 
@@ -60,8 +60,10 @@ class UserController {
 
   async check(req, res, next) {
     try {
-      const token = generateJWT(req.user.id, req.user.username, req.roleId)
-      return res.json({token})
+      const {token} = req.body
+      const _user = getUser(token)
+      const new_token = generateJWT(_user.id, _user.username, _user.roleId)
+      return res.json({new_token})
     } catch (e) {
       return next(ApiError.badRequest(e.message))
     }
