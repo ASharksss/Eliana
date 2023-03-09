@@ -54,7 +54,7 @@ class UserController {
     } catch (e) {
       console.log(e)
       return next(ApiError.badRequest(e.message))
-      
+
     }
   }
 
@@ -98,7 +98,7 @@ class UserController {
 
   async addSolution(req, res, next) {
     try {
-      const {percent_solution,aroma, liter, perfumes, consumables} = req.body
+      const {percent_solution, aroma, liter, perfumes, consumables} = req.body
       for (let i = 0; i < perfumes.length; i++) {
         let perfume = await Perfume.findOne({where: [{name: perfumes[i]['name']}]})
         if (perfume.count < perfumes[i]['count']) {
@@ -144,31 +144,21 @@ class UserController {
       const {count, flavoringVendorCode, solutionId, typeFlavoringId} = req.body
       let liter
       let flavoringConsume = await FlavoringConsume.findOne({where: [{flavoringVendorCode: flavoringVendorCode}]})
-      if (typeFlavoringId === 1) {
-        liter = count * 0.3
-        for (let item in JSON.parse(flavoringConsume.consumables)) {
-          let consumable = await Consumable.findOne({where: [{name: item}]})
-          if (consumable.count < count)
-            return next(ApiError.badRequest('Не достаточно ' + consumable.name))
-        }
-        for (let item in JSON.parse(flavoringConsume.consumables)) {
-          let consumable = await Consumable.findOne({where: [{name: item}]})
-          consumable.count -= count
-          await consumable.save()
-        }
+      if (typeFlavoringId == 1) {
+        liter = parseInt(count, 10) * 0.3
       }
-      if (typeFlavoringId === 2) {
-        liter = count * 0.1
-        for (let item in JSON.parse(flavoringConsume.consumables)) {
-          let consumable = await Consumable.findOne({where: [{name: item}]})
-          if (consumable.count < count)
-            return next(ApiError.badRequest('Не достаточно ' + consumable.name))
-        }
-        for (let item in JSON.parse(flavoringConsume.consumables)) {
-          let consumable = await Consumable.findOne({where: [{name: item}]})
-          consumable.count -= count
-          await consumable.save()
-        }
+      if (typeFlavoringId == 2) {
+        liter = parseInt(count, 10) * 0.1
+      }
+      for (let item in JSON.parse(flavoringConsume.consumables)) {
+        let consumable = await Consumable.findOne({where: [{name: item}]})
+        if (consumable.count < parseInt(count, 10))
+          return next(ApiError.badRequest('Не достаточно ' + consumable.name))
+      }
+      for (let item in JSON.parse(flavoringConsume.consumables)) {
+        let consumable = await Consumable.findOne({where: [{name: item}]})
+        consumable.count -= parseInt(count, 10)
+        await consumable.save()
       }
       let solution = await Solution.findOne({where: [{id: solutionId}]})
       if (solution.liter < liter) {
@@ -176,17 +166,17 @@ class UserController {
           next(ApiError.badRequest('Не достаточно раствора'))
         )
       }
-      solution.liter -= liter
+      solution.liter = solution.liter.toFixed(2) - liter.toFixed(2)
       await solution.save()
 
       const stock = await Stock.findOne({where: [{flavoringVendorCode: flavoringVendorCode}]})
       if (stock) {
-        stock.count += count
+        stock.count += parseInt(count, 10)
         await stock.save()
         return res.json(stock)
       }
       const completeProduct = await Stock.create({
-        count,
+          count: parseInt(count, 10),
         flavoringVendorCode,
         solutionId
       })
@@ -247,25 +237,29 @@ class UserController {
   }
 
   async getCompleteProducts(req, res) {
-    const fullCompleteProducts = await Stock.findAll({include: [
+    const fullCompleteProducts = await Stock.findAll({
+      include: [
         {
           model: Flavoring,
           include: TypeFlavoring
         }
-      ]})
+      ]
+    })
     return res.json(fullCompleteProducts)
   }
 
   async getArchive(req, res) {
-    const fullAllArchive = await Archive.findAll({include: [
+    const fullAllArchive = await Archive.findAll({
+      include: [
         {
-          model:Flavoring,
+          model: Flavoring,
           include: TypeFlavoring
         },
         {
           model: User
         }
-      ]})
+      ]
+    })
     return res.json(fullAllArchive)
   }
 
@@ -288,14 +282,14 @@ class UserController {
   }
 
 
-
-
-
   async getSelectsForComplete(req, res, next) {
     try {
       const typesFlavoring = await TypeFlavoring.findAll({attributes: ['id', 'name']})
-      const flavorings = await Flavoring.findAll({attributes: ['name', 'vendor_code', 'typeFlavoringId'], include: TypeFlavoring})
-      const solutions = await Solution.findAll({attributes: ['id','percent_solution', 'perfume', 'liter', 'aroma']})
+      const flavorings = await Flavoring.findAll({
+        attributes: ['name', 'vendor_code', 'typeFlavoringId'],
+        include: TypeFlavoring
+      })
+      const solutions = await Solution.findAll({attributes: ['id', 'percent_solution', 'perfume', 'liter', 'aroma']})
       const flavoringConsume = await FlavoringConsume.findAll({attributes: ['consumables', 'flavoringVendorCode']})
 
       return res.json({

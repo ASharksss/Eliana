@@ -45,7 +45,7 @@ export const addComplete = createAsyncThunk('addComplete', async (data) => {
     '/api/user/addComplete',
     data
   ).then(res => {
-    alert(res)
+    alert('Добавлено')
   }).catch(err => {
     alert(err.message)
   })

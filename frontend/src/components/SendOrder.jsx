@@ -14,8 +14,7 @@ const SendOrder = () => {
   const isLoading = selectsForComplete.status === 'loading'
 
   const dispatch = useDispatch()
-
-
+  const {user} = useSelector(state => state.user)
 
   useEffect(() => {
     dispatch(fetchSelectsForComplete())
@@ -27,7 +26,8 @@ const SendOrder = () => {
       typeFlavoringId: typeFlavoring,
       flavoringVendorCode: vendorCode,
       count: count,
-      client: client
+      client: client,
+      userId: user.data.id
     }
     dispatch(addArchive(data))
   }
@@ -40,7 +40,9 @@ const SendOrder = () => {
           <div className="send_order">
             <div className="order_input">
               <label>Вид ароматизатора</label>
-              <select onChange={e => setTypeFlavoring(e.target.value)}>
+              <select onChange={e => {
+                setVendorCode('')
+                setTypeFlavoring(e.target.value)}}>
                 <option>Выберите вид ароматизатора...</option>
                 {(isLoading ? [...Array(5)] : selectsForComplete.items.typesFlavoring).map((obj, index) => isLoading ? 'Загрузка'
                   :
@@ -54,7 +56,7 @@ const SendOrder = () => {
               <select onChange={e => setVendorCode(e.target.value)}>
                 <option>Выберите аромат...</option>
                 {(isLoading ? [...Array(5)] : selectsForComplete.items.flavorings).map((obj, index) => isLoading ? 'Загрузка'
-                  :
+                  : typeFlavoring == obj.typeFlavoring.id &&
                   <option key={index} value={obj.vendor_code}>{obj.name}</option>
                 )}
               </select>
