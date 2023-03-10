@@ -18,7 +18,7 @@ const SendOrder = () => {
 
   useEffect(() => {
     dispatch(fetchSelectsForComplete())
-  },[])
+  }, [])
 
   const handleSubmit = (e) => {
     e.preventDefault()
@@ -32,7 +32,6 @@ const SendOrder = () => {
     dispatch(addArchive(data))
   }
 
-
   return (
     <div className='wrapper'>
       <div className="container">
@@ -42,7 +41,8 @@ const SendOrder = () => {
               <label>Вид ароматизатора</label>
               <select onChange={e => {
                 setVendorCode('')
-                setTypeFlavoring(e.target.value)}}>
+                setTypeFlavoring(e.target.value)
+              }}>
                 <option>Выберите вид ароматизатора...</option>
                 {(isLoading ? [...Array(5)] : selectsForComplete.items.typesFlavoring).map((obj, index) => isLoading ? 'Загрузка'
                   :

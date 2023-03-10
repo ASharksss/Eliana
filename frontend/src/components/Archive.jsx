@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import {fetchArchive} from "../redux/slices/slices";
 
@@ -8,11 +8,16 @@ const Archive = () => {
   const dispatch = useDispatch()
   const {archive} = useSelector(state => state.archive)
 
+  const [search, setSearch] = useState('')
+  const [currentDate, setCurrentDate] = useState('')
+
   const isArchiveLoading = archive.status === 'loading'
 
   useEffect(() => {
     dispatch(fetchArchive())
   }, [])
+
+  let resultSearch = (archive.items).filter(item => item.client.toLowerCase().includes(search.toLowerCase()))
 
   return (
     <div className='wrapper'>
@@ -21,15 +26,12 @@ const Archive = () => {
           <div className="table_header">
             <h2>Архив</h2>
           </div>
-          <input type="text" placeholder='Поиск' className='search'/>
+          <input type="text" placeholder='Поиск по заказчику' className='search'
+                 onChange={e => setSearch(e.target.value)}/>
           <div className="filter_dates">
             <div className="block_date">
-              <label>Начальная дата</label>
-              <input type="date" className='datepicker'/>
-            </div>
-            <div className="block_date">
-              <label>Конечная дата</label>
-              <input type="date" className='datepicker'/>
+              <label>Дата</label>
+              <input type="date" className='datepicker' onChange={event => setCurrentDate(event.target.value)}/>
             </div>
           </div>
           <table>
@@ -45,7 +47,7 @@ const Archive = () => {
             </tr>
             </thead>
             <tbody>
-            {(isArchiveLoading ? [...Array(5)] : archive.items).map((obj, index) => isArchiveLoading ? 'loading'
+            {(isArchiveLoading ? [...Array(5)] : resultSearch).map((obj, index) => isArchiveLoading ? 'loading'
               :
               <tr key={index}>
                 <td>{obj.flavoring.typeFlavoring.name}</td>

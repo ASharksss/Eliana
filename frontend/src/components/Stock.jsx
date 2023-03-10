@@ -14,6 +14,7 @@ const Consumable = () => {
   const [data, setData] = useState({})
   const [location, setLocation] = useState('')
   const [preloader, setPreloader] = useState(true)
+  const [search, setSearch] = useState('')
   const { consumable } = useSelector(state => state.consumable)
   const { consumableChemistry } = useSelector(state => state.consumableChemistry)
   const { consumableStickers } = useSelector(state => state.consumableStickers)
@@ -78,6 +79,9 @@ const Consumable = () => {
       </>
     )//заглушка, чтобы преждевременно не строить таблицу
   }
+
+  let resultSearch = (data.items).filter(item => item.name.toLowerCase().includes(search.toLowerCase()))
+
   return (
     <div className='wrapper'>
       <div className="container">
@@ -90,8 +94,7 @@ const Consumable = () => {
               </button>
             </NavLink>
           </div>
-          <input type="text" placeholder='Поиск' className='search' />
-          {console.log(consumable)}
+          <input type="text" placeholder='Поиск' className='search' onChange={e => setSearch(e.target.value)}/>
           <table>
             <thead>
               <tr>
@@ -100,7 +103,7 @@ const Consumable = () => {
               </tr>
             </thead>
             <tbody>
-              {(isLoading ? [...Array(5)] : data.items).map((obj, index) =>
+              {(isLoading ? [...Array(5)] : resultSearch).map((obj, index) =>
               isLoading ? 'loading'
                 :
                 <tr key={index}>

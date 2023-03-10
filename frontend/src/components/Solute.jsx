@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {NavLink} from "react-router-dom";
 import {fetchConsumables, fetchSolutions} from "../redux/slices/slices";
 import {useDispatch, useSelector} from "react-redux";
@@ -6,12 +6,15 @@ import {useDispatch, useSelector} from "react-redux";
 const Solute = () => {
   const dispatch = useDispatch()
   const {solutions} = useSelector(state => state.solutions)
+  const [search, setSearch] = useState('')
 
   const isSolutionsLoading = solutions.status === 'loading'
 
   useEffect(() => {
     dispatch(fetchSolutions())
   }, [])
+
+  let resultSearch = (solutions.items).filter(item => item.aroma.toLowerCase().includes(search.toLowerCase()))
 
 
   return (
@@ -26,7 +29,7 @@ const Solute = () => {
               </button>
             </NavLink>
           </div>
-          <input type="text" placeholder='Поиск' className='search'/>
+          <input type="text" placeholder='Поиск' className='search' onChange={e => setSearch(e.target.value)}/>
           <table>
             <thead>
             <tr>
@@ -40,7 +43,7 @@ const Solute = () => {
 
             </thead>
             <tbody>
-            {(isSolutionsLoading ? [...Array(5)] : solutions.items).map((obj, index) => isSolutionsLoading ? 'loading'
+            {(isSolutionsLoading ? [...Array(5)] : resultSearch).map((obj, index) => isSolutionsLoading ? 'loading'
               :
               <tr key={index}>
                 <td>{obj.percent_solution}</td>

@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {NavLink} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {fetchComplete} from "../redux/slices/slices";
@@ -7,6 +7,7 @@ const Complete = () => {
 
   const dispatch = useDispatch()
   const {completeProducts} = useSelector(state => state.complete)
+  const [search, setSearch] = useState('')
 
   const isCompleteLoading = completeProducts.status === 'loading'
 
@@ -14,6 +15,8 @@ const Complete = () => {
     dispatch(fetchComplete())
   }, [])
 
+
+  let resultSearch = (completeProducts.items).filter(item => item.flavoring.name.toLowerCase().includes(search.toLowerCase()))
 
   return (
     <div className='wrapper'>
@@ -33,7 +36,7 @@ const Complete = () => {
               </button>
             </NavLink>
           </div>
-          <input type="text" placeholder='Поиск' className='search'/>
+          <input type="text" placeholder='Поиск' className='search' onChange={event => setSearch(event.target.value)}/>
           <table>
             <thead>
             <tr>
@@ -41,12 +44,13 @@ const Complete = () => {
               <th>Артикул</th>
               <th>Аромат</th>
               <th>Кол-во</th>
-              <th>Время создания</th>
             </tr>
             </thead>
+            {console.log(completeProducts)}
             <tbody>
               {
-                (isCompleteLoading ? [...Array(5)] : completeProducts.items).map((obj, index) => isCompleteLoading ? 'loading'
+
+                (isCompleteLoading ? [...Array(5)] : resultSearch).map((obj, index) => isCompleteLoading ? 'loading'
                   :
                   <tr key={index}>
                     <td>
@@ -61,11 +65,9 @@ const Complete = () => {
                     <td>
                       {obj.count}
                     </td>
-                    <td>
-                      {new Intl.DateTimeFormat().format(new Date(obj.createdAt))}
-                    </td>
                   </tr>
-                )}
+                )
+              }
             </tbody>
           </table>
         </div>
