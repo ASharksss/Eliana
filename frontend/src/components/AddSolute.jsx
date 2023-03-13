@@ -89,7 +89,7 @@ const AddSolute = () => {
 
               </div>
               {inputList}
-              <button type='button' onClick={addInputsPerfume}>Еще отдушка</button>
+              <button type='button' onClick={addInputsPerfume}>Добавить отдушку</button>
               <div className="solute_input">
                 <label>ПГ(г)</label>
                 <input onChange={e => setCountPg(e.target.value)} type="text" placeholder='Введите количество' />

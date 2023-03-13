@@ -346,10 +346,12 @@ label {
 
 .stock_btn{
     width: 90%;
-    height: 50px;
+    height: 65px;
     font-size: 16px;
+    font-weight: bold;
     margin: 10px 0;
     border: none;
+    border-radius: 6px;
     cursor: pointer;
     background-color: #d9d9d9;
 }

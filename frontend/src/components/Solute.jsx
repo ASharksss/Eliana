@@ -45,6 +45,7 @@ const Solute = () => {
             <tbody>
             {(isSolutionsLoading ? [...Array(5)] : resultSearch).map((obj, index) => isSolutionsLoading ? 'loading'
               :
+
               <tr key={index}>
                 <td>{obj.percent_solution}</td>
                 <td>{obj.aroma}</td>

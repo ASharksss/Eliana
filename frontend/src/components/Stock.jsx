@@ -15,6 +15,8 @@ const Consumable = () => {
   const [location, setLocation] = useState('')
   const [preloader, setPreloader] = useState(true)
   const [search, setSearch] = useState('')
+  const [stockTitle, setStockTitle] = useState('')
+
   const { consumable } = useSelector(state => state.consumable)
   const { consumableChemistry } = useSelector(state => state.consumableChemistry)
   const { consumableStickers } = useSelector(state => state.consumableStickers)
@@ -50,24 +52,27 @@ const Consumable = () => {
         break
     }
   }
-
   useEffect(() => {
     console.log('start')
-    let pend
+
     let locationName = window.location.pathname.split('/')[1] //тут получаем названия склада по урлу http://localhost:3000/stickers => stickers
     setLocation(locationName)
     switch (locationName) {     //в кейсах идет проверка по названию
       case 'consumable':
         dispatch(fetchConsumables())
+        setStockTitle('комплектующих')
         break
       case 'chemistry':
         dispatch(fetchConsumablesChemistry())
+        setStockTitle('химии')
         break
       case 'stickers':
         dispatch(fetchConsumablesStickers())
+        setStockTitle('наклеек')
         break
       case 'perfumes':
         dispatch(fetchPerfumes())
+        setStockTitle('отдушек')
     }
   }, [])
 
@@ -87,7 +92,7 @@ const Consumable = () => {
       <div className="container">
         <div className="resume">
           <div className="table_header">
-            <h2>Cклад</h2>
+            <h2>Cклад {stockTitle}</h2>
             <NavLink to='/addConsume'>
               <button>
                 Пополнить
