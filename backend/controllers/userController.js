@@ -6,8 +6,9 @@ const {
   FlavoringConsume,
   Archive,
   TypeFlavoring,
-  Flavoring, User
+  Flavoring, User, TypeConsumable
 } = require('../models/models')
+const { Op } = require('sequelize')
 const ApiError = require('../error/ApiError')
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
@@ -232,7 +233,7 @@ class UserController {
   }
 
   async getSolute(req, res) {
-    const fullSolutions = await Solution.findAll()
+    const fullSolutions = await Solution.findAll({where: {liter: {[Op.gt]: 0}}})
     return res.json(fullSolutions)
   }
 
@@ -265,7 +266,7 @@ class UserController {
 
   async getNamesConsumables(req, res, next) {
     try {
-      const names = await Consumable.findAll({attributes: ['name']})
+      const names = await Consumable.findAll({attributes: ['name'], include: [{model: TypeConsumable, attributes: ['name']}]})
       return res.json(names)
     } catch (e) {
       return next(ApiError.badRequest(e.message))
@@ -289,7 +290,7 @@ class UserController {
         attributes: ['name', 'vendor_code', 'typeFlavoringId'],
         include: TypeFlavoring
       })
-      const solutions = await Solution.findAll({attributes: ['id', 'percent_solution', 'perfume', 'liter', 'aroma']})
+      const solutions = await Solution.findAll({attributes: ['id', 'percent_solution', 'perfume', 'liter', 'aroma'], where: {liter: {[Op.gt]: 0}}})
       const flavoringConsume = await FlavoringConsume.findAll({attributes: ['consumables', 'flavoringVendorCode']})
 
       return res.json({

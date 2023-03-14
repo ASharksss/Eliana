@@ -13,11 +13,21 @@ const Archive = () => {
 
   const isArchiveLoading = archive.status === 'loading'
 
+  let resultSearch = (archive.items).filter(item => item.client.toLowerCase().includes(search.toLowerCase()))
+  const [data, setData] = useState(resultSearch)
+
   useEffect(() => {
     dispatch(fetchArchive())
   }, [])
 
-  let resultSearch = (archive.items).filter(item => item.client.toLowerCase().includes(search.toLowerCase()))
+  useEffect(() => {
+    if (currentDate != '') {
+      let resultSearchDate = (archive.items).filter(item => new Intl.DateTimeFormat().format(new Date(item.createdAt)).includes(new Date(Date.parse(currentDate)).toLocaleDateString()))
+      setData(resultSearchDate)
+    } else {
+      setData(resultSearch)
+    }
+  }, [currentDate])
 
   return (
     <div className='wrapper'>
@@ -31,7 +41,8 @@ const Archive = () => {
           <div className="filter_dates">
             <div className="block_date">
               <label>Дата</label>
-              <input type="date" className='datepicker' onChange={event => setCurrentDate(event.target.value)}/>
+              <input type="date" className='datepicker' value={currentDate} onChange={event => setCurrentDate(event.target.value)}/>
+              <button onClick={() => setCurrentDate('')}>Очистить</button>
             </div>
           </div>
           <table>
@@ -47,7 +58,7 @@ const Archive = () => {
             </tr>
             </thead>
             <tbody>
-            {(isArchiveLoading ? [...Array(5)] : resultSearch).map((obj, index) => isArchiveLoading ? 'loading'
+            {(isArchiveLoading ? [...Array(5)] : data).map((obj, index) => isArchiveLoading ? 'loading'
               :
               <tr key={index}>
                 <td>{obj.flavoring.typeFlavoring.name}</td>

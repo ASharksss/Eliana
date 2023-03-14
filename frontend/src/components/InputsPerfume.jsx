@@ -26,9 +26,9 @@ const InputsPerfume = ({ isLoading, perfumes, setData }) => {
         <label>Вид отдушки</label>
         <select onChange={e => setName(e.target.value)}>
           <option hidden>Выберите отдушку...</option>
-          {(isLoading ? [...Array(5)] : perfumes.items).map((obj) => isLoading ? 'loading'
+          {(isLoading ? [...Array(5)] : perfumes.items).map((obj, index) => isLoading ? 'loading'
             :
-            <option value={obj.name}>{obj.name}</option>
+            <option key={index} value={obj.name}>{obj.name}</option>
           )}
         </select>
       </div>

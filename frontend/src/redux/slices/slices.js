@@ -47,7 +47,11 @@ export const addComplete = createAsyncThunk('addComplete', async (data) => {
   ).then(res => {
     alert('Добавлено')
   }).catch(err => {
-    alert(err.message)
+    if (err.response.data.message) {
+      alert(err.response.data.message)
+    } else {
+      alert("Ошибка обработки данных...")
+    }
   })
 })
 
@@ -80,6 +84,18 @@ export const fetchPerfumes = createAsyncThunk('getPerfumes/fetchPerfumes', async
 export const addConsumable = createAsyncThunk('addConsume', async (data) => {
   await axios.post(
     '/api/user/addConsume',
+    data
+  ).then(res => {
+    alert('Добавлено')
+  })
+    .catch(err => {
+      alert(err.message)
+    })
+})
+
+export const addPerfumes = createAsyncThunk('addPerfumes', async (data) => {
+  await axios.post(
+    '/api/admin/addPerfume',
     data
   ).then(res => {
     alert('Добавлено')

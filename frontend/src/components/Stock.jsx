@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector} from "react-redux";
 import { NavLink } from "react-router-dom";
 import {
   fetchConsumables,
@@ -93,7 +93,7 @@ const Consumable = () => {
         <div className="resume">
           <div className="table_header">
             <h2>Cклад {stockTitle}</h2>
-            <NavLink to='/addConsume'>
+            <NavLink to='/addConsume' state={{stock: location}}>
               <button>
                 Пополнить
               </button>
