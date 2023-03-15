@@ -35,15 +35,6 @@ const Footer = () => {
               </button>
             </NavLink>
           </div>
-
-          <div className="footer_btn">
-            <NavLink to='#' className='footer_btn__link'>
-              <button>
-                Анализ
-              </button>
-            </NavLink>
-          </div>
-
         </div>
       </div>
 

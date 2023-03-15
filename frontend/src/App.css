@@ -157,7 +157,7 @@ select {
     justify-content: center;
     height: 70px;
     font-weight: bold;
-    font-size: 12px;
+    font-size: 14px;
 
 }
 
@@ -292,12 +292,13 @@ label {
     margin-top: 10px;
 }
 
-
+.solute_inputs{
+    margin-bottom: 150px;
+ }
 
 .solute_inputs input, select {
     width: 100%;
     height: 30px;
-    margin-bottom: 10px;
 }
 
 .solute_inputs h2 {
