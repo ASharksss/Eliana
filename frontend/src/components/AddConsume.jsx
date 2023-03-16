@@ -38,6 +38,7 @@ const AddConsume = () => {
   return (
     <div className='wrapper'>
       <div className="container">
+        <h1 className='stock_title'>Пополнение склада</h1>
         <form onSubmit={event => handleSubmit(event)}>
           <div className="resume_add">
             {state.stock == 'perfumes' ?

@@ -37,6 +37,7 @@ const SendOrder = () => {
       <div className="container">
         <form onSubmit={event => handleSubmit(event)}>
           <div className="send_order">
+            <h1>Отправить заказ</h1>
             <div className="order_input">
               <label>Вид ароматизатора</label>
               <select onChange={e => {
@@ -74,10 +75,7 @@ const SendOrder = () => {
             </button>
           </div>
         </form>
-
-
       </div>
-
     </div>
   );
 };
