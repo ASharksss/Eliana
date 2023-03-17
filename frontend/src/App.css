@@ -130,7 +130,7 @@ select {
     display: flex;
     align-items: center;
     width: 100%;
-    height: 50px;
+    height: 40px;
     background-color: #b6d3ef;
     margin-bottom: 30px;
 
@@ -140,7 +140,7 @@ select {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0 15px;
+    padding: 0 10px;
     width: 100%;
 }
 
@@ -155,9 +155,9 @@ select {
 .footer {
     display: flex;
     justify-content: center;
-    height: 70px;
+    height: 50px;
     font-weight: bold;
-    font-size: 14px;
+    font-size: 12px;
 
 }
 
@@ -192,6 +192,7 @@ select {
     display: flex;
     align-items: center;
     margin-bottom: 20px;
+
 }
 
 .table_header h2 {
@@ -217,6 +218,7 @@ table {
     border: 1px solid grey;
     width: 100%;
     margin: 20px auto;
+    font-size: 8px;
     text-align: center;
     margin-bottom: 100px;
 }
