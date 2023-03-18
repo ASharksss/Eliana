@@ -36,18 +36,17 @@ const AddSolute = () => {
     }
     if (perfume.length > 0) {
       let setted = false
-      perfume.map(obj => {
-        if (obj.name === inputData.name) {
-          setPerfume(prevState =>
-            prevState.map(item =>
-              item.name === inputData.name &
-              { ...item, count: inputData.count }
-            ))
-          setted = true
-        }
-      })
+      setPerfume(perfume.map(item => {
+             if (item.name == inputData.name){
+                 setted = true
+                 return {...item, count: inputData.count}
+             } else {
+                 return item
+             }
+          }
+      ))
       if (!setted) {
-        setPerfume(prevState => [...prevState, inputData])
+        setPerfume( [...perfume, inputData])
       }
     }
   }, [inputData])
