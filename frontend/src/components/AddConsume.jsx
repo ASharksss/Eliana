@@ -1,10 +1,11 @@
 import React, {useState, useEffect} from 'react';
-import {useLocation} from "react-router-dom";
+import {useLocation, useNavigate} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {addConsumable, addPerfumes, fetchConsumablesName, fetchPerfumes} from "../redux/slices/slices";
 import stock from "./Stock";
 
 const AddConsume = () => {
+  const navigate = useNavigate()
   const location = useLocation()
   const {state} = location
 
@@ -23,16 +24,20 @@ const AddConsume = () => {
       dispatch(fetchConsumablesName())
     }
   }, [])
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
     const data = {
       name: selected,
       count: countResume
     }
     if (state.stock == 'perfumes'){
-      dispatch((addPerfumes(data)))
+      const send = await dispatch((addPerfumes(data)))
+      if (send)
+        navigate(-1)
     }else{
-      dispatch(addConsumable(data))
+      const send = await dispatch(addConsumable(data))
+      if (send)
+        navigate(-1)
     }
   }
   return (

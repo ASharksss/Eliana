@@ -46,7 +46,6 @@ const Complete = () => {
               <th>Кол-во</th>
             </tr>
             </thead>
-            {console.log(completeProducts)}
             <tbody>
               {
 

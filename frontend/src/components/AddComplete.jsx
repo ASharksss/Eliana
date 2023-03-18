@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from "react-redux";
+import {useNavigate} from "react-router-dom";
 import { addComplete, fetchSelectsForComplete } from "../redux/slices/slices";
 
 const AddComplete = () => {
+  const navigate = useNavigate()
 
   const { selectsForComplete } = useSelector(state => state.selectsForComplete)
 
@@ -20,7 +22,7 @@ const AddComplete = () => {
     dispatch(fetchSelectsForComplete())
   }, [])
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
     const data = {
       typeFlavoringId: typeFlavoring,
@@ -28,7 +30,9 @@ const AddComplete = () => {
       solutionId: solution,
       count: count
     }
-    dispatch(addComplete(data))
+    const send = await dispatch(addComplete(data))
+    if (send)
+      navigate(-1)
   }
 
   return (

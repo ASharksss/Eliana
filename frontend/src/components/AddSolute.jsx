@@ -2,8 +2,10 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import { addSolutions, fetchPerfumes } from "../redux/slices/slices";
 import InputsPerfume from "./InputsPerfume";
+import {useNavigate} from "react-router-dom";
 
 const AddSolute = () => {
+  const navigate = useNavigate()
 
   const [percentSolution, setPercentSolution] = useState('')
   const [aroma, setAroma] = useState('')
@@ -68,7 +70,9 @@ const AddSolute = () => {
       ],
       liter: literSolution,
     }
-    dispatch(addSolutions(data))
+    const send = await dispatch(addSolutions(data))
+    if (send)
+      navigate(-1)
   }
 
   return (
