@@ -94,11 +94,17 @@ class AdminController {
 
   async addPerfume(req, res) {
     const {name, count} = req.body
-    const perfume = await Perfume.create({
-      name: name,
-      count: count
-    })
-    return res.json(perfume)
+    const check = await Perfume.findOne({where: [{name}]})
+    if(check) {
+      check.count += parseFloat(count)
+      await check.save()
+    } else {
+      await Perfume.create({
+        name: name,
+        count: parseFloat(count)
+      })
+    }
+    return res.json()
   }
 
   async addTypeStock(req, res) {

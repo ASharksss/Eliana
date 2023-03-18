@@ -31,7 +31,7 @@ const Consumable = sequelize.define('consumable', {
 const Perfume = sequelize.define('perfume', {
   id: {type: DataTypes.INTEGER, autoIncrement: true, primaryKey: true},
   name: {type: DataTypes.STRING},
-  count: {type: DataTypes.INTEGER}
+  count: {type: DataTypes.FLOAT}
 })
 
 
