@@ -207,7 +207,10 @@ class UserController {
 
   async getConsumables(req, res, next) {
     try {
-      const names = await Consumable.findAll({where: [{typeConsumableId: 1}]})
+      const names = await Consumable.findAll({
+        where: [{typeConsumableId: 1}],
+        order: [['name', 'ASC']]
+      })
       return res.json(names)
     } catch (e) {
       return next(ApiError.badRequest(e.message))
@@ -216,7 +219,10 @@ class UserController {
 
   async getConsumablesChemistry(req, res, next) {
     try {
-      const names = await Consumable.findAll({where: [{typeConsumableId: 2}]})
+      const names = await Consumable.findAll({
+        where: [{typeConsumableId: 2}],
+        order: [['name', 'ASC']]
+      })
       return res.json(names)
     } catch (e) {
       return next(ApiError.badRequest(e.message))
@@ -225,7 +231,10 @@ class UserController {
 
   async getConsumablesStickers(req, res, next) {
     try {
-      const names = await Consumable.findAll({where: [{typeConsumableId: 3}]})
+      const names = await Consumable.findAll({
+        where: [{typeConsumableId: 3}],
+        order: [['name', 'ASC']]
+      })
       return res.json(names)
     } catch (e) {
       return next(ApiError.badRequest(e.message))
@@ -275,7 +284,10 @@ class UserController {
 
   async getPerfumes(req, res, next) {
     try {
-      const perfumes = await Perfume.findAll({attributes: ['name', 'count']})
+      const perfumes = await Perfume.findAll({
+        attributes: ['name', 'count'],
+        order: [['name', 'ASC']]
+      })
       return res.json(perfumes)
     } catch (e) {
       return next(ApiError.badRequest(e.message))
