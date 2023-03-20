@@ -16,6 +16,7 @@ const Consumable = () => {
   const [preloader, setPreloader] = useState(true)
   const [search, setSearch] = useState('')
   const [stockTitle, setStockTitle] = useState('')
+  const [notation, setNotation] = useState('')
 
   const { consumable } = useSelector(state => state.consumable)
   const { consumableChemistry } = useSelector(state => state.consumableChemistry)
@@ -30,6 +31,7 @@ const Consumable = () => {
         if (consumable.status === 'loaded') {
           setData(consumable)
           setPreloader(false)
+
         }
         break
       case 'chemistry':
@@ -61,18 +63,22 @@ const Consumable = () => {
       case 'consumable':
         dispatch(fetchConsumables())
         setStockTitle('комплектующих')
+        setNotation('шт.')
         break
       case 'chemistry':
         dispatch(fetchConsumablesChemistry())
         setStockTitle('химии')
+        setNotation('кг.')
         break
       case 'stickers':
         dispatch(fetchConsumablesStickers())
         setStockTitle('наклеек')
+        setNotation('шт.')
         break
       case 'perfumes':
         dispatch(fetchPerfumes())
         setStockTitle('отдушек')
+        setNotation('кг.')
     }
   }, [])
 
@@ -112,8 +118,8 @@ const Consumable = () => {
               isLoading ? 'loading'
                 :
                 <tr key={index}>
-                  <td>{obj.name}</td>
-                  <td>{obj.count}</td>
+                  <td>{obj.name }</td>
+                  <td>{obj.count + ' ' + notation}</td>
                 </tr>)}
             </tbody>
           </table>

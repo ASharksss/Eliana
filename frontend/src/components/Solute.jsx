@@ -52,13 +52,13 @@ const Solute = () => {
                 <td>{JSON.parse(obj.perfume).map((item, index_perfume) => (
                   <tr key={index_perfume}>
                     <td>{item.name}</td>
-                    <td>{item.count} г.</td>
+                    <td>{item.count} кг.</td>
                   </tr>
                 ))}</td>
                 <td>{JSON.parse(obj.consumable).map((item, index_consumable) => (
                   <tr key={index_consumable}>
                     <td>{item.name}</td>
-                    <td>{item.count} г.</td>
+                    <td>{item.count} кг.</td>
                   </tr>
                 ))}</td>
                 <td>{obj.liter}</td>

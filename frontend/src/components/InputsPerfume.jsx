@@ -34,7 +34,7 @@ const InputsPerfume = ({ isLoading, perfumes, setData }) => {
       </div>
 
       <div className="solute_input">
-        <label>Отдушка (г)</label>
+        <label>Отдушка (кг.)</label>
         <input onChange={e => {
           setCount(e.target.value)
         }}
