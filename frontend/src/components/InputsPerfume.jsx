@@ -11,7 +11,7 @@ const InputsPerfume = ({ isLoading, perfumes, setData }) => {
     if (name !== '' && count !== '') {
       setInData(state => ({
         ...state,
-        count: parseInt(count)
+        count: parseFloat(count)
       }))
     }
   }, [name, count])
