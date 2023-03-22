@@ -15,6 +15,7 @@ const AddSolute = () => {
   const [literSolution, setLiterSolution] = useState('')
   const [inputData, setInputData] = useState({})
   const [inputList, setInputList] = useState([]);
+  const [sId, setSId] = useState('')
 
   const addInputsPerfume = () => {
     setInputList(inputList.concat(<InputsPerfume
@@ -75,6 +76,8 @@ const AddSolute = () => {
       navigate(-1)
   }
 
+
+
   return (
     <div className='wrapper'>
       <div className="container">
@@ -89,7 +92,6 @@ const AddSolute = () => {
               <div className="solute_input">
                 <label>Аромат</label>
                 <input onChange={e => setAroma(e.target.value)} type="text" />
-
               </div>
               {inputList}
               <button type='button' onClick={addInputsPerfume}>Добавить отдушку</button>

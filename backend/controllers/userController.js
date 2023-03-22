@@ -315,7 +315,12 @@ class UserController {
       return next(ApiError.badRequest(e.message))
     }
   }
+
+
+
 }
+
+
 
 
 module.exports = new UserController()

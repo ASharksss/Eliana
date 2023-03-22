@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import {useNavigate} from "react-router-dom";
 import { addComplete, fetchSelectsForComplete } from "../redux/slices/slices";
+import axios from "../axios";
 
 const AddComplete = () => {
   const navigate = useNavigate()
@@ -12,6 +13,7 @@ const AddComplete = () => {
   const [vendorCode, setVendorCode] = useState('')
   const [solution, setSolution] = useState('')
   const [count, setCount] = useState('')
+  const [sId, setSId] = useState('')
 
   const isLoading = selectsForComplete.status === 'loading'
 
@@ -35,6 +37,12 @@ const AddComplete = () => {
       navigate(-1)
   }
 
+  const addToSolutionLiter = () => {
+    axios.get("api/user/addToSolutionLiter?sId=" + sId)
+    dispatch(fetchSelectsForComplete())
+    console.log(sId)
+  }
+
   return (
     <div className='wrapper'>
       <div className="container">
@@ -43,6 +51,8 @@ const AddComplete = () => {
             <div className="complete_inputs">
 
               <h2>Формирование ароматизаторов</h2>
+              <button className='addSolutionLiter' type='button'
+                      onClick={addToSolutionLiter}>Увеличить раствор</button>
               <div className="complete_input">
 
                 <label>Вид ароматизатора</label>
@@ -73,7 +83,11 @@ const AddComplete = () => {
               </div>
               <div className="complete_input">
                 <label>Раствор</label>
-                <select onChange={e => setSolution(e.target.value)}>
+                <select onChange={e => {
+                  setSolution(e.target.value)
+                  setSId(e.target.value)
+
+                }}>
                   <option>Выберите раствор</option>
                   {(isLoading ? [...Array(5)] : selectsForComplete.items.solutions).map((obj, index) => isLoading ? 'Загрузка'
                     :
