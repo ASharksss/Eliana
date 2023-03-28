@@ -13,12 +13,14 @@ const Archive = () => {
 
   const isArchiveLoading = archive.status === 'loading'
 
-  let resultSearch
   const [data, setData] = useState([])
 
   useEffect(() => {
-    dispatch(fetchArchive())
     setData(archive.items)
+  }, [isArchiveLoading])
+
+  useEffect(() => {
+    dispatch(fetchArchive())
   }, [])
 
   useEffect(() => {
@@ -34,8 +36,12 @@ const Archive = () => {
 
   useEffect(() => {
     if (currentDate != '') {
-      let resultSearchDate = (data).filter(item => new Intl.DateTimeFormat().format(new Date(item.createdAt)).includes(new Date(Date.parse(currentDate)).toLocaleDateString()))
-      setData(resultSearchDate)
+      let resultSearchData = (archive.items).filter(item => item.client.toLowerCase().includes(search.toLowerCase()))
+            .filter(item => new Intl.DateTimeFormat().format(new Date(item.createdAt)).includes(new Date(Date.parse(currentDate)).toLocaleDateString()))
+      setData(resultSearchData)
+    } else if (search != '') {
+      let resultSearchData = (archive.items).filter(item => item.client.toLowerCase().includes(search.toLowerCase()))
+      setData(resultSearchData)
     } else {
       setData(archive.items)
     }
