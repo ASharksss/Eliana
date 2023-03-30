@@ -8,6 +8,7 @@ const AddComplete = () => {
   const navigate = useNavigate()
 
   const { selectsForComplete } = useSelector(state => state.selectsForComplete)
+  const {user} = useSelector(state => state.user)
 
   const [typeFlavoring, setTypeFlavoring] = useState('')
   const [vendorCode, setVendorCode] = useState('')
@@ -30,7 +31,8 @@ const AddComplete = () => {
       typeFlavoringId: typeFlavoring,
       flavoringVendorCode: vendorCode,
       solutionId: solution,
-      count: count
+      count: count,
+      userId: user.data.id
     }
     const send = await dispatch(addComplete(data))
     if (send)

@@ -1,27 +1,46 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import axios from '../axios';
 
 export const History = () => {
+  const [data, setData] = useState([])
+  const [preload, setPreload] = useState(false)
+  useEffect(() => {
+    setPreload(true)
+    axios.get('/api/user/history')
+      .then(res => {
+        setPreload(false)
+        setData(res.data)
+      })
+      .catch(err => {
+        setPreload(false)
+        console.log(err)
+      })
+  }, [])
   return (
     <div className='history'>
       <div className="container">
-        <table>
-          <thead>
-          <th>Описание</th>
-          <th>Сколько было</th>
-          <th>Сколько стало</th>
-          <th>Время</th>
-          <th>Пользователь</th>
-          </thead>
-          <tbody>
-          <tr>
-            <td>Сделано то-се</td>
-            <td>20</td>
-            <td>30</td>
-            <td>15.00 30.03.23</td>
-            <td>Алсу</td>
-          </tr>
-          </tbody>
-        </table>
+        {preload ? <p>Загрзка...</p> :
+          <table>
+            <thead>
+              <th>Описание</th>
+              <th>Сколько было</th>
+              <th>Сколько стало</th>
+              <th>Время</th>
+              <th>Пользователь</th>
+            </thead>
+            <tbody>
+              {data.length < 0 ? '0' :
+                data.map(item => (
+                  <tr>
+                    <td>{item.description}</td>
+                    <td>{item.was_count}</td>
+                    <td>{item.become_count}</td>
+                    <td>{new Date(item.createdAt).toLocaleString('ru-RU').slice(0, -3).split(', ')[1]} / {new Date(item.createdAt).toLocaleString('ru-RU').slice(0, -3).split(', ')[0]}</td>
+                    <td>{item.user.name}</td>
+                  </tr>
+                ))}
+            </tbody>
+          </table>}
       </div>
 
     </div>

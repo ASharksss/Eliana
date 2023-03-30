@@ -15,6 +15,7 @@ const AddSolute = () => {
   const [literSolution, setLiterSolution] = useState('')
   const [inputData, setInputData] = useState({})
   const [inputList, setInputList] = useState([]);
+  const {user} = useSelector(state => state.user)
   const [sId, setSId] = useState('')
 
   const addInputsPerfume = () => {
@@ -59,6 +60,7 @@ const AddSolute = () => {
     const data = {
       percent_solution: percentSolution,
       aroma: aroma,
+      userId: user.data.id,
       perfumes: perfume,
       consumables: [{
         name: 'ПГ',

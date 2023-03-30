@@ -2,7 +2,6 @@ import React, {useState, useEffect} from 'react';
 import {useLocation, useNavigate} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {addConsumable, addPerfumes, fetchConsumablesName, fetchPerfumes} from "../redux/slices/slices";
-import stock from "./Stock";
 
 const AddConsume = () => {
   const navigate = useNavigate()
@@ -10,6 +9,7 @@ const AddConsume = () => {
   const {state} = location
 
   const {perfumes} = useSelector(state => state.perfumes)
+  const {user} = useSelector(state => state.user)
 
   const [countResume, setCountResume] = useState('')
   const [selected, setSelected] = useState('')
@@ -28,7 +28,8 @@ const AddConsume = () => {
     e.preventDefault()
     const data = {
       name: selected,
-      count: countResume
+      count: countResume,
+      userId: user.data.id
     }
     if (state.stock == 'perfumes'){
       const send = await dispatch((addPerfumes(data)))
