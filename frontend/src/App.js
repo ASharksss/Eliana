@@ -16,6 +16,7 @@ import SendOrder from "./components/SendOrder";
 import Stock from "./components/Stock";
 import Auth from "./components/auth";
 import {fetchNewToken, fetchProtect} from "./redux/slices/authSlice";
+import {History} from "./components/History";
 
 
 function App() {
