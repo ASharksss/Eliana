@@ -1,4 +1,5 @@
 import React from 'react';
+import {NavLink} from "react-router-dom";
 
 const Header = () => {
 
@@ -10,7 +11,11 @@ const Header = () => {
           <div className="logo">
             <h2>Элиана</h2>
           </div>
-
+          <div className="link">
+            <NavLink to='history'>
+              Посмотреть историю действий
+            </NavLink>
+          </div>
         </div>
       </div>
     </div>

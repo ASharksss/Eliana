@@ -47,6 +47,7 @@ function App() {
                             <Route path='/addSolute' element={<AddSolute/>}/>
                             <Route path='/addComplete' element={<AddComplete/>}/>
                             <Route path='/sendOrder' element={<SendOrder/>}/>
+                            <Route path='/history' element={<History/>}/>
                         </Route>}
                 </Routes>
             </div>
