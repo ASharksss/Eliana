@@ -40,7 +40,7 @@ const AddComplete = () => {
   }
 
   const addToSolutionLiter = () => {
-    axios.get("api/user/addToSolutionLiter?sId=" + sId)
+    axios.get("api/user/addToSolutionLiter?sId=" + sId + '&userId=' + user.data.id)
     dispatch(fetchSelectsForComplete())
     console.log(sId)
   }
