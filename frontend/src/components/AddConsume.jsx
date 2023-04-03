@@ -48,14 +48,14 @@ const AddConsume = () => {
         <form onSubmit={event => handleSubmit(event)}>
           <div className="resume_add">
             {state.stock == 'perfumes' ?
-              <select onChange={e => setSelected(e.target.value)}>
+              <select onChange={e => setSelected(e.target.value)} required>
                 <option hidden>Выберите...</option>
                 {(isPerfumeLoading ? [...Array(5)] : perfumes.items).map((obj, index) => isPerfumeLoading ? 'loading'
                   :
                   <option key={obj.index} value={obj.name}>{obj.name}</option>
                 )}
               </select> :
-              <select onChange={e => setSelected(e.target.value)}>
+              <select onChange={e => setSelected(e.target.value)} required>
                 <option hidden>Выберите...</option>
                 {(isLoading ? [...Array(5)] : consumablesName.items).map((obj, index) => isLoading ? 'loading'
                   : obj.typeConsumable.name == state.stock &&
@@ -63,8 +63,8 @@ const AddConsume = () => {
                 )}
               </select>
             }
-            <input value={countResume} type="text" onChange={e => setCountResume(e.target.value)}
-                   placeholder='Введите количество'/>
+            <input value={countResume} type="number" onChange={e => setCountResume(e.target.value.replace(',', '.'))}
+                   placeholder='Введите количество' required/>
             <button type='submit' className='submit'>
               Добавить
             </button>

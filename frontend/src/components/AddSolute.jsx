@@ -89,7 +89,7 @@ const AddSolute = () => {
             <form onSubmit={event => handleSubmit(event)}>
               <div className="solute_input">
                 <label>% раствора</label>
-                <input onChange={e => setPercentSolution(e.target.value)} type="text" />
+                <input value={percentSolution} onChange={e => setPercentSolution(e.target.value.replace(',', '.'))} type="number" required/>
               </div>
               <div className="solute_input">
                 <label>Аромат</label>
@@ -99,15 +99,15 @@ const AddSolute = () => {
               <button type='button' onClick={addInputsPerfume}>Добавить отдушку</button>
               <div className="solute_input">
                 <label>ПГ(кг.)</label>
-                <input onChange={e => setCountPg(e.target.value)} type="text" placeholder='Введите количество' />
+                <input value={countPg} onChange={e => setCountPg(e.target.value.replace(',', '.'))} type="number" placeholder='Введите количество' required/>
               </div>
               <div className="solute_input">
                 <label>ПЭГ(кг.)</label>
-                <input onChange={e => setCountPag(e.target.value)} type="text" placeholder='Введите количество' />
+                <input value={countPag} onChange={e => setCountPag(e.target.value.replace(',', '.'))} type="number" placeholder='Введите количество' required/>
               </div>
               <div className="solute_input">
                 <label>Литры</label>
-                <input onChange={e => setLiterSolution(e.target.value)} type="text" placeholder='Введите количество' />
+                <input value={literSolution} onChange={e => setLiterSolution(e.target.value.replace(',', '.'))} type="number" placeholder='Введите количество' required/>
               </div>
               <button type='submit' className="submit solute_btn">Добавить</button>
             </form>

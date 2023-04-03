@@ -62,7 +62,7 @@ const SendOrder = () => {
                 )}
               </select>
               <label>Количество</label>
-              <input onChange={e => setCount(e.target.value)} type="text"/>
+              <input onChange={e => setCount(e.target.value.replace(',', '.'))} type="text"/>
             </div>
 
             <div className="order_input">

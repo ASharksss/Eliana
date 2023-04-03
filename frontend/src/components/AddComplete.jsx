@@ -54,15 +54,16 @@ const AddComplete = () => {
 
               <h2>Формирование ароматизаторов</h2>
               <button className='addSolutionLiter' type='button'
-                      onClick={addToSolutionLiter}>Увеличить раствор</button>
+                      onClick={addToSolutionLiter}
+                      disabled={sId == '' ? true : false}>Увеличить раствор</button>
               <div className="complete_input">
 
                 <label>Вид ароматизатора</label>
                 <select onChange={e => {
                   setTypeFlavoring(e.target.value)
                   setVendorCode('')
-                  }}>
-                  <option>Выбрите вид ароматизатора...</option>
+                  }} required>
+                  <option value=''>Выбрите вид ароматизатора...</option>
                   {(isLoading ? [...Array(5)] : selectsForComplete.items.typesFlavoring).map((obj, index) => isLoading ? 'Загрузка'
                     :
                     <option key={index} value={obj.id}>{obj.name}</option>
@@ -73,9 +74,9 @@ const AddComplete = () => {
                 <input type="text" disabled value={vendorCode} />
 
                 <label>Название</label>
-                <select onChange={e => setVendorCode(e.target.value)}>
+                <select onChange={e => setVendorCode(e.target.value)} required>
                   <option hidden>Выберите ароматизатор</option>
-
+                  {typeFlavoring == '' && <option disabled>Выбрите вид ароматизатора</option>}
                   {(isLoading ? [...Array(5)] : selectsForComplete.items.flavorings).map((obj, index) => isLoading ? 'Загрузка'
                     : typeFlavoring == obj.typeFlavoring.id &&
                     <option key={index} value={obj.vendor_code}>{obj.name}</option>
@@ -100,7 +101,7 @@ const AddComplete = () => {
               </div>
               <div className="complete_input">
                 <label>Количество</label>
-                <input value={count} onChange={e => setCount(e.target.value)} type="text" placeholder='Количество' />
+                <input value={count} onChange={e => setCount(e.target.value.replace(',', '.'))} type="text" placeholder='Количество' />
               </div>
               <div className="complete_input">
 
