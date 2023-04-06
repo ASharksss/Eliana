@@ -19,7 +19,7 @@ const Solute = () => {
   const removeSolute = (id, name, percent) => {
     const check = window.confirm('Точно хотите обнулить - ' + name + ' ' + percent + '%')
     if (check) {
-      axios.delete('/api/user/zeroingSolutionLiter?sId=' + id + '&userId' + user.data.id)
+      axios.delete('/api/user/zeroingSolutionLiter?sId=' + id + '&userId=' + user.data.id)
         .then(res => {
           dispatch(fetchSolutions())
           alert('Значение обнулено')
