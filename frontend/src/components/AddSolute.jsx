@@ -93,7 +93,7 @@ const AddSolute = () => {
               </div>
               <div className="solute_input">
                 <label>Аромат</label>
-                <input onChange={e => setAroma(e.target.value)} type="text" />
+                <input onChange={e => setAroma(e.target.value)} type="text" required/>
               </div>
               {inputList}
               <button type='button' onClick={addInputsPerfume}>Добавить отдушку</button>

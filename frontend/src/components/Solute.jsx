@@ -3,6 +3,7 @@ import { NavLink } from "react-router-dom";
 import { fetchSolutions } from "../redux/slices/slices";
 import { useDispatch, useSelector } from "react-redux";
 import axios from '../axios'
+import '../App.css'
 
 const Solute = () => {
   const dispatch = useDispatch()

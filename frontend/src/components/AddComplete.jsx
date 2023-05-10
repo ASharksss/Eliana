@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import '../App.css'
 import { useDispatch, useSelector } from "react-redux";
 import {useNavigate} from "react-router-dom";
 import { addComplete, fetchSelectsForComplete } from "../redux/slices/slices";

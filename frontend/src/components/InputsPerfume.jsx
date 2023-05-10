@@ -36,7 +36,7 @@ const InputsPerfume = ({ isLoading, perfumes, setData }) => {
       <div className="solute_input">
         <label>Отдушка (кг.)</label>
         <input onChange={e => setCount(e.target.value.replace(',', '.'))}
-          type="text" placeholder='Введите количество' />
+          type="text" placeholder='Введите количество' required/>
       </div>
     </div>
   );

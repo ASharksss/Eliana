@@ -83,7 +83,7 @@ select {
 }
 
 .container {
-    margin: auto;
+    margin: 0 auto;
 }
 
 @media (max-width: 1920px) {
@@ -149,7 +149,7 @@ select {
     position: fixed;
     bottom: 0;
     background-color: #b6d3ef;
-    margin-top: 100px;
+
 }
 
 .footer {
@@ -338,7 +338,7 @@ label {
 }
 
 .complete_inputs {
-    margin-bottom: 30px;
+    margin-bottom: 100px;
 }
 
 .complete_inputs h2 {
@@ -453,4 +453,30 @@ label {
 
 .archive {
     margin-bottom: 100px;
+}
+
+.complete {
+    margin-bottom: 100px;
+}
+
+.resume {
+    margin-bottom: 100px;
+}
+
+.solution {
+    margin-bottom: 100px;
+}
+
+.add_complete{
+    margin-bottom: 100px;
+}
+
+.filter_btn {
+    margin-bottom: 10px;
+    cursor: pointer;
+
+}
+
+.filter_btn + .filter_btn{
+    margin-left: 10px;
 }
