@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector} from "react-redux";
-import { NavLink } from "react-router-dom";
+import React, {useEffect, useState} from 'react';
+import {useDispatch, useSelector} from "react-redux";
+import {NavLink} from "react-router-dom";
 import {
   fetchConsumables,
   fetchConsumablesChemistry,
@@ -17,11 +17,12 @@ const Consumable = () => {
   const [search, setSearch] = useState('')
   const [stockTitle, setStockTitle] = useState('')
   const [notation, setNotation] = useState('')
+  const [typeSticker, setTypeSticker] = useState('Фитиль')
 
-  const { consumable } = useSelector(state => state.consumable)
-  const { consumableChemistry } = useSelector(state => state.consumableChemistry)
-  const { consumableStickers } = useSelector(state => state.consumableStickers)
-  const { perfumes } = useSelector(state => state.perfumes)
+  const {consumable} = useSelector(state => state.consumable)
+  const {consumableChemistry} = useSelector(state => state.consumableChemistry)
+  const {consumableStickers} = useSelector(state => state.consumableStickers)
+  const {perfumes} = useSelector(state => state.perfumes)
   // const {consumablePerfume} = useSelector(state => state.perfume)
 
   const isLoading = data.status === 'loading'
@@ -91,6 +92,29 @@ const Consumable = () => {
     )//заглушка, чтобы преждевременно не строить таблицу
   }
 
+  const showTable = () => {
+    if (location === 'stickers') {
+      return (isLoading ? [...Array(5)] : resultSearch).map((obj, index) =>
+      typeSticker === obj.vendor_code ?
+        isLoading ? 'loading'
+          :
+          <tr key={index}>
+            <td>{obj.name}</td>
+            <td>{obj.count + ' ' + notation}</td>
+          </tr> : ''
+    )
+    } else {
+      return (isLoading ? [...Array(5)] : resultSearch).map((obj, index) =>
+        isLoading ? 'loading'
+          :
+          <tr key={index}>
+            <td>{obj.name}</td>
+            <td>{obj.count + ' ' + notation}</td>
+          </tr>
+      )
+    }
+  }
+
   let resultSearch = (data.items).filter(item => item.name.toLowerCase().includes(search.toLowerCase()))
 
   return (
@@ -98,29 +122,29 @@ const Consumable = () => {
       <div className="container">
         <div className="resume">
           <div className="table_header">
-            <h2>Cклад {stockTitle}</h2>
+            <h2>Cклад {stockTitle} для вида {typeSticker}</h2>
             <NavLink to='/addConsume' state={{stock: location}}>
               <button>
                 Пополнить
               </button>
             </NavLink>
           </div>
+          {location === 'stickers' ?
+            <>
+              <button className='filter_btn' onClick={() => setTypeSticker('Фитиль')}>Фитиля</button>
+              <button className='filter_btn' onClick={() => setTypeSticker('Спрей')}>Спреи</button>
+              <button className='filter_btn' onClick={() => setTypeSticker('Аттрактант')}>Аттрактанты</button>
+            </>: ''}
           <input type="text" placeholder='Поиск' className='search' onChange={e => setSearch(e.target.value)}/>
           <table>
             <thead>
-              <tr>
-                <th>Наименование</th>
-                <th>Количество</th>
-              </tr>
+            <tr>
+              <th>Наименование</th>
+              <th>Количество</th>
+            </tr>
             </thead>
             <tbody>
-              {(isLoading ? [...Array(5)] : resultSearch).map((obj, index) =>
-              isLoading ? 'loading'
-                :
-                <tr key={index}>
-                  <td>{obj.name }</td>
-                  <td>{obj.count + ' ' + notation}</td>
-                </tr>)}
+            {showTable()}
             </tbody>
           </table>
         </div>
