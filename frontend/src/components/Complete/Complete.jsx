@@ -1,7 +1,8 @@
 import React, {useEffect, useState} from 'react';
 import {NavLink} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
-import {addComplete, fetchComplete} from "../redux/slices/slices";
+import {addComplete, fetchComplete} from "../../redux/slices/slices";
+import './Complete.css'
 
 const Complete = () => {
   const dispatch = useDispatch()
@@ -41,10 +42,7 @@ const Complete = () => {
           (isCompleteLoading ? [...Array(5)] : resultSearch).map((obj, index) => isCompleteLoading ? 'loading'
             :
             typeFlavoring === obj.flavoring.typeFlavoring.name ?
-              <tr key={index}>
-                <td>
-                  {obj.flavoring.typeFlavoring.name}
-                </td>
+              <tr className='bb-1px' key={index}>
                 <td>
                   {obj.flavoringVendorCode}
                 </td>
@@ -54,7 +52,8 @@ const Complete = () => {
                 <td>
                   {obj.count}
                 </td>
-              </tr> : ''
+              </tr>
+              : ''
           )
         }
         </tbody>
@@ -68,33 +67,39 @@ const Complete = () => {
         <div className="complete">
           <div className="table_header">
             <h2>Готовая продукция</h2>
+          </div>
+          <div className="complete_btn row">
             <NavLink to='/addComplete' className='complete_btn'>
-              <button>
+              <button className='complete-button'>
                 Пополнить
               </button>
             </NavLink>
             <div className='space'></div>
             <NavLink to='/sendOrder'>
-              <button>
+              <button className='complete-button'>
                 Отправить
               </button>
             </NavLink>
           </div>
+
+
+
+          <input type="text" placeholder='Поиск' className='search' onChange={event => setSearch(event.target.value)}/>
+
+
           <div className="row">
             <button onClick={() => setTypeFlavoring('Фитиль')} className='filter_btn'>Фитиля</button>
             <button onClick={() => setTypeFlavoring('Спрей')} className='filter_btn'>Спреи</button>
             <button onClick={() => setTypeFlavoring('Аттрактант')} className='filter_btn'>Аттрактанты</button>
-            <div className="count">
-              <h2>Количество {count}</h2>
-            </div>
+
           </div>
 
-          <input type="text" placeholder='Поиск' className='search' onChange={event => setSearch(event.target.value)}/>
-
+          <div className="count">
+            <h2>Количество {count}</h2>
+          </div>
           <table>
             <thead>
             <tr>
-              <th>Вид</th>
               <th>Артикул</th>
               <th>Аромат</th>
               <th>Кол-во</th>

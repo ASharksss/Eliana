@@ -69,7 +69,6 @@ const Archive = () => {
           <table>
             <thead>
               <tr>
-                <th>Вид</th>
                 <th>Артикул</th>
                 <th>Аромат</th>
                 <th>Кол-во</th>
@@ -82,7 +81,6 @@ const Archive = () => {
               {(isArchiveLoading ? [...Array(5)] : data).map((obj, index) => isArchiveLoading ? 'loading'
                 :
                 <tr key={index}>
-                  <td>{obj.flavoring.typeFlavoring.name}</td>
                   <td>{obj.flavoring.vendor_code}</td>
                   <td>{obj.flavoring.name}</td>
                   <td>{obj.count}</td>

@@ -1,0 +1,43 @@
+.solute_wrapper {
+    margin-top: 40px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+}
+
+.solute_block {
+    border-radius: 20px;
+    background-color: white;
+    box-shadow: 0px 4px 30px rgba(9, 75, 157, 0.1);
+    margin-right:auto;
+    margin-left:auto;;
+    width: 300px;
+    padding: 20px;
+    font-size: 15px;
+    margin-bottom: 20px;
+}
+
+.solute_title {
+    margin-left: 15px;
+    width: 50%;
+    height: 40px;
+    font-weight: 600;
+}
+
+.solute_block_btn {
+    background-color: white;
+    width: 100%;
+    border:1px solid black;
+    border-radius: 10px;
+    padding: 5px;
+
+}
+
+.add_solute-btn {
+    width: 100%;
+    padding: 8px;
+    background-color: white;
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0px 4px 30px rgba(9, 75, 157, 0.1);
+    cursor: pointer;
+}

@@ -7,6 +7,7 @@ import {
   fetchConsumablesStickers,
   fetchPerfumes
 } from "../redux/slices/slices";
+import '../App.css'
 
 
 const Consumable = () => {
@@ -98,7 +99,7 @@ const Consumable = () => {
       typeSticker === obj.vendor_code ?
         isLoading ? 'loading'
           :
-          <tr key={index}>
+          <tr key={index} className='bb-1px'>
             <td>{obj.name}</td>
             <td>{obj.count + ' ' + notation}</td>
           </tr> : ''
@@ -107,7 +108,7 @@ const Consumable = () => {
       return (isLoading ? [...Array(5)] : resultSearch).map((obj, index) =>
         isLoading ? 'loading'
           :
-          <tr key={index}>
+          <tr key={index} className='bb-1px'>
             <td>{obj.name}</td>
             <td>{obj.count + ' ' + notation}</td>
           </tr>
@@ -122,9 +123,9 @@ const Consumable = () => {
       <div className="container">
         <div className="resume">
           <div className="table_header">
-            <h2>Cклад {stockTitle} для вида {typeSticker}</h2>
+            <h2>Cклад {stockTitle}</h2>
             <NavLink to='/addConsume' state={{stock: location}}>
-              <button>
+              <button className='add_solute-btn'>
                 Пополнить
               </button>
             </NavLink>

@@ -3,7 +3,6 @@ import {Outlet, useNavigate} from "react-router-dom";
 
 //components
 import Header from "./Header";
-import Footer from "./Footer";
 import {useDispatch} from "react-redux";
 import {fetchNewToken, fetchProtect} from "../redux/slices/authSlice";
 
@@ -24,7 +23,6 @@ const Layout = () => {
         <div>
             <Header/>
             <Outlet/>
-            <Footer/>
         </div>
     );
 };

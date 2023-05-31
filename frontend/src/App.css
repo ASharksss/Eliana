@@ -36,10 +36,12 @@ dd {
 
 /* Выставляем основные настройки по-умолчанию для body */
 body {
+    font-family: Arial;
     min-height: 100vh;
     scroll-behavior: smooth;
     text-rendering: optimizeSpeed;
     line-height: 1.5;
+    background-color: #F3F7FF;
 }
 
 /* Удаляем стандартную стилизацию для всех ul и il, у которых есть атрибут class*/
@@ -72,6 +74,22 @@ select {
     font: inherit;
 }
 
+.noBtn {
+    border: none;
+}
+
+.noLink {
+    text-decoration: none;
+}
+
+.mr-10px {
+    margin-right: 10px;
+}
+
+.alit-center {
+    align-items: center;
+}
+
 /* Удаляем все анимации и переходы для людей, которые предпочитай их не использовать */
 @media (prefers-reduced-motion: reduce) {
     * {
@@ -84,6 +102,7 @@ select {
 
 .container {
     margin: 0 auto;
+    position: relative;
 }
 
 @media (max-width: 1920px) {
@@ -131,8 +150,7 @@ select {
     align-items: center;
     width: 100%;
     height: 40px;
-    background-color: #b6d3ef;
-    margin-bottom: 30px;
+    margin-bottom: 60px;
 
 }
 
@@ -152,44 +170,12 @@ select {
 
 }
 
-.footer {
-    display: flex;
-    justify-content: center;
-    height: 50px;
-    font-weight: bold;
-    font-size: 12px;
-
-}
-
-.footer_btn {
-    position: relative;
-    width: 100%;
-}
-
-.footer_btn__link {
-    text-decoration: none;
-    color: #000;
-    width: 100%;
-    height: 100%;
-}
-
-.footer_btn__link button {
-    width: 100%;
-    height: 100%;
-    cursor: pointer;
-    background-color: transparent;
-    border: none;
-
-
-}
-
-.footer_btn__link button:hover {
-    background-color: #7cb2ee;
-}
 
 /* RESUME */
 .table_header {
+    font-size: 18px;
     display: flex;
+    justify-content: space-between;
     align-items: center;
     margin-bottom: 20px;
 
@@ -200,42 +186,37 @@ select {
     line-height: 30px;
 }
 
-.table_header button {
-    width: 100%;
-    height: 30px;
-    cursor: pointer;
-    border: none;
-    background-color: #eceaea;
-    font-weight: bold;
-}
 
-.table_header button:hover {
-    background-color: #a4a2a2;
-}
+
 
 table {
+
+    font-size: 14px;
+    margin-top: 40px;
+    background: white;
+    min-width: 100%;
     border-collapse: collapse;
-    border: 1px solid grey;
-    width: 100%;
-    margin: 20px auto;
-    font-size: 8px;
-    text-align: center;
-    margin-bottom: 100px;
-    table-layout: fixed;
+    text-align: left;
+}
+th {
+    font-weight: normal;
+    border-bottom: 2px solid #090f21;
+    padding: 10px 8px;
+}
+td {
+    padding: 20px;
+    transition: .3s linear;
+}
+tr:hover td {
 }
 
-tr {
-    position: relative;
+.logo {
+    font-size: 20px;
+    margin-top: 20px;
 }
-
-th, td {
-    border: 1px solid #b2a9a9;
-    width: 5%;
-    word-wrap:break-word;
-}
-
 
 .table_btn {
+
     width: 100%;
     height: 35px;
     border: none;
@@ -243,10 +224,23 @@ th, td {
     cursor: pointer;
 }
 
+
 .search {
     width: 100%;
-    padding: 6px;
+    height: 50px;
+    padding: 10px;
+    border: none;
+    font-size: 14px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 30px rgba(9, 75, 157, 0.1);
+}
 
+.row {
+    display: flex;
+}
+
+.bb-1px {
+    border-bottom: 1px solid rgba(143, 141, 141, 0.63);
 }
 
 .datepicker {
@@ -317,6 +311,7 @@ label {
 }
 
 .solute_btn {
+
     width: 100%;
     height: 40px;
     margin: 15px auto
@@ -382,18 +377,18 @@ label {
 
 .stock_btn {
     width: 90%;
+    font-size: 18px;
+    margin-bottom: 30px;
     height: 65px;
-    font-size: 16px;
-    font-weight: bold;
-    margin: 10px 0;
+    background-color: white;
     border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    background-color: #d9d9d9;
+    box-shadow: 0px 4px 30px rgba(9, 75, 157, 0.1);
+    border-radius: 20px;
 }
 
 .stock_btn:hover {
-    background-color: #a4a2a2;
+    background-color: rgba(224, 221, 221, 0.53);
+
 }
 
 /* END RESUME */
@@ -471,11 +466,6 @@ label {
     margin-bottom: 100px;
 }
 
-.filter_btn {
-    margin-bottom: 10px;
-    cursor: pointer;
-
-}
 
 .filter_btn + .filter_btn{
     margin-left: 10px;

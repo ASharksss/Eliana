@@ -6,8 +6,8 @@ import './App.css';
 //components
 import Layout from "./components/Layout";
 import Consumable from "./components/Consumable";
-import Solute from "./components/Solute";
-import Complete from "./components/Complete";
+import Solute from "./components/Solute/Solute";
+import Complete from "./components/Complete/Complete";
 import Archive from "./components/Archive";
 import AddConsume from "./components/AddConsume";
 import AddSolute from "./components/AddSolute";
