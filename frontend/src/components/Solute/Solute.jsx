@@ -63,6 +63,12 @@ const Solute = () => {
                   <p className="solute_title">Аромат</p>
                   <p className='solute_value'>{obj.aroma}</p>
                 </div>
+
+                <div className="row alit-center bb-1px">
+                  <p className="solute_title">Литры</p>
+                  <p className="solute_value">{parseFloat(obj.liter).toFixed(2)}</p>
+                </div>
+
                 <div className="row alit-center bb-1px">
                   <p className="solute_title">Отдушкка</p>
                   <div className="solute_value">
@@ -73,13 +79,21 @@ const Solute = () => {
                       </div>
                     ))}
                   </div>
-
                 </div>
+
                 <div className="row alit-center bb-1px">
-                  <p className="solute_title">Литры</p>
-                  <p className="solute_value">{parseFloat(obj.liter).toFixed(2)}</p>
-
+                  <p className="solute_title">ПЭГ и ПГ</p>
+                  <p className='solute_value'>
+                    {JSON.parse(obj.consumable).map((item, index_consume) => (
+                    <div className='row alit-center' key={index_consume}>
+                      <p className='mr-10px'>{item.name}</p>
+                      <p>{item.count} кг.</p>
+                    </div>
+                  ))}
+                  </p>
                 </div>
+
+
                 <div className="row alit-center">
                   <p className="solute_title">Дата</p>
                   <p className="solute_value">{new Intl.DateTimeFormat().format(new Date(obj.createdAt))}</p>

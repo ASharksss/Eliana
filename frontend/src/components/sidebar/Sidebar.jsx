@@ -4,24 +4,11 @@ import {NavLink} from "react-router-dom";
 
 const Sidebar = ({toggle, setToggle, hideSidebar}) => {
   const sidebarRef= useRef(null)
-  const handleClickOutside = (event) => {
-    if (sidebarRef.current && !sidebarRef.current.contains(event.target)) {
-      hideSidebar()
-      let btn = document.querySelector('.menu__btn')
-      btn.click()
-    }
-  }
   const handleClickLink = () => {
     hideSidebar()
     let btn = document.querySelector('.menu__btn')
     btn.click()
   }
-  useEffect(() => {
-    document.addEventListener('click', handleClickOutside)
-    return () => {
-      document.removeEventListener('click', handleClickOutside)
-    }
-  }, [])
   return (
     <div className="hamburger-menu" ref={sidebarRef}>
 
@@ -55,7 +42,7 @@ const Sidebar = ({toggle, setToggle, hideSidebar}) => {
                 Архив
               </button>
             </NavLink>
-            <NavLink to='history' className='noLink menu__item-btn menu__item'>
+            <NavLink to='history' className='noLink menu__item-btn menu__item' onClick={() => handleClickLink()}>
               История действий
             </NavLink>
           </div>
