@@ -5,11 +5,13 @@ import {
   completeReducer, consumableChemistryReducer,
   consumableReducer,
   consumablesNameReducer, consumableStickersReducer, perfumesReducer, selectsForCompleteReducer,
-  solutionsReducer
+  solutionsReducer, suppliesFlavoringReducer, suppliesReducer
 } from "./slices/slices";
 
 export const store = configureStore({
   reducer: {
+    suppliesFlavoring: suppliesFlavoringReducer,
+    supplies: suppliesReducer,
     consumable: consumableReducer,
     consumablesName: consumablesNameReducer,
     solutions: solutionsReducer,

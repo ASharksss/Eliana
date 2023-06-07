@@ -37,6 +37,9 @@ const Sidebar = ({toggle, setToggle, hideSidebar}) => {
                 Готовая продукция
               </button>
             </NavLink>
+            <NavLink to='supplies' className='noLink menu__item-btn menu__item' onClick={() => handleClickLink()}>
+              Заказы
+            </NavLink>
             <NavLink to='/archive' className='noLink'>
               <button className='noBtn menu__item-btn menu__item' onClick={() => handleClickLink()}>
                 Архив
@@ -45,6 +48,7 @@ const Sidebar = ({toggle, setToggle, hideSidebar}) => {
             <NavLink to='history' className='noLink menu__item-btn menu__item' onClick={() => handleClickLink()}>
               История действий
             </NavLink>
+
           </div>
 
 

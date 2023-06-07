@@ -17,6 +17,8 @@ import Stock from "./components/Stock";
 import Auth from "./components/auth";
 import {fetchNewToken, fetchProtect} from "./redux/slices/authSlice";
 import {History} from "./components/History";
+import Supplies from "./components/Supplies/Supplies";
+import SuppliesFlavoring from "./components/Supplies/SuppliesFlavoring";
 
 
 function App() {
@@ -43,6 +45,8 @@ function App() {
                             <Route path='/perfumes' element={<Stock/>}/>
                             <Route path='/solute' element={<Solute/>}/>
                             <Route path='/completeProducts' element={<Complete/>}/>
+                            <Route path='/supplies' element={<Supplies/>}/>
+                            <Route path='supplies/supply' element={<SuppliesFlavoring/>}/>
                             <Route path='/archive' element={<Archive/>}/>
                             <Route path='/addConsume' element={<AddConsume/>}/>
                             <Route path='/addSolute' element={<AddSolute/>}/>

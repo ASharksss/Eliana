@@ -1,6 +1,21 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from '../../axios';
 
+
+
+export const fetchSuppliesFlavoring = createAsyncThunk('getFlavoringsInSupply/fetchSuppliesFlavoring',
+  async (id) => {
+    const { data } = await axios.get('/api/admin/getFlavoringsInSupply' + id)
+    return data
+  })
+
+
+export const fetchSupplies = createAsyncThunk('getSupplies/fetchSupplies',
+  async () => {
+    const { data } = await axios.get('/api/admin/getSupplies')
+    return data
+  })
+
 export const fetchConsumables = createAsyncThunk('getConsumable/fetchConsumable',
   async () => {
     const { data } = await axios.get('/api/user/getConsumables')
@@ -118,6 +133,14 @@ export const addArchive = createAsyncThunk('addArchive', async (data) => {
 })
 
 const initialState = {
+  suppliesFlavoring: {
+    items: [],
+    status: 'loading'
+  },
+  supplies: {
+    items: [],
+    status: 'loading'
+  },
   consumable: {
     items: [],
     status: 'loading'
@@ -155,6 +178,47 @@ const initialState = {
     status: 'loading'
   }
 }
+
+
+const suppliesFlavoringSlice = createSlice({
+  name: 'suppliesFlavoring',
+  initialState,
+  reducer: {},
+  extraReducers: {
+    [fetchSuppliesFlavoring.pending]: (state) => {
+      state.suppliesFlavoring.items = []
+      state.suppliesFlavoring.status = 'loading'
+    },
+    [fetchSuppliesFlavoring.fulfilled]: (state, action) => {
+      state.suppliesFlavoring.items = action.payload
+      state.suppliesFlavoring.status = 'loaded'
+    },
+    [fetchSuppliesFlavoring.rejected]: (state) => {
+      state.suppliesFlavoring.items = []
+      state.suppliesFlavoring.status = 'error'
+    }
+  }
+})
+
+const suppliesSlice = createSlice({
+  name: 'supplies',
+  initialState,
+  reducer: {},
+  extraReducers: {
+    [fetchSupplies.pending]: (state) => {
+      state.supplies.items = []
+      state.supplies.status = 'loading'
+    },
+    [fetchSupplies.fulfilled]: (state, action) => {
+      state.supplies.items = action.payload
+      state.supplies.status = 'loaded'
+    },
+    [fetchSupplies.rejected]: (state) => {
+      state.supplies.items = []
+      state.supplies.status = 'error'
+    }
+  }
+})
 
 const consumableSlice = createSlice({
   name: 'consumable',
@@ -340,6 +404,8 @@ const archiveSlice = createSlice({
 
 
 
+export const suppliesFlavoringReducer = suppliesFlavoringSlice.reducer;
+export const suppliesReducer = suppliesSlice.reducer;
 export const consumableReducer = consumableSlice.reducer;
 export const solutionsReducer = solutionsSlice.reducer;
 export const completeReducer = completeSlice.reducer;
@@ -349,3 +415,4 @@ export const perfumesReducer = perfumesSlice.reducer;
 export const selectsForCompleteReducer = selectsForComplete.reducer;
 export const consumableChemistryReducer = consumableChemistrySlice.reducer;
 export const consumableStickersReducer = consumableStickersSlice.reducer;
+

@@ -239,6 +239,10 @@ tr:hover td {
     display: flex;
 }
 
+.space-between{
+    justify-content: space-between;
+}
+
 .bb-1px {
     border-bottom: 1px solid rgba(143, 141, 141, 0.63);
 }
