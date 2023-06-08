@@ -1,0 +1,30 @@
+.addSupply {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.addSupply_title {
+    margin-top: 40px;
+    margin-bottom: 40px;
+}
+
+.addSupply_input {
+    padding: 10px;
+    width: 80%;
+    height: 40px;
+    font-size: 16px;
+    border: none;
+    box-shadow: 0px 4px 30px rgba(9, 75, 157, 0.1);
+    border-radius: 10px;
+    margin-bottom: 30px;
+}
+
+.addSupply_submit {
+    width: 40%;
+    height: 30px;
+    background-color: white;
+    font-weight: bold;
+    box-shadow: 0px 4px 30px rgba(9, 75, 157, 0.1);
+    cursor: pointer;
+}

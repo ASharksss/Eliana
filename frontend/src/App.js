@@ -11,7 +11,7 @@ import Complete from "./components/Complete/Complete";
 import Archive from "./components/Archive";
 import AddConsume from "./components/AddConsume";
 import AddSolute from "./components/AddSolute";
-import AddComplete from "./components/AddComplete";
+import AddComplete from "./components/Complete/AddComplete";
 import SendOrder from "./components/SendOrder";
 import Stock from "./components/Stock";
 import Auth from "./components/auth";
@@ -19,6 +19,8 @@ import {fetchNewToken, fetchProtect} from "./redux/slices/authSlice";
 import {History} from "./components/History";
 import Supplies from "./components/Supplies/Supplies";
 import SuppliesFlavoring from "./components/Supplies/SuppliesFlavoring";
+import AddSupply from "./components/Supplies/addSupply";
+import AddSuppliesFlavoring from "./components/Supplies/addSuppliesFlavoring";
 
 
 function App() {
@@ -47,6 +49,8 @@ function App() {
                             <Route path='/completeProducts' element={<Complete/>}/>
                             <Route path='/supplies' element={<Supplies/>}/>
                             <Route path='supplies/supply' element={<SuppliesFlavoring/>}/>
+                            <Route path='supplies/addSupply' element={<AddSupply/>}/>
+                            <Route path='supplies/addSupply/addSupplyFlavoring' element={<AddSuppliesFlavoring/>}/>
                             <Route path='/archive' element={<Archive/>}/>
                             <Route path='/addConsume' element={<AddConsume/>}/>
                             <Route path='/addSolute' element={<AddSolute/>}/>

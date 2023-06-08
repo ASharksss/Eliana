@@ -39,6 +39,23 @@ export const fetchSolutions = createAsyncThunk('getSolutions/fetchSolutions', as
   return data
 })
 
+export const addSupply = createAsyncThunk('addSupply', async (data) => {
+  await axios.post(
+    '/api/admin/addSupply',
+    data
+  ).then(res => {
+    alert('Добавлено')
+  })
+    .catch(err => {
+      if (err.response.data.message) {
+        alert(err.response.data.message)
+      } else {
+        alert("Ошибка обработки данных...")
+      }
+    })
+})
+
+
 export const addSolutions = createAsyncThunk('addSolution', async (data) => {
   await axios.post(
     '/api/user/addSolution',
