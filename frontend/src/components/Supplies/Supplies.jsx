@@ -50,7 +50,7 @@ const Supplies = () => {
               <td>{obj.client}</td>
               <td>{obj.user.name}</td>
               <td>
-                <NavLink to={'supply/?id=' + obj.id}>
+                <NavLink to={'supply/?id=' + obj.id} state={{name: obj.name}}>
                   <button>Открыть</button>
                 </NavLink>
               </td>

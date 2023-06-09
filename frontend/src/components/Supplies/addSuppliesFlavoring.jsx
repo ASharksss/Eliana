@@ -4,8 +4,8 @@ import {fetchSelectsForComplete} from "../../redux/slices/slices";
 
 const AddSuppliesFlavoring = () => {
 
-  const { selectsForComplete } = useSelector(state => state.selectsForComplete)
-  const { supply } = useSelector(state => state.supplies)
+  const {selectsForComplete} = useSelector(state => state.selectsForComplete)
+  const {supply} = useSelector(state => state.supplies)
 
 
   const [typeFlavoring, setTypeFlavoring] = useState('')
@@ -38,9 +38,9 @@ const AddSuppliesFlavoring = () => {
           setTypeFlavoring(e.target.value)
         }}>
           <option>Выберите вид ароматизатора</option>
-          {(isLoading ? [...Array(5)] : selectsForComplete.items.typesFlavoring).map((obj,index) => isLoading ? 'Загрузка'
-          :
-              <option key={index} value={obj.id}>{obj.name}</option>
+          {(isLoading ? [...Array(5)] : selectsForComplete.items.typesFlavoring).map((obj, index) => isLoading ? 'Загрузка'
+            :
+            <option key={index} value={obj.id}>{obj.name}</option>
           )}
         </select>
         <div className="row">
@@ -51,7 +51,7 @@ const AddSuppliesFlavoring = () => {
             {(isLoading ? [...Array(5)] : selectsForComplete.items.flavorings).map((obj, index) => isLoading ? 'Загрузка'
               : typeFlavoring == obj.typeFlavoring.id &&
               <option key={index} value={obj.vendor_code}>{obj.name}</option>
-            ) }
+            )}
           </select>
           <input type="text" placeholder='Введите количество' onChange={(e) => setCount(e.target.value)}/>
         </div>
