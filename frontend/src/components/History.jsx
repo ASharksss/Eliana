@@ -36,7 +36,7 @@ export const History = () => {
                     <td>{item.description}</td>
                     <td>{parseFloat(item.was_count).toFixed(2)}</td>
                     <td>{parseFloat(item.become_count).toFixed(2)}</td>
-                    <td>{item.count}</td>
+                    <td>{parseFloat(item.count).toFixed(2)}</td>
                     <td>{new Date(item.createdAt).toLocaleString('ru-RU').slice(0, -3).split(', ')[1]} / {new Date(item.createdAt).toLocaleString('ru-RU').slice(0, -3).split(', ')[0]}</td>
                     <td>{item.user.name}</td>
                   </tr>
