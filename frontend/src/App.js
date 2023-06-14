@@ -50,7 +50,7 @@ function App() {
                             <Route path='/supplies' element={<Supplies/>}/>
                             <Route path='supplies/supply' element={<SuppliesFlavoring/>}/>
                             <Route path='supplies/addSupply' element={<AddSupply/>}/>
-                            <Route path='supplies/addSupply/addSupplyFlavoring' element={<AddSuppliesFlavoring/>}/>
+                            <Route path='/supplies/supply/addSupplyFlavoring' element={<AddSuppliesFlavoring/>}/>
                             <Route path='/archive' element={<Archive/>}/>
                             <Route path='/addConsume' element={<AddConsume/>}/>
                             <Route path='/addSolute' element={<AddSolute/>}/>

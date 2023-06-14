@@ -28,9 +28,6 @@ const AddSupply = () => {
         <input type="text" className='addSupply_input' placeholder='Введите название' onChange={(e) => setSupplyName(e.target.value) }/>
         <input type="text" className='addSupply_input' placeholder='Введите клиента' onChange={(e) => setClient(e.target.value) }/>
           <button type='submit' className='addSupply_submit noBtn'>Создать</button>
-        <NavLink to='addSupplyFlavoring'>
-          <button type='submit' className='addSupply_submit noBtn'>Дальше</button>
-        </NavLink>
       </form>
     </div>
   );

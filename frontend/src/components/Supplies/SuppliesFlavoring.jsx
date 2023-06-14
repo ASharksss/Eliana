@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react';
 import {useDispatch, useSelector} from "react-redux";
-import {useLocation} from "react-router-dom";
+import {NavLink, useLocation} from "react-router-dom";
 import {fetchSupplies, fetchSuppliesFlavoring} from "../../redux/slices/slices";
 
 const SuppliesFlavoring = () => {
@@ -21,12 +21,18 @@ const SuppliesFlavoring = () => {
 
   return (
     <div className='container'>
-      <h1>{!isLoading && suppliesFlavoring.items.length > 0 ? suppliesFlavoring.items[0].supply.name : state.name}</h1>
-      <h2>Клиент: {!isLoading && suppliesFlavoring.items.length > 0 ? suppliesFlavoring.items[0].supply.client : 'не указан'}</h2>
-      <h2>Сформирован: {!isLoading && suppliesFlavoring.items.length > 0 ? new Intl.DateTimeFormat().format(new Date(suppliesFlavoring.items[0].supply.createdAt)) : 'не указан'}</h2>
-
-
-
+      <div className="row">
+        <div>
+          <h1>{!isLoading && suppliesFlavoring.items.length > 0 ? suppliesFlavoring.items[0].supply.name : state.name}</h1>
+          <h2>Клиент: {!isLoading && suppliesFlavoring.items.length > 0 ? suppliesFlavoring.items[0].supply.client : 'не указан'}</h2>
+          <h2>Сформирован: {!isLoading && suppliesFlavoring.items.length > 0 ? new Intl.DateTimeFormat().format(new Date(suppliesFlavoring.items[0].supply.createdAt)) : 'не указан'}</h2>
+        </div>
+        <NavLink to='addSupplyFlavoring'>
+          <button>
+            Добавить в заказ
+          </button>
+        </NavLink>
+      </div>
 
       <table>
         <thead>
