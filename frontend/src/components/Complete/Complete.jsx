@@ -69,9 +69,14 @@ const Complete = () => {
             <h2>Готовая продукция</h2>
           </div>
           <div className="complete_btn row">
-            <NavLink to='/addComplete' className='complete_btn'>
+            <NavLink to='/addCompleteFlavoring' className='complete_btn'>
               <button className='complete-button'>
-                Пополнить
+                Пополнить ароматизатор
+              </button>
+            </NavLink>
+            <NavLink to='/addCompleteHydrogel' className='complete_btn'>
+              <button className='complete-button'>
+                Пополнить ароматизатор
               </button>
             </NavLink>
             <div className='space'></div>

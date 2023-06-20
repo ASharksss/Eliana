@@ -5,7 +5,7 @@ import {useNavigate} from "react-router-dom";
 import { addComplete, fetchSelectsForComplete } from "../../redux/slices/slices";
 import axios from "../../axios";
 
-const AddComplete = () => {
+const AddCompleteFlavoring = () => {
   const navigate = useNavigate()
 
   const { selectsForComplete } = useSelector(state => state.selectsForComplete)
@@ -119,4 +119,4 @@ const AddComplete = () => {
   );
 };
 
-export default AddComplete;
+export default AddCompleteFlavoring;
