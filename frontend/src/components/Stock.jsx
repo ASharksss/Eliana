@@ -92,17 +92,19 @@ const Consumable = () => {
       </>
     )//заглушка, чтобы преждевременно не строить таблицу
   }
-
+  let resultSearch = (data.items).filter(item => item.name.toLowerCase().includes(search.toLowerCase()))
   const showTable = () => {
+
     if (location === 'stickers') {
+
       return (isLoading ? [...Array(5)] : resultSearch).map((obj, index) =>
-      typeSticker === obj.vendor_code ?
+
         isLoading ? 'loading'
           :
           <tr key={index} className='bb-1px'>
             <td>{obj.name}</td>
             <td>{obj.count + ' ' + notation}</td>
-          </tr> : ''
+          </tr>
     )
     } else {
       return (isLoading ? [...Array(5)] : resultSearch).map((obj, index) =>
@@ -116,7 +118,7 @@ const Consumable = () => {
     }
   }
 
-  let resultSearch = (data.items).filter(item => item.name.toLowerCase().includes(search.toLowerCase()))
+
 
   return (
     <div className='wrapper'>
