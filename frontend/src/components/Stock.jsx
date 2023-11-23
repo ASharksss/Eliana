@@ -137,6 +137,7 @@ const Consumable = () => {
               <button className='filter_btn' onClick={() => setTypeSticker('Фитиль')}>Фитиля</button>
               <button className='filter_btn' onClick={() => setTypeSticker('Спрей')}>Спреи</button>
               <button className='filter_btn' onClick={() => setTypeSticker('Аттрактант')}>Аттрактанты</button>
+              <button className='filter_btn' onClick={() => setTypeSticker('Диффузор')}>Диффузоры</button>
             </>: ''}
           <input type="text" placeholder='Поиск' className='search' onChange={e => setSearch(e.target.value)}/>
           <table>

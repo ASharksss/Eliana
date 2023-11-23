@@ -48,7 +48,8 @@ const Solute = () => {
               </button>
             </NavLink>
           </div>
-          <input type="text" placeholder='Поиск' className='search' onChange={e => setSearch(e.target.value)}/>
+          <input type="text" placeholder='Поиск' className='search'
+                 onChange={e => setSearch(e.target.value)}/>
 
 
           <div className="solute_wrapper">
