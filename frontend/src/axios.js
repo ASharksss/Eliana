@@ -1,9 +1,8 @@
 import axios from 'axios'
 
 const instance = axios.create({
- //baseURL: 'https://backend-production-e793.up.railway.app/'
- baseURL: 'http://localhost:5000/'
- //baseURL: 'https://vezdesens.ru/'
+ // baseURL: 'http://localhost:5000/'
+ baseURL: 'https://eliana.vezdesens.ru/'
 
 })
 
