@@ -74,11 +74,6 @@ const Complete = () => {
                 Пополнить ароматизатор
               </button>
             </NavLink>
-            <NavLink to='/addCompleteHydrogel' className='complete_btn'>
-              <button className='complete-button'>
-                Пополнить ароматизатор
-              </button>
-            </NavLink>
             <div className='space'></div>
             <NavLink to='/sendOrder'>
               <button className='complete-button'>
@@ -96,6 +91,7 @@ const Complete = () => {
             <button onClick={() => setTypeFlavoring('Фитиль')} className='filter_btn'>Фитиля</button>
             <button onClick={() => setTypeFlavoring('Спрей')} className='filter_btn'>Спреи</button>
             <button onClick={() => setTypeFlavoring('Аттрактант')} className='filter_btn'>Аттрактанты</button>
+            <button onClick={() => setTypeFlavoring('Диффузор')} className='filter_btn'>Диффузоры</button>
 
           </div>
 

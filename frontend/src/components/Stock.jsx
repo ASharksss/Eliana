@@ -96,15 +96,14 @@ const Consumable = () => {
   const showTable = () => {
 
     if (location === 'stickers') {
-
       return (isLoading ? [...Array(5)] : resultSearch).map((obj, index) =>
-
         isLoading ? 'loading'
-          :
+          : obj.vendor_code === typeSticker ?
           <tr key={index} className='bb-1px'>
+            {console.log(obj)}
             <td>{obj.name}</td>
             <td>{obj.count + ' ' + notation}</td>
-          </tr>
+          </tr> : null
     )
     } else {
       return (isLoading ? [...Array(5)] : resultSearch).map((obj, index) =>
